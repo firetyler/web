@@ -1,0 +1,8 @@
+div{
+  background-color: #24292e;
+  height: 40px;
+}
+.container-fluid{
+  position: relative;
+  width: 100%;
+}
