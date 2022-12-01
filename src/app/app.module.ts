@@ -6,6 +6,7 @@ import { FoterComponent } from './component/foter/foter.component';
 import { BodyComponent } from './component/body/body.component';
 import { HeaderComponent } from './component/header/header.component';
 import { BottombarComponent } from './bottombar/bottombar.component';
+import {ConvertXMLComponent} from "./convert-xml/convert-xml.component";
 
 @NgModule({
   declarations: [
@@ -13,7 +14,7 @@ import { BottombarComponent } from './bottombar/bottombar.component';
     BodyComponent,
     HeaderComponent,
     FoterComponent,
-
+    ConvertXMLComponent,
     BottombarComponent
   ],
   imports: [
