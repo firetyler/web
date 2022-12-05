@@ -7,6 +7,7 @@ import { BodyComponent } from './component/body/body.component';
 import { HeaderComponent } from './component/header/header.component';
 import { BottombarComponent } from './bottombar/bottombar.component';
 import {ConvertXMLComponent} from "./convert-xml/convert-xml.component";
+import { XComponent } from './x/x.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import {ConvertXMLComponent} from "./convert-xml/convert-xml.component";
     HeaderComponent,
     FoterComponent,
     ConvertXMLComponent,
-    BottombarComponent
+    BottombarComponent,
+    XComponent
   ],
   imports: [
     BrowserModule
