@@ -12,11 +12,13 @@ import {MatTableModule} from "@angular/material/table";
 import {MatListModule} from "@angular/material/list";
 import {MatButtonModule} from "@angular/material/button";
 import {HeaderComponent} from "./header/header.component";
+import { DialogWindowComponent } from './dialog-window/dialog-window.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    DialogWindowComponent,
   ],
   imports: [
     BrowserModule,
@@ -33,6 +35,9 @@ import {HeaderComponent} from "./header/header.component";
     MatRadioModule,
     MatMenuModule,
     MatButtonModule
+  ],
+  entryComponents: [
+ HeaderComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
