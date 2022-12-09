@@ -17,6 +17,7 @@ import {HeaderComponent} from "./header/header.component";
 import { DialogWindowOverViewComponentComponent } from './dialog-window-over-view-component/dialog-window-over-view-component.component';
 import {DialogWindowComponent} from "./dialog-window/dialog-window.component";
 
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import {DialogWindowComponent} from "./dialog-window/dialog-window.component";
     HeaderComponent,
     DialogWindowComponent,
     DialogWindowOverViewComponentComponent
+    FooterComponent,
   ],
   imports: [
 
