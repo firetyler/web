@@ -12,10 +12,15 @@ import {MatTableModule} from "@angular/material/table";
 import {MatListModule} from "@angular/material/list";
 import { MiniHeaderComponent } from './mini-header/mini-header.component';
 
+import {MatButtonModule} from "@angular/material/button";
+import {HeaderComponent} from "./header/header.component";
+
 @NgModule({
   declarations: [
     AppComponent,
     MiniHeaderComponent
+    AppComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
@@ -30,7 +35,8 @@ import { MiniHeaderComponent } from './mini-header/mini-header.component';
     MatListModule,
     MatButtonToggleModule,
     MatRadioModule,
-    MatMenuModule
+    MatMenuModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
