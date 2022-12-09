@@ -10,12 +10,16 @@ import {MatRadioModule} from "@angular/material/radio";
 import {MatSelectModule} from "@angular/material/select";
 import {MatTableModule} from "@angular/material/table";
 import {MatListModule} from "@angular/material/list";
+import { MiniHeaderComponent } from './mini-header/mini-header.component';
+
 import {MatButtonModule} from "@angular/material/button";
 import {HeaderComponent} from "./header/header.component";
 import { DialogWindowComponent, DialogWindowOverViewComponent } from './dialog-window/dialog-window.component';
 
 @NgModule({
   declarations: [
+    AppComponent,
+    MiniHeaderComponent,
     AppComponent,
     HeaderComponent,
     DialogWindowComponent,
