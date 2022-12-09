@@ -14,7 +14,9 @@ import { MiniHeaderComponent } from './mini-header/mini-header.component';
 
 import {MatButtonModule} from "@angular/material/button";
 import {HeaderComponent} from "./header/header.component";
-import { DialogWindowComponent, DialogWindowOverViewComponent } from './dialog-window/dialog-window.component';
+import { DialogWindowOverViewComponentComponent } from './dialog-window-over-view-component/dialog-window-over-view-component.component';
+import {DialogWindowComponent} from "./dialog-window/dialog-window.component";
+import {MAT_BOTTOM_SHEET_DEFAULT_OPTIONS} from "@angular/material/bottom-sheet";
 
 @NgModule({
   declarations: [
@@ -23,7 +25,7 @@ import { DialogWindowComponent, DialogWindowOverViewComponent } from './dialog-w
     AppComponent,
     HeaderComponent,
     DialogWindowComponent,
-    DialogWindowOverViewComponent
+    DialogWindowOverViewComponentComponent
   ],
   imports: [
     BrowserModule,
@@ -42,9 +44,12 @@ import { DialogWindowComponent, DialogWindowOverViewComponent } from './dialog-w
     MatButtonModule
   ],
   entryComponents: [
- HeaderComponent
+ HeaderComponent,DialogWindowOverViewComponentComponent
+
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
