@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {MatDialog} from "@angular/material/dialog";
+import {MatBottomSheet, MatBottomSheetRef} from "@angular/material/bottom-sheet";
 
 @Component({
   selector: 'app-dialog-window',
@@ -7,14 +7,24 @@ import {MatDialog} from "@angular/material/dialog";
   styleUrls: ['./dialog-window.component.css']
 })
 export class DialogWindowComponent {
-  constructor(private dialog: MatDialog) {
+  constructor(private bottomSheet: MatBottomSheet) {
   }
-  openDialog() {
-    const dialogRef = this.dialog.open(DialogWindowComponent);
+  openBottomSheet(): void {
+    this.bottomSheet.open(DialogWindowOverViewComponent);
+  }
+}
+@Component({
+  selector: 'app-dialog-window-over-view',
+  templateUrl: './dialog-window-over-view.component.html',
+  styleUrls : ['./dialog-window-over-view.component.css']
+})
+export class DialogWindowOverViewComponent {
+  constructor(private bottomSheetRef: MatBottomSheetRef<DialogWindowOverViewComponent>) {
 
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-    });
   }
 
+  openLink(event: MouseEvent): void {
+    this.bottomSheetRef.dismiss();
+    event.preventDefault();
+  }
 }
