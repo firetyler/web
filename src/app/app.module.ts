@@ -11,12 +11,12 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatTableModule} from "@angular/material/table";
 import {MatListModule} from "@angular/material/list";
 import { MiniHeaderComponent } from './mini-header/mini-header.component';
-
+import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import {MatButtonModule} from "@angular/material/button";
 import {HeaderComponent} from "./header/header.component";
 import { DialogWindowOverViewComponentComponent } from './dialog-window-over-view-component/dialog-window-over-view-component.component';
 import {DialogWindowComponent} from "./dialog-window/dialog-window.component";
-import {MAT_BOTTOM_SHEET_DEFAULT_OPTIONS} from "@angular/material/bottom-sheet";
+
 
 @NgModule({
   declarations: [
@@ -28,6 +28,7 @@ import {MAT_BOTTOM_SHEET_DEFAULT_OPTIONS} from "@angular/material/bottom-sheet";
     DialogWindowOverViewComponentComponent
   ],
   imports: [
+
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
@@ -41,15 +42,15 @@ import {MAT_BOTTOM_SHEET_DEFAULT_OPTIONS} from "@angular/material/bottom-sheet";
     MatButtonToggleModule,
     MatRadioModule,
     MatMenuModule,
-    MatButtonModule
-  ],
-  entryComponents: [
- HeaderComponent,DialogWindowOverViewComponentComponent
+    MatButtonModule,
+    MatBottomSheetModule
 
   ],
-  providers: [
-    {provide: MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
+  entryComponents: [
+ HeaderComponent
+
   ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
