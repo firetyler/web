@@ -14,6 +14,7 @@ import { MiniHeaderComponent } from './mini-header/mini-header.component';
 
 import {MatButtonModule} from "@angular/material/button";
 import {HeaderComponent} from "./header/header.component";
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import {HeaderComponent} from "./header/header.component";
     MiniHeaderComponent,
     AppComponent,
     HeaderComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
