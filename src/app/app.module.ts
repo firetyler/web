@@ -12,11 +12,13 @@ import {MatTableModule} from "@angular/material/table";
 import {MatListModule} from "@angular/material/list";
 import {MatButtonModule} from "@angular/material/button";
 import {HeaderComponent} from "./header/header.component";
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
