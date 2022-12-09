@@ -10,9 +10,12 @@ import {MatRadioModule} from "@angular/material/radio";
 import {MatSelectModule} from "@angular/material/select";
 import {MatTableModule} from "@angular/material/table";
 import {MatListModule} from "@angular/material/list";
+import { MiniHeaderComponent } from './mini-header/mini-header.component';
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MiniHeaderComponent
   ],
   imports: [
     BrowserModule,
