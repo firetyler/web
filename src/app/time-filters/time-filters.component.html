@@ -1,11 +1,11 @@
-<div class="timeFilter">
+<div class="container" class="w-25 p-3" class="h-100 d-inline-block"  class="float-sm-end" >
 
 
 
-<form>
+<form >
   <div>
     <label>Select Year</label>
-    <select placeholder="Select Year" class="form-select" aria-label="Default select example">
+    <select  placeholder="Select Year" class="form-select" aria-label="Default select example">
       <option *ngFor="let year of years" [value]="year.value">
         {{year.viewValue}}
       </option >
