@@ -10,13 +10,10 @@ import {
   templateUrl: './dialog-window.component.html',
   styleUrls: ['./dialog-window.component.css']
 })
-export class DialogWindowComponent implements OnInit{
+export class DialogWindowComponent{
   constructor(private bottomSheet: MatBottomSheet) {
   }
 
-
-  ngOnInit(): void {
-  }
   openBottomSheet(): void {
     this.bottomSheet.open(DialogWindowOverViewComponentComponent);
   }

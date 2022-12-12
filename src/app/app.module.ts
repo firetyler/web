@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import {MatNativeDateModule} from '@angular/material/core';
 import { AppComponent } from './app.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -23,7 +23,6 @@ import { FooterComponent } from './footer/footer.component';
   declarations: [
     AppComponent,
     MiniHeaderComponent,
-    AppComponent,
     HeaderComponent,
     DialogWindowComponent,
     DialogWindowOverViewComponentComponent,
@@ -45,7 +44,8 @@ import { FooterComponent } from './footer/footer.component';
     MatRadioModule,
     MatMenuModule,
     MatButtonModule,
-    MatBottomSheetModule
+    MatBottomSheetModule,
+    MatNativeDateModule
 
   ],
   entryComponents: [
