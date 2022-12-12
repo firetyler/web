@@ -1,54 +1,56 @@
 <div class="timeFilter">
 
-  <ng-form>
 
-    <mat-form-field appearance="fill">
-    <mat-label>Select Year</mat-label>
-    <mat-select>
-      <mat-option *ngFor="let year of years" [value]="year.value">
+
+<form>
+  <div>
+    <label>Select Year</label>
+    <select placeholder="Select Year" class="form-select" aria-label="Default select example">
+      <option *ngFor="let year of years" [value]="year.value">
         {{year.viewValue}}
-      </mat-option>
-    </mat-select>
+      </option >
+    </select>
+  </div>
 
+<div>
+      <label>Select Month</label>
+    <select  placeholder="Month"class="form-select" aria-label="Default select example">
+      <option name="" value="" style="display:none;">Select Month</option>
+      <option name="Jan" value="">Jan</option >
+      <option  name="Feb" value="">Feb</option >
+      <option  name="Mar" value="">Mar</option >
+      <option  name="Apr" value="">Apr</option>
+      <option  name="May" value="">May</option >
+      <option  name="Jun" value="">Jun</option >
+      <option  name="Jul" value="">Jul</option >
+      <option  name="Aug" value="">Aug</option >
+      <option  name="Sep" value="">Sep</option >
+      <option  name="nov" value="">Nov</option >
+      <option  name="Oct" value="">Oct</option >
+      <option  name="Dec" value="">Dec</option >
+    </select>
+</div>
+<div>
+    <label>Select Week</label>
+    <select  placeholder="week"class="form-select" aria-label="Default select example">
+      <option name="" value="" style="display:none;">Select week</option>
+    </select>
+</div>
 
+  <div>
+    <label>Select Day</label>
+    <select  placeholder="Day" class="form-select" aria-label="Default select example">
+      <option name="" value="" style="display:none;">Select Day</option>
+      <option name="Monday" value="">Monday</option>
+      <option name="Tuesday" value="">Tuesday</option>
+      <option name="Wednesday" value="">Wednesday</option>
+      <option name="Thursday" value="">Thursday</option>
+      <option name="Friday" value="">Friday</option>
+      <option name="Saturday" value="">Saturday</option>
+      <option name="Sunday " value="">Sunday </option>
+    </select>
+  </div>
 
-    <mat-select  placeholder="Month">
-      <mat-option  name="" value="" style="display:none;">Select Month</mat-option >
-      <mat-option  name="Jan" value="">Jan</mat-option >
-      <mat-option  name="Feb" value="">Feb</mat-option >
-      <mat-option  name="Mar" value="">Mar</mat-option >
-      <mat-option  name="Apr" value="">Apr</mat-option >
-      <mat-option  name="May" value="">May</mat-option >
-      <mat-option  name="Jun" value="">Jun</mat-option >
-      <mat-option  name="Jul" value="">Jul</mat-option >
-      <mat-option  name="Aug" value="">Aug</mat-option >
-      <mat-option  name="Sep" value="">Sep</mat-option >
-      <mat-option  name="nov" value="">Nov</mat-option >
-      <mat-option  name="Oct" value="">Oct</mat-option >
-      <mat-option  name="Dec" value="">Dec</mat-option >
-    </mat-select>
-
-
-
-    <mat-select  placeholder="week">
-      <mat-option name="" value="" style="display:none;">Select week</mat-option>
-    </mat-select>
-   <input type="text" placeholder="Enter week number">
-
-
-
-    <mat-select  placeholder="Day">
-      <mat-option name="" value="" style="display:none;">Select Day</mat-option>
-      <mat-option name="Monday" value="">Monday</mat-option>
-      <mat-option name="Tuesday" value="">Tuesday</mat-option>
-      <mat-option name="Wednesday" value="">Wednesday</mat-option>
-      <mat-option name="Thursday" value="">Thursday</mat-option>
-      <mat-option name="Friday" value="">Friday</mat-option>
-      <mat-option name="Saturday" value="">Saturday</mat-option>
-      <mat-option name="Sunday " value="">Sunday </mat-option>
-    </mat-select>
-    </mat-form-field>
-  </ng-form>
 
 
   <div>
@@ -72,6 +74,6 @@
     <input type="radio" id="period4" name="period">
     <label> p4</label>
   </div>
-
+</form>
 
 </div>
