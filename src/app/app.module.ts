@@ -14,6 +14,10 @@ import { MiniHeaderComponent } from './mini-header/mini-header.component';
 
 import {MatButtonModule} from "@angular/material/button";
 import {HeaderComponent} from "./header/header.component";
+import { TimeFiltersComponent } from './time-filters/time-filters.component';
+import {ɵEmptyOutletComponent} from "@angular/router";
+import {DragDropModule} from "@angular/cdk/drag-drop";
+import {MatDatepickerModule} from "@angular/material/datepicker";
 
 @NgModule({
   declarations: [
@@ -21,23 +25,27 @@ import {HeaderComponent} from "./header/header.component";
     MiniHeaderComponent,
     AppComponent,
     HeaderComponent,
+    TimeFiltersComponent,
   ],
-  imports: [
-    BrowserModule,
-    ReactiveFormsModule,
-    FormsModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    BrowserModule,
-    MatSelectModule,
-    ReactiveFormsModule,
-    MatTableModule,
-    MatListModule,
-    MatButtonToggleModule,
-    MatRadioModule,
-    MatMenuModule,
-    MatButtonModule
-  ],
+    imports: [
+        BrowserModule,
+        ReactiveFormsModule,
+        FormsModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        BrowserModule,
+        MatSelectModule,
+        ReactiveFormsModule,
+        MatTableModule,
+        MatListModule,
+        MatButtonToggleModule,
+        MatRadioModule,
+        MatMenuModule,
+        MatButtonModule,
+        ɵEmptyOutletComponent,
+        DragDropModule,
+        MatDatepickerModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

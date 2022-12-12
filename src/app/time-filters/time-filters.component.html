@@ -1,0 +1,77 @@
+<div class="timeFilter">
+
+  <ng-form>
+
+    <mat-form-field appearance="fill">
+    <mat-label>Select Year</mat-label>
+    <mat-select>
+      <mat-option *ngFor="let year of years" [value]="year.value">
+        {{year.viewValue}}
+      </mat-option>
+    </mat-select>
+
+
+
+    <mat-select  placeholder="Month">
+      <mat-option  name="" value="" style="display:none;">Select Month</mat-option >
+      <mat-option  name="Jan" value="">Jan</mat-option >
+      <mat-option  name="Feb" value="">Feb</mat-option >
+      <mat-option  name="Mar" value="">Mar</mat-option >
+      <mat-option  name="Apr" value="">Apr</mat-option >
+      <mat-option  name="May" value="">May</mat-option >
+      <mat-option  name="Jun" value="">Jun</mat-option >
+      <mat-option  name="Jul" value="">Jul</mat-option >
+      <mat-option  name="Aug" value="">Aug</mat-option >
+      <mat-option  name="Sep" value="">Sep</mat-option >
+      <mat-option  name="nov" value="">Nov</mat-option >
+      <mat-option  name="Oct" value="">Oct</mat-option >
+      <mat-option  name="Dec" value="">Dec</mat-option >
+    </mat-select>
+
+
+
+    <mat-select  placeholder="week">
+      <mat-option name="" value="" style="display:none;">Select week</mat-option>
+    </mat-select>
+   <input type="text" placeholder="Enter week number">
+
+
+
+    <mat-select  placeholder="Day">
+      <mat-option name="" value="" style="display:none;">Select Day</mat-option>
+      <mat-option name="Monday" value="">Monday</mat-option>
+      <mat-option name="Tuesday" value="">Tuesday</mat-option>
+      <mat-option name="Wednesday" value="">Wednesday</mat-option>
+      <mat-option name="Thursday" value="">Thursday</mat-option>
+      <mat-option name="Friday" value="">Friday</mat-option>
+      <mat-option name="Saturday" value="">Saturday</mat-option>
+      <mat-option name="Sunday " value="">Sunday </mat-option>
+    </mat-select>
+    </mat-form-field>
+  </ng-form>
+
+
+  <div>
+    <p>Termin: </p>
+    <input type="radio" id="term1" name="term">
+    <label>Term 1</label>
+    <input type="radio" id="term2" name="term">
+    <label>Term 2</label>
+    <input type="radio" id="term3" name="term">
+    <label>Term 3</label>
+  </div>
+  <div>
+    <p>Period: </p>
+
+    <input type="radio" id="period1" name="period">
+    <label> p1 </label>
+    <input type="radio" id="period2" name="period">
+    <label> p2 </label>
+    <input type="radio" id="period3" name="period">
+    <label> p3 </label>
+    <input type="radio" id="period4" name="period">
+    <label> p4</label>
+  </div>
+
+
+</div>

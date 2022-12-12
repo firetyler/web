@@ -1,0 +1,11 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+.timeFilter{
+
+  background: lightblue;
+  font-size: 20px;
+  float: right;
+  max-height: max-content;
+  max-width: max-content;
+
+}
+
