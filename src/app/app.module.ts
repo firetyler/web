@@ -26,8 +26,8 @@ import { FooterComponent } from './footer/footer.component';
     AppComponent,
     HeaderComponent,
     DialogWindowComponent,
-    DialogWindowOverViewComponentComponent
-    FooterComponent,
+    DialogWindowOverViewComponentComponent,
+    FooterComponent
   ],
   imports: [
 
