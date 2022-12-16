@@ -19,7 +19,9 @@
     "@angular/platform-browser": "^15.0.0",
     "@angular/platform-browser-dynamic": "^15.0.0",
     "@angular/router": "^15.0.0",
+    "axios": "^1.2.1",
     "bootstrap": "^5.2.3",
+    "cheerio": "^1.0.0-rc.12",
     "rxjs": "~7.5.0",
     "tslib": "^2.4.1",
     "zone.js": "~0.12.0"

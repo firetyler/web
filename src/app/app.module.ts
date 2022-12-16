@@ -14,6 +14,8 @@ import { MiniHeaderComponent } from './mini-header/mini-header.component';
 
 import {MatButtonModule} from "@angular/material/button";
 import {HeaderComponent} from "./header/header.component";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {SchemaService} from "./schema.service";
 
 @NgModule({
   declarations: [
@@ -36,9 +38,10 @@ import {HeaderComponent} from "./header/header.component";
     MatButtonToggleModule,
     MatRadioModule,
     MatMenuModule,
-    MatButtonModule
+    MatButtonModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [SchemaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
