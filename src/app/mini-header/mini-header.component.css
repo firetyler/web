@@ -1,8 +1,13 @@
 .miniHeader{
-  background: lightblue;
+  background-color: #22223B;
   height: auto;
   width: auto;
   text-align: center;
   font-size: 20px;
   position: relative;
+  padding: 5px;
+}
+
+#innerBox{
+  background-color: lightblue;
 }

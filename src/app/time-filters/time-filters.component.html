@@ -1,8 +1,9 @@
-<div class="container" class="w-25 p-3" class="h-100 d-inline-block"  class="float-sm-end" >
+<div id="box" class="Container" class="w-25 p-3" class="h-100 d-inline-block"  class="float-sm-end" >
 
 
-
+<div id="innerBox">
 <form >
+
   <div>
     <label>Select Year</label>
     <select  placeholder="Select Year" class="form-select" aria-label="Default select example">
@@ -15,7 +16,7 @@
 <div>
       <label>Select Month</label>
     <select  placeholder="Month"class="form-select" aria-label="Default select example">
-      <option name="" value="" style="display:none;">Select Month</option>
+      <option name="" value="" style="display:none;">Select</option>
       <option name="Jan" value="">Jan</option >
       <option  name="Feb" value="">Feb</option >
       <option  name="Mar" value="">Mar</option >
@@ -32,15 +33,19 @@
 </div>
 <div>
     <label>Select Week</label>
-    <select  placeholder="week"class="form-select" aria-label="Default select example">
-      <option name="" value="" style="display:none;">Select week</option>
+    <select  placeholder="week"class="form-select" aria-label="Default select example" >
+      <option name="" value="" style="display:none;">Select</option>
+      <option *ngFor='let item of numbers; let i = index'>
+        {{item}}
+      </option >
     </select>
+
 </div>
 
   <div>
     <label>Select Day</label>
     <select  placeholder="Day" class="form-select" aria-label="Default select example">
-      <option name="" value="" style="display:none;">Select Day</option>
+      <option name="" value="" style="display:none;">Select</option>
       <option name="Monday" value="">Monday</option>
       <option name="Tuesday" value="">Tuesday</option>
       <option name="Wednesday" value="">Wednesday</option>
@@ -54,26 +59,33 @@
 
 
   <div>
+    <br>
     <p>Termin: </p>
     <input type="radio" id="term1" name="term">
-    <label>Term 1</label>
+    <label>&nbsp;Term 1</label>
+    <br>
     <input type="radio" id="term2" name="term">
-    <label>Term 2</label>
+    <label>&nbsp;Term 2</label>
+    <br>
     <input type="radio" id="term3" name="term">
-    <label>Term 3</label>
+    <label>&nbsp;Term 3</label>
   </div>
-  <div>
-    <p>Period: </p>
 
+  <div>
+    <br>
+    <p>Period: </p>
     <input type="radio" id="period1" name="period">
-    <label> p1 </label>
+    <label> &nbsp;Period 1 </label>
+    <br>
     <input type="radio" id="period2" name="period">
-    <label> p2 </label>
+    <label> &nbsp;Period 2 </label>
+    <br>
     <input type="radio" id="period3" name="period">
-    <label> p3 </label>
+    <label> &nbsp;Period 3 </label>
+    <br>
     <input type="radio" id="period4" name="period">
-    <label> p4</label>
+    <label> &nbsp;Period 4</label>
   </div>
 </form>
-
+</div>
 </div>
