@@ -15,7 +15,9 @@ import { MiniHeaderComponent } from './mini-header/mini-header.component';
 import {MatButtonModule} from "@angular/material/button";
 import {HeaderComponent} from "./header/header.component";
 import { FooterComponent } from './footer/footer.component';
-import {TimeFiltersComponent} from './time-filters/time-filters.component'
+import {TimeFiltersComponent} from './time-filters/time-filters.component';
+import { FilterBarComponent } from './filter-bar/filter-bar.component'
+import {FilterBarModule} from "./filter-bar/filter-bar.module";
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import {TimeFiltersComponent} from './time-filters/time-filters.component'
     HeaderComponent,
     FooterComponent,
     TimeFiltersComponent,
+    FilterBarComponent,
 
   ],
   imports: [
@@ -41,7 +44,8 @@ import {TimeFiltersComponent} from './time-filters/time-filters.component'
     MatButtonToggleModule,
     MatRadioModule,
     MatMenuModule,
-    MatButtonModule
+    MatButtonModule,
+    FilterBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
