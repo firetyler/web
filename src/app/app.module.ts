@@ -18,6 +18,7 @@ import { DialogWindowOverViewComponentComponent } from './dialog-window-over-vie
 import {DialogWindowComponent} from "./dialog-window/dialog-window.component";
 
 import { FooterComponent } from './footer/footer.component';
+import { PriceGraphComponent } from './graph/price-graph/price-graph.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { FooterComponent } from './footer/footer.component';
     HeaderComponent,
     DialogWindowComponent,
     DialogWindowOverViewComponentComponent,
-    FooterComponent
+    FooterComponent,
+    PriceGraphComponent,
   ],
   imports: [
 
