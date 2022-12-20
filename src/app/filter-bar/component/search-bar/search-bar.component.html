@@ -1,12 +1,6 @@
-
-<div>
-  <form class="example-form">
-    <form class="example-full-width">
-      <span matPrefix> </span>
-      <input type="tel" matInput placeholder="Search" name= "search" [(ngModel)]= "search">
-      <button matSuffix mat-button>search</button>
-    </form>
-    <br/>
-    {{search}}
-  </form>
+<div class="md-form">
+  <input type="search" [(ngModel)]="searchText" placeholder="Search text">
 </div>
+<ul *ngFor="let data of dataset | filter: searchText">
+  <li>{{data}}</li>
+</ul>
