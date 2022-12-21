@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import * as Http from "http";
+import {style} from "@angular/animations";
 
 
 //https://mdbootstrap.com/docs/b4/angular/forms/search/
@@ -10,15 +11,39 @@ import * as Http from "http";
   styleUrls: ['./search-bar.component.css']
 })
 export class SearchBarComponent {
+  show = false
+  elementClicked = 'Click any of the list item below'
+
   searchText: any;
-  dataset = ['MDB', 'Angular', 'Bootstrap', 'Framework', 'SPA', 'React', 'Vue'];
+  dataset = ['MDB', 'Angular', 'Bootstrap', 'Framework', 'SPA', 'React', 'Vue','help','fly','dance','lila'];
+  pDataset = [];
 
 
    // Fake API URL
    url: string = 'https://jsonplaceholder.typicode.com/users';
    usersArray: Array<any> = [];
 
+  // @ts-ignore
+  onClick(e) {
+    this.elementClicked = 'You clicked: ' + e.target.innerHTML;
 
+    for(let i= 0; i<this.pDataset.length; i++){
+       if(this.pDataset[i] != e.target.innerHTML){
+          // @ts-ignore
+          this.pDataset.push(e.target.innerHTML);
+
+
+
+      }
+
+    }
+
+
+  }
+
+  onClickRemove(){
+this.pDataset.pop();
+  }
 /*
    // @ts-ignore
    constructor(private http: Http) {
