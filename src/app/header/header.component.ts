@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {SchemaService} from "../service/schema.service"
-import {RoomService} from "../service/room.service";
+import {CsvFileReaderService} from "../service/csv-file-reader.service";
+
 
 @Component({
   selector: 'app-header',
@@ -9,7 +10,6 @@ import {RoomService} from "../service/room.service";
 })
 /*export class HeaderComponent implements OnInit {
   xmlData: any;
-  ObjectKeys: any = Object.keys;
   constructor(private schemaService: SchemaService) { }
   ngOnInit() {
     this.xmlData = this.schemaService.getSoapData();
@@ -18,8 +18,8 @@ import {RoomService} from "../service/room.service";
 
 export class HeaderComponent implements OnInit {
   xmlData: any;
-  constructor(private roomService: RoomService) { }
+  constructor(private csvFile : CsvFileReaderService) { }
   ngOnInit() {
-    this.xmlData = this.roomService.getRoomsService();
+    this.csvFile.getRooms();
   }
 }
