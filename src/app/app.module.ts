@@ -14,8 +14,13 @@ import { MiniHeaderComponent } from './mini-header/mini-header.component';
 
 import {MatButtonModule} from "@angular/material/button";
 import {HeaderComponent} from "./header/header.component";
+import { FooterComponent } from './footer/footer.component';
+import { CostComponent } from './quanData/cost/cost.component';
+import { QuanDataComponent } from './quanData/quan-data/quan-data.component';
+import { UnbookedComponent } from './quanData/unbooked/unbooked.component';
+import { BookedComponent } from './quanData/booked/booked.component';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {SchemaService} from "./schema.service";
+
 
 @NgModule({
   declarations: [
@@ -23,6 +28,11 @@ import {SchemaService} from "./schema.service";
     MiniHeaderComponent,
     AppComponent,
     HeaderComponent,
+    FooterComponent,
+    CostComponent,
+    QuanDataComponent,
+    UnbookedComponent,
+    BookedComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +51,7 @@ import {SchemaService} from "./schema.service";
     MatButtonModule,
     HttpClientModule
   ],
-  providers: [SchemaService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

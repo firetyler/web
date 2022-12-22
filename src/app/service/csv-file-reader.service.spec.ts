@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SchemaService } from './schema.service';
+import { CsvFileReaderService } from './csv-file-reader.service';
 
-describe('SchemaService', () => {
-  let service: SchemaService;
+describe('CsvFileReaderService', () => {
+  let service: CsvFileReaderService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(SchemaService);
+    service = TestBed.inject(CsvFileReaderService);
   });
 
   it('should be created', () => {
