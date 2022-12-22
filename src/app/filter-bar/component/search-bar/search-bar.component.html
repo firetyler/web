@@ -1,19 +1,27 @@
+
 <div class="md-form" (focusin)="show = true" (focusout)="show = false">
   <input type="search" [(ngModel)]="searchText" placeholder="Search text" >
 </div>
-<div class="overflow-auto float-start" style="height: 300px; width: 200px">
+
+
+<div class="overflow-auto float-start bg-light h6 mh-100 position-relative" style="height: 200px; width: 200px">
 <ul  *ngFor="let data of dataset | filter: searchText" (click)="onClick($event)" >
+  <div>
   <li >{{data}}</li>
+  </div>
 </ul>
 </div>
 
 
-<div class="overflow-auto " style="height: 300px; width: 200px">
+<div class=" float-start bg-light h6 h-100 position-relative" style="max-height: 200px; width: 200px; overflow-y: auto">
   <ul>
       <li >{{elementClicked}}</li>
   </ul>
-  <ul *ngFor="let data of pDataset  | filter: searchText">
-    <li (click)="onClickRemove()" >{{data}}</li>
+  <ul *ngFor="let data of pDataset; let i = index">
+    <li class="" >{{data}}</li>
+    <div>
+      <button (click)="onClickRemove(i)" class="btn btn-danger btn-sm"></button>
+    </div>
     </ul>
 </div>
 

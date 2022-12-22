@@ -25,24 +25,20 @@ export class SearchBarComponent {
 
   // @ts-ignore
   onClick(e) {
-    this.elementClicked = 'You clicked: ' + e.target.innerHTML;
+    this.elementClicked = 'Last clicked: ' + e.target.innerHTML;
 
-    for(let i= 0; i<this.pDataset.length; i++){
-       if(this.pDataset[i] != e.target.innerHTML){
+
           // @ts-ignore
-          this.pDataset.push(e.target.innerHTML);
+    this.pDataset.push(e.target.innerHTML)
 
-
-
-      }
 
     }
 
 
-  }
+  onClickRemove(i: number){
+    // @ts-ignore
+      this.pDataset.splice(i,1);
 
-  onClickRemove(){
-this.pDataset.pop();
   }
 /*
    // @ts-ignore
