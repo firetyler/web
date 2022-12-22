@@ -15,7 +15,7 @@ import { MiniHeaderComponent } from './mini-header/mini-header.component';
 import {MatButtonModule} from "@angular/material/button";
 import {HeaderComponent} from "./header/header.component";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-import {SchemaService} from "./service/schema.service";
+
 
 @NgModule({
   declarations: [
@@ -41,7 +41,7 @@ import {SchemaService} from "./service/schema.service";
     MatButtonModule,
     HttpClientModule
   ],
-  providers: [SchemaService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 
 @Injectable({
@@ -44,7 +44,6 @@ export class Room {
     this.seats = seats;
     this.price = price;
   }
-
-
 }
+
 

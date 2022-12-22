@@ -1,6 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {SchemaService} from "../service/schema.service"
-import {CsvFileReaderService} from "../service/csv-file-reader.service";
+import {Component} from '@angular/core';
+
 
 
 @Component({
@@ -8,18 +7,7 @@ import {CsvFileReaderService} from "../service/csv-file-reader.service";
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-/*export class HeaderComponent implements OnInit {
-  xmlData: any;
-  constructor(private schemaService: SchemaService) { }
-  ngOnInit() {
-    this.xmlData = this.schemaService.getSoapData();
-  }
-}*/
 
-export class HeaderComponent implements OnInit {
-  xmlData: any;
-  constructor(private csvFile : CsvFileReaderService) { }
-  ngOnInit() {
-    this.csvFile.getRooms();
-  }
+export class HeaderComponent {
+
 }
