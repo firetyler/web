@@ -20,6 +20,7 @@ import { QuanDataComponent } from './quanData/quan-data/quan-data.component';
 import { UnbookedComponent } from './quanData/unbooked/unbooked.component';
 import { BookedComponent } from './quanData/booked/booked.component';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import { TestingComponent } from './testing/testing.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
     QuanDataComponent,
     UnbookedComponent,
     BookedComponent,
+    TestingComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +53,7 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
     MatButtonModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [XMLHttpRequest],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
