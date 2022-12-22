@@ -19,6 +19,7 @@ import {DialogWindowComponent} from "./dialog-window/dialog-window.component";
 
 import { FooterComponent } from './footer/footer.component';
 import { PriceGraphComponent } from './graph/price-graph/price-graph.component';
+import {TimeFiltersComponent} from './time-filters/time-filters.component'
 
 @NgModule({
   declarations: [
@@ -28,6 +29,8 @@ import { PriceGraphComponent } from './graph/price-graph/price-graph.component';
     DialogWindowComponent,
     DialogWindowOverViewComponentComponent,
     FooterComponent,
+    TimeFiltersComponent,
+
     PriceGraphComponent,
   ],
   imports: [

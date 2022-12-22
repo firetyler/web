@@ -1,0 +1,16 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+#box{
+  background-color: #22223B;
+  height: 750px;
+  color: white;
+  text-align: left;
+}
+
+#innerBox{
+  padding: 3px;
+  background-color: lightblue;
+  height: 740px;
+  width: 100px;
+  margin: 5px;
+}
+
