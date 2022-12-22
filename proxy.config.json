@@ -1,0 +1,8 @@
+{
+  "/delivery/all/*": {
+    "target": "https://kronoxtest.hig.se:8443/appserver-ejb/RapportEJB",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+  }
+}
