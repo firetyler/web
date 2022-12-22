@@ -26,18 +26,31 @@ export class SearchBarComponent {
   // @ts-ignore
   onClick(e) {
     this.elementClicked = 'Last clicked: ' + e.target.innerHTML;
-
-
-          // @ts-ignore
+    // @ts-ignore
     this.pDataset.push(e.target.innerHTML)
+    // @ts-ignore
 
-
+    document.getElementById("dataColor").style.background="green";
+ /*   let element = document.getElementById("dataBox");
+    // @ts-ignore
+    element.classList.remove("beforeClick");
+    // @ts-ignore
+    element.classList.add("afterClick");//add class*/
     }
 
 
   onClickRemove(i: number){
     // @ts-ignore
       this.pDataset.splice(i,1);
+
+    let element = document.getElementById("dataBox");
+    // @ts-ignore
+    element.classList.remove("afterClick");//add class
+    // @ts-ignore
+    element.classList.add("beforeClick");
+
+
+
 
   }
 /*

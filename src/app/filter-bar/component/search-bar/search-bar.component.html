@@ -4,12 +4,12 @@
 </div>
 
 
-<div class="overflow-auto float-start bg-light h6 mh-100 position-relative" style="height: 200px; width: 200px">
-<ul  *ngFor="let data of dataset | filter: searchText" (click)="onClick($event)" >
-  <div>
-  <li >{{data}}</li>
+<div class="overflow-auto float-start bg-light h6 mh-100 position-relative "  style="height: 200px; width: 200px">
+
+  <div id="dataBox" *ngFor="let data of dataset | filter: searchText" (click)="onClick($event)" class="beforeClick" >
+  <p id="dataColor" >{{data}}</p>
   </div>
-</ul>
+
 </div>
 
 
