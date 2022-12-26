@@ -27,10 +27,32 @@ export class SearchBarComponent {
   onClick(e) {
     this.elementClicked = 'Last clicked: ' + e.target.innerHTML;
     // @ts-ignore
-    this.pDataset.push(e.target.innerHTML)
+    //this.pDataset.push(e.target.innerHTML)
     // @ts-ignore
 
-    document.getElementById("dataColor").style.background="green";
+    //funciton to stop taking the same choice Require help with algorithim
+    if(this.pDataset.length <= 0){
+      // @ts-ignore
+      this.pDataset.push(e.target.innerHTML)
+      console.log("pdata is empty and it filled now")
+    }else{
+    for(let i =0; i <= this.pDataset.length;i++){
+      console.log("we are here outside Loop")
+    // @ts-ignore
+      if(e.target.innerText != this.pDataset[i] && e.target.innerText != this.pDataset[i-1] ) {
+      // @ts-ignore
+      this.pDataset.push(e.target.innerHTML)
+        console.log("inside loop")
+    }else {
+        console.log("Allready Picked")
+        break;
+      }
+    }
+    }
+    for(let i = 0; i<=this.pDataset.length;i++){
+      console.log(this.pDataset[i]+" This is inside Pdataset")
+    }
+   // document.getElementById("dataColor").style.background="green";
  /*   let element = document.getElementById("dataBox");
     // @ts-ignore
     element.classList.remove("beforeClick");
@@ -43,11 +65,11 @@ export class SearchBarComponent {
     // @ts-ignore
       this.pDataset.splice(i,1);
 
-    let element = document.getElementById("dataBox");
+  //  let element = document.getElementById("dataBox");
     // @ts-ignore
-    element.classList.remove("afterClick");//add class
+   // element.classList.remove("afterClick");//add class
     // @ts-ignore
-    element.classList.add("beforeClick");
+  //  element.classList.add("beforeClick");
 
 
 

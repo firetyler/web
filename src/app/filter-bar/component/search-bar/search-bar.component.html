@@ -13,17 +13,20 @@
 </div>
 
 
-<div class=" float-start bg-light h6 h-100 position-relative" style="max-height: 200px; width: 200px; overflow-y: auto">
+<div class=" float-start  h6 h-100 position-relative "  style="max-height: 200px; width: 200px; overflow-y: auto; background: black ">
+<div style=" background: lightblue; margin: 3px; padding: 3px">
   <ul>
       <li >{{elementClicked}}</li>
   </ul>
-  <ul *ngFor="let data of pDataset; let i = index">
-    <li class="" >{{data}}</li>
-    <div>
-      <button (click)="onClickRemove(i)" class="btn btn-danger btn-sm"></button>
-    </div>
-    </ul>
-</div>
 
+  <ul *ngFor="let data of pDataset; let i = index">
+    <div style="background: lightgray; margin: 1px;padding: 1px">
+    <li class="" >{{data}}</li>
+    </div>
+      <button (click)="onClickRemove(i)" class="btn btn-danger btn-sm float-end" ></button>
+    </ul>
+
+</div>
+</div>
 
 
