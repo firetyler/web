@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { SchemaService } from './schema.service';
 
-describe('SchemaService', () => {
+describe('Schema2Service', () => {
   let service: SchemaService;
 
   beforeEach(() => {
