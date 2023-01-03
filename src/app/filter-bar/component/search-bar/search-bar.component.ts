@@ -23,36 +23,12 @@ export class SearchBarComponent {
   url: string = 'https://jsonplaceholder.typicode.com/users';
   usersArray: Array<any> = [];
 
-  // @ts-ignore
   onClick(e) {
     this.elementClicked = 'Last clicked: ' + e.target.innerHTML;
 
-
-    //funciton to stop taking the same choice Require help with algorithim
-    if (this.pDataset.length <= 0) {
+    if(!this.pDataset.includes(e.target.innerHTML)){
       this.pDataset.push(e.target.innerHTML)
-      this.UniqSet.push(e.target.innerHTML)
-    } else {
-      for (let i = 0; i <= this.pDataset.length; i++) {
-        if (e.target.innerText == this.pDataset[i]) {
-          console.log("First Break")
-          break;
-        } else {
-          for (let j = 0; j < this.UniqSet.length; j++) {
-            if (this.pDataset[i] == this.UniqSet[j]) {
-              console.log("Second Break")
-              break;
-            } else {
-              this.pDataset.push(e.target.innerHTML)
-              this.UniqSet.push(e.target.innerHTML)
-              console.log("Adding more")
-            }
-            break;
-          }
-        }
-      }
     }
-
   }
 
   onClickRemove(i: number) {
