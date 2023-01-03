@@ -15,9 +15,12 @@ import { MiniHeaderComponent } from './mini-header/mini-header.component';
 import {MatButtonModule} from "@angular/material/button";
 import {HeaderComponent} from "./header/header.component";
 import { FooterComponent } from './footer/footer.component';
-import {TimeFiltersComponent} from './time-filters/time-filters.component';
-import { FilterBarComponent } from './filter-bar/filter-bar.component'
-import {FilterBarModule} from "./filter-bar/filter-bar.module";
+import { CostComponent } from './quanData/cost/cost.component';
+import { QuanDataComponent } from './quanData/quan-data/quan-data.component';
+import { UnbookedComponent } from './quanData/unbooked/unbooked.component';
+import { BookedComponent } from './quanData/booked/booked.component';
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+
 
 @NgModule({
   declarations: [
@@ -26,9 +29,10 @@ import {FilterBarModule} from "./filter-bar/filter-bar.module";
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    TimeFiltersComponent,
-    FilterBarComponent,
-
+    CostComponent,
+    QuanDataComponent,
+    UnbookedComponent,
+    BookedComponent,
   ],
   imports: [
     BrowserModule,
@@ -45,7 +49,7 @@ import {FilterBarModule} from "./filter-bar/filter-bar.module";
     MatRadioModule,
     MatMenuModule,
     MatButtonModule,
-    FilterBarModule
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
