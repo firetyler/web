@@ -22,6 +22,8 @@ import { CostComponent } from './quanData/cost/cost.component';
 import { QuanDataComponent } from './quanData/quan-data/quan-data.component';
 import { UnbookedComponent } from './quanData/unbooked/unbooked.component';
 import { BookedComponent } from './quanData/booked/booked.component';
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+
 import { PriceGraphComponent } from './graph/price-graph/price-graph.component';
 import { BehaviorGraphComponent } from './graph/behavior-graph/behavior-graph.component';
 import { BehaviorService } from './behavior.service';
@@ -58,13 +60,9 @@ import { BehaviorService } from './behavior.service';
     MatButtonModule,
     MatBottomSheetModule,
     MatNativeDateModule
-
+    HttpClientModule
   ],
-  entryComponents: [
- HeaderComponent
-
-  ],
-  providers: [BehaviorService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
