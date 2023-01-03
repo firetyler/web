@@ -23,6 +23,7 @@ export class SearchBarComponent {
   url: string = 'https://jsonplaceholder.typicode.com/users';
   usersArray: Array<any> = [];
 
+  // @ts-ignore
   onClick(e) {
     this.elementClicked = 'Last clicked: ' + e.target.innerHTML;
 
