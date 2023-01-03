@@ -23,6 +23,8 @@ import { QuanDataComponent } from './quanData/quan-data/quan-data.component';
 import { UnbookedComponent } from './quanData/unbooked/unbooked.component';
 import { BookedComponent } from './quanData/booked/booked.component';
 import { PriceGraphComponent } from './graph/price-graph/price-graph.component';
+import { BehaviorGraphComponent } from './graph/behavior-graph/behavior-graph.component';
+import { BehaviorService } from './behavior.service';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { PriceGraphComponent } from './graph/price-graph/price-graph.component';
     UnbookedComponent,
     BookedComponent,
     PriceGraphComponent,
+    BehaviorGraphComponent,
   ],
   imports: [
     BrowserModule,
@@ -61,7 +64,7 @@ import { PriceGraphComponent } from './graph/price-graph/price-graph.component';
  HeaderComponent
 
   ],
-  providers: [],
+  providers: [BehaviorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
