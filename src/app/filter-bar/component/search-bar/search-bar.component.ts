@@ -15,77 +15,49 @@ export class SearchBarComponent {
   elementClicked = 'Click any of the list item below'
 
   searchText: any;
-  dataset = ['MDB', 'Angular', 'Bootstrap', 'Framework', 'SPA', 'React', 'Vue','help','fly','dance','lila'];
-  pDataset = [];
+  dataset: any = ['MDB', 'Angular', 'Bootstrap', 'Framework', 'SPA', 'React', 'Vue', 'help', 'fly', 'dance', 'lila'];
+  pDataset: any = [];
+  UniqSet: any = [];
 
-
-   // Fake API URL
-   url: string = 'https://jsonplaceholder.typicode.com/users';
-   usersArray: Array<any> = [];
+  // Fake API URL
+  url: string = 'https://jsonplaceholder.typicode.com/users';
+  usersArray: Array<any> = [];
 
   // @ts-ignore
   onClick(e) {
     this.elementClicked = 'Last clicked: ' + e.target.innerHTML;
-    // @ts-ignore
-    //this.pDataset.push(e.target.innerHTML)
-    // @ts-ignore
+
 
     //funciton to stop taking the same choice Require help with algorithim
-    if(this.pDataset.length <= 0){
-      // @ts-ignore
+    if (this.pDataset.length <= 0) {
       this.pDataset.push(e.target.innerHTML)
-      console.log("pdata is empty and it filled now")
-    }else{
-    for(let i =0; i <= this.pDataset.length;i++){
-      console.log("we are here outside Loop")
-    // @ts-ignore
-      if(e.target.innerText != this.pDataset[i] && e.target.innerText != this.pDataset[i-1] ) {
-      // @ts-ignore
-      this.pDataset.push(e.target.innerHTML)
-        console.log("inside loop")
-    }else {
-        console.log("Allready Picked")
-        break;
+      this.UniqSet.push(e.target.innerHTML)
+    } else {
+      for (let i = 0; i <= this.pDataset.length; i++) {
+        if (e.target.innerText == this.pDataset[i]) {
+          console.log("First Break")
+          break;
+        } else {
+          for (let j = 0; j < this.UniqSet.length; j++) {
+            if (this.pDataset[i] == this.UniqSet[j]) {
+              console.log("Second Break")
+              break;
+            } else {
+              this.pDataset.push(e.target.innerHTML)
+              this.UniqSet.push(e.target.innerHTML)
+              console.log("Adding more")
+            }
+            break;
+          }
+        }
       }
     }
-    }
-    for(let i = 0; i<=this.pDataset.length;i++){
-      console.log(this.pDataset[i]+" This is inside Pdataset")
-    }
-   // document.getElementById("dataColor").style.background="green";
- /*   let element = document.getElementById("dataBox");
-    // @ts-ignore
-    element.classList.remove("beforeClick");
-    // @ts-ignore
-    element.classList.add("afterClick");//add class*/
-    }
-
-
-  onClickRemove(i: number){
-    // @ts-ignore
-      this.pDataset.splice(i,1);
-
-  //  let element = document.getElementById("dataBox");
-    // @ts-ignore
-   // element.classList.remove("afterClick");//add class
-    // @ts-ignore
-  //  element.classList.add("beforeClick");
-
-
-
 
   }
-/*
-   // @ts-ignore
-   constructor(private http: Http) {
-     this.http.get(this.url).subscribe((data: { json: () => any[]; }) => {
-       // Populating usersArray with names from API
-       data.json().forEach(element => {
-         this.usersArray.push(element.name);
-       });
-     });
-   }
-*/
 
+  onClickRemove(i: number) {
+    this.pDataset.splice(i, 1);
+  }
 
 }
+
