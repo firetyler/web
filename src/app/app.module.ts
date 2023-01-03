@@ -53,7 +53,7 @@ import { TestingComponent } from './testing/testing.component';
     MatButtonModule,
     HttpClientModule
   ],
-  providers: [XMLHttpRequest],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

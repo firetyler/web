@@ -11,6 +11,6 @@ export class TestingComponent implements OnInit {
   constructor(private service : SchemaService) {}
 
   ngOnInit(): void {
-    console.log(this.service.getSoapData("",""));
+    this.service.getSoapData("","");
   }
 }
