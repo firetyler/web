@@ -20,7 +20,7 @@ import { QuanDataComponent } from './quanData/quan-data/quan-data.component';
 import { UnbookedComponent } from './quanData/unbooked/unbooked.component';
 import { BookedComponent } from './quanData/booked/booked.component';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
-
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -49,7 +49,16 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
     MatRadioModule,
     MatMenuModule,
     MatButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot([
+      {path : 'footer', component : FooterComponent},
+      {path : 'header' , component : HeaderComponent},
+      {path : 'mini-header' , component : MiniHeaderComponent},
+      {path : 'quanData-head' , component : BookedComponent},
+      {path :  'quanData-cost' , component : CostComponent},
+      {path : 'quan-data' , component : QuanDataComponent},
+      {path : 'quan-unbooked' , component : UnbookedComponent}
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]
