@@ -22,6 +22,7 @@ import { BookedComponent } from './quanData/booked/booked.component';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import { TestingComponent } from './testing/testing.component';
 
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -51,7 +52,16 @@ import { TestingComponent } from './testing/testing.component';
     MatRadioModule,
     MatMenuModule,
     MatButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule.forRoot([
+      {path : 'footer', component : FooterComponent},
+      {path : 'header' , component : HeaderComponent},
+      {path : 'mini-header' , component : MiniHeaderComponent},
+      {path : 'quanData-head' , component : BookedComponent},
+      {path :  'quanData-cost' , component : CostComponent},
+      {path : 'quan-data' , component : QuanDataComponent},
+      {path : 'quan-unbooked' , component : UnbookedComponent}
+    ])
   ],
   providers: [],
   bootstrap: [AppComponent]
