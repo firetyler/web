@@ -58,17 +58,18 @@ export class SchemaService {
     for (let i = 0; i < this.jObj.length; i++) {
       let resurser: string[] = this.readResurser(this.jObj[i]['ns2:resurser']);
       if (resurser.length > 2) {
-        for (let j = 1; j < resurser.length; i++) {
-          let courseId = resurser[0]
-          if (isNaN(+resurser[j])) {
+        for (let j = 1; j < resurser.length; j++) {
+          let courseId = resurser[0];
+          if (!isNaN(+resurser[j]) && resurser[j] !== '0') {
             this.scheduleEntryArray.push(new ScheduleEntry(this.jObj[i]['ns2:startDatumTid']['ns2:varde'],
               this.jObj[i]['ns2:slutDatumTid']['ns2:varde'],
-              courseId,
-              resurser[j]));
+              resurser[j],
+              courseId));
           }
 
         }
-      } else if(!(resurser[1] === "0" )) {
+      } else if(!isNaN(+resurser[1])) {
+        console.log("Hej från fucking if-sats")
         this.scheduleEntryArray.push(new ScheduleEntry(this.jObj[i]['ns2:startDatumTid']['ns2:varde'],
           this.jObj[i]['ns2:slutDatumTid']['ns2:varde'],
           resurser[1],
@@ -91,7 +92,6 @@ export class SchemaService {
     if (resursIndex.length < 2) {
       resursIndex.push(0);
     }
-    console.log(resursIndex);
     return resursIndex;
   }
 }
@@ -117,8 +117,6 @@ export class ScheduleEntry {
     this.endTime = dateAndTime[1];
   }
 
-  //TODO Behandla problemet att kursen inte alltid ligger på samma ställe
-  //TODO Behandla problemet om att en schemapost kan vara flera klassrum
   //TODO Hämta för varje dag, går det att lägga dessa i en gemensam array?
 
 }
