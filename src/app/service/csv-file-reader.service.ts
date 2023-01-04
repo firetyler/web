@@ -1,5 +1,6 @@
 import {Injectable, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
+import axios from "axios";
 
 @Injectable({
   providedIn: 'root'
@@ -8,25 +9,28 @@ import {HttpClient} from "@angular/common/http";
 
 export class CsvFileReaderService {
   private roomArray: Room[] = [];
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
-  getRooms() {
-    this.http.get('assets/rooms.csv', {responseType: 'text'})
-      .subscribe(
-        data => {
-          let csvToRowArray = data.split("\n");
-          for (let i =1; i < csvToRowArray.length-1; i++) {
-            let row = csvToRowArray[i].split(";");
-            this.roomArray.push(new Room(parseInt(row[0],10),
-                                        row[1],
-                                        parseInt(row[2],10),
-                                        parseInt(row[3],10)));
-          }
-          console.log(this.roomArray);
+  async getRooms() {
+    let data = "";
+    const axi = axios.create();
+    await axi.get('assets/rooms.csv', {responseType: 'text'})
+      .then(
+        res => {
+          data = res.data;
         }, error => {
           console.log(error)
         }
-      );
+      )
+    let csvToRowArray = data.split("\n");
+    for (let i =1; i < csvToRowArray.length-1; i++) {
+      let row = csvToRowArray[i].split(";");
+      this.roomArray.push(new Room(parseInt(row[0],10),
+        row[1],
+        parseInt(row[2],10),
+        parseInt(row[3],10)));
+    }
+  //  console.log(this.roomArray);
     return this.roomArray;
   }
 

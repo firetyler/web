@@ -3,6 +3,7 @@ import {SeviceService} from "../sevice.service";
 import {Month} from "../month";
 import {Days} from "../days";
 import {TimeFiltersComponent} from "../../time-filters/time-filters.component";
+import {CsvFileReaderService} from "../../service/csv-file-reader.service";
 
 declare var google: any;
 
@@ -13,24 +14,28 @@ declare var google: any;
 })
 export class PriceGraphComponent implements OnInit {
   @Input() value : any;
-  constructor(private service : SeviceService) {
+  rooms : any[] = [];
+  carry : any[] = [];
+  constructor(private service : SeviceService,private room : CsvFileReaderService) {
   }
 
-  ngOnInit(): void {
+  async ngOnInit(){
+
     google.charts.load('current', {'packages': ['corechart']});
-    google.charts.setOnLoadCallback(this.drawChart);
+   await google.charts.setOnLoadCallback(this.drawChart( await this.room.getRooms()));
   }
 
-  drawChart(json : any) {
-    const jsonn = [
-      {'ID' : "99123" , 'Date' : new Date(2020,12,1), 'bookedTime' : 2, 'akademi' : "atm"}];
-    const  carray :any[] = [['ID', 'date','bookedTime','akademi']];
+   async drawChart(json : any) {
+    let  carry :any[] = [['ID', 'course','startDate','startTime','endTime']];
 
-    for (let i = 0;i < jsonn.length;i++){
-      carray.push([jsonn[i].ID, jsonn[i].Date,jsonn[i].bookedTime, jsonn[i].akademi]);
+    for (let i = 0;i < json.length;i++){
+
+    this.carry.push([json[i].ID, json[i].course,json[i].startDate, json[i].startTime,json[i].endTime]);
+
     }
-
-    const data = google.visualization.arrayToDataTable(carray);
+     console.log(this.carry);
+   // console.log(carry);
+    const data = google.visualization.arrayToDataTable(this.carry);
     const options = {
       title: '',
       hAxis: {title: 'dagar',
