@@ -1,12 +1,14 @@
 import { Component, Input } from '@angular/core';
-import {BehaviorService} from "../../behavior.service";
+import {BehaviorService} from 'src/app/service/behavior.service';
 
 declare var google: any;
 
 @Component({
   selector: 'app-behavior-graph',
   templateUrl: './behavior-graph.component.html',
-  styleUrls: ['./behavior-graph.component.css']
+  styleUrls: ['./behavior-graph.component.css'],
+  providers : [BehaviorService]
+
 })
 export class BehaviorGraphComponent {
   @Input() value : any;
@@ -21,8 +23,16 @@ export class BehaviorGraphComponent {
 
   drawChart(json : any){
     var chart = new google.visualization.Timeline(document.getElementById('behavior_graph'));
+
+    for(let i = 0; i < json.length; i++){
+
+    }
+
     var dataTable = new google.visualization.dataTable();
     var options = {};
+
+
+
     /*const jsonn = [
       {'ID' : "99123" ,style : '#ff0000', 'Date' : new Date(2020,12,1)}];
 

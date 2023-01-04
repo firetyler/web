@@ -1,26 +1,29 @@
 import { Injectable } from '@angular/core';
+import {Time} from './time';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class BehaviorService {
 
-  constructor(times:Times) {
+  public hej = "hej";
+  constructor() {
 
   }
 
   private checkPeriod(period:any){
 
-    if(Times.startP1 <= "0800" && "0800" < Times.endP1 && "0800" <= Times.endP1){
+    if(Time.startP1 <= "0800" && "0800" < Time.endP1 && "0800" <= Time.endP1){
       return "kurs";
     }
-    if(Times.startP2 <= "0800" && "0800" < Times.endP2 && "0800" <= Times.endP2){
+    if(Time.startP2 <= "0800" && "0800" < Time.endP2 && "0800" <= Time.endP2){
       return "kurs";
     }
-    if(Times.startP3 <= "0800" && "0800" < Times.endP3 && "0800" <= Times.endP3){
+    if(Time.startP3 <= "0800" && "0800" < Time.endP3 && "0800" <= Time.endP3){
       return "kurs";
     }
-    if(Times.startP4 <= "0800" && "0800" < Times.endP4 && "0800" <= Times.endP4){
+    if(Time.startP4 <= "0800" && "0800" < Time.endP4 && "0800" <= Time.endP4){
       return "kurs";
     }
     return null;
@@ -48,16 +51,4 @@ export class BehaviorService {
 
     return '#808080';
   }
-}
- enum Times {
-  startP1 = "0800",
-  endP1 = "1000",
-  startP2 = "1000",
-  endP2 = "1200",
-  startP3 = "1300",
-  endP3 = "1500",
-  startP4 = "1500",
-  endP4 = "1700",
-  startP5 = "1700",
-  endP5 = "2100",
 }
