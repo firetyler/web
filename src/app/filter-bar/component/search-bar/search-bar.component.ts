@@ -25,7 +25,7 @@ export class SearchBarComponent {
   pDataset: any = [];
 
   ngOnInit() {
-    if(this.location.path() == '/Akademi'){
+    if(this.location.path() == '/Academy'){
       this.separateRoomsFromArrayAkademi();
     }
     if(this.location.path() == '/Hus'){

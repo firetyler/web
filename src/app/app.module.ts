@@ -24,7 +24,7 @@ import {FilterBarComponent} from "./filter-bar/filter-bar.component";
 import {TimeFiltersComponent} from "./time-filters/time-filters.component";
 import {FilterBarModule} from "./filter-bar/filter-bar.module";
 import { AppRoutingModule } from './app-routing.module';
-import { AkademiComponent } from './akademi/akademi.component';
+import { AkademiComponent } from './Academy/akademi.component';
 import { HusComponent } from './hus/hus.component';
 import { LevelComponent } from './level/level.component';
 import { RoomComponent } from './room/room.component';

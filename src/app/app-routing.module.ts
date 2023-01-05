@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {FilterBarComponent} from "./filter-bar/filter-bar.component";
 import {TimeFiltersComponent} from "./time-filters/time-filters.component";
-import {AkademiComponent} from "./akademi/akademi.component";
+import {AkademiComponent} from "./Academy/akademi.component";
 import {HusComponent} from "./hus/hus.component";
 import {LevelComponent} from "./level/level.component";
 import {RoomComponent} from "./room/room.component";
 
 const routes: Routes = [
   {
-    path: 'Akademi', component: AkademiComponent, children: [
+    path: 'Academy', component: AkademiComponent, children: [
       { path: '', component: FilterBarComponent },
       { path: '', component: TimeFiltersComponent }
     ]

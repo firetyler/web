@@ -11,7 +11,7 @@ import { Location } from '@angular/common';
 export class HeaderComponent {
   constructor(private location: Location) { }
   onSwitchAkademi() {
-    this.location.replaceState('/Akademi')
+    this.location.replaceState('/Academy')
     location.reload();
   }
   onSwitchHus() {
