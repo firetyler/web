@@ -129,4 +129,8 @@ export class ScheduleEntry {
   getTestNumber() {
     return 100;
   }
+  getpercentOfTotaltimeForOneRoom() : number{
+    let totalpercent: number = this.getTotalHours()/100;
+    return totalpercent;
+  }
 }

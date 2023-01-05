@@ -28,15 +28,26 @@ export class PriceGraphComponent implements OnInit {
   }
 
   async drawChart(json: ScheduleEntry[]) {
-    let carry: any[] = [['ID', 'totalHours', 'startDate', 'startTime', 'endTime']];
-    for (let i = 0; i < json.length; i++) {
 
-      this.carry.push([json[i].room, json[i].getTotalHours(), json[i].getTestNumber(), json[i].getTestNumber(), json[i].getTestNumber()]);
+// First index in laptop code is ['ID','date','bookedTime','akademi']
+    // second index and come numbers and informations ['99123',Fri Jan 01 2021 00:00:00 GMT+0100 , 2 ,'atm']
+   let limit : number = 0
+   const carry: any[] = [[{type :'string' ,role:'ID'},{type : 'number', role : 'startDate'}, { type : 'number',role :'totalHours'}]];
+    for (let i = 0; i < json.length; i++) {
+        if (json[i].room  !=limit){
+         // const carry: any[] = [[{role:'ID'},{role : 'startDate'}, {role :'totalHours'}]];
+          carry.push([json[i].room,json[i].getTestNumber(), json[i].getTotalHours()]);
+        //  console.log(json[i].startDate);
+        //  console.log(json[i].getTestNumber());
+        }else{
+
+        }
+
 
     }
-    console.log(this.carry);
+    console.log(carry);
     // console.log(carry);
-    const data = google.visualization.arrayToDataTable((carry));
+
     const options = {
       title: '',
       hAxis: {
@@ -58,7 +69,7 @@ export class PriceGraphComponent implements OnInit {
         }
       },
     };
-
+    const data = google.visualization.arrayToDataTable(carry);
     const chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
     chart.draw( data, options);
   }
