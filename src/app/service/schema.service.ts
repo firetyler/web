@@ -11,7 +11,7 @@ export class SchemaService {
   private jObj: any;
   private scheduleEntryArray: ScheduleEntry[] = [];
 
-  async getSoapData(startDatum: String, slutDatum: String) {
+  async getSoapData(startDatum: String, slutDatum: String): Promise<ScheduleEntry[]> {
     let svar = "";
     const startDatumTest = "2019-02-5";
     const slutDatumTest = "2019-02-5";
@@ -54,7 +54,7 @@ export class SchemaService {
       ['ns3:hamtaSchemaPosterOchForklaringsTexterForVillkorMedFastaDatumResponse']
       ['return']
       ['ns2:schemaPoster'];
-    console.log(this.jObj);
+    //console.log(this.jObj);
     for (let i = 0; i < this.jObj.length; i++) {
       let resurser: string[] = this.readResurser(this.jObj[i]['ns2:resurser']);
       if (resurser.length > 2) {
@@ -69,14 +69,15 @@ export class SchemaService {
 
         }
       } else if(!isNaN(+resurser[1])) {
-        console.log("Hej från fucking if-sats")
+        //console.log("Hej från fucking if-sats")
         this.scheduleEntryArray.push(new ScheduleEntry(this.jObj[i]['ns2:startDatumTid']['ns2:varde'],
           this.jObj[i]['ns2:slutDatumTid']['ns2:varde'],
           resurser[1],
           resurser[0]));
       }
     }
-    console.log(this.scheduleEntryArray);
+    return this.scheduleEntryArray;
+    //console.log(this.scheduleEntryArray);
   }
 
   readResurser(resurser: any) {
@@ -101,11 +102,11 @@ export class ScheduleEntry {
   endTime: string;
   startDate: string;
   endDate: string;
-  room: string;
+  room: number;
   course: string;
 
   constructor(startDateTime: string, endDateTime: string, room: string, course: string) {
-    this.room = room;
+    this.room = parseInt(room);
     this.course = course;
 
     let dateAndTime = startDateTime.split(' ');
@@ -116,7 +117,16 @@ export class ScheduleEntry {
     this.endDate = dateAndTime[0];
     this.endTime = dateAndTime[1];
   }
+  getTotalHours(): number {
+    const startTimeArray = this.startTime.split(':');
+    const endTimeArray = this.endTime.split(':');
+    let startMinutes = 60 * parseInt(startTimeArray[0]) + parseInt(startTimeArray[1]);
+    let endMinutes = 60 * parseInt(endTimeArray[0] + parseInt(endTimeArray[1]));
+    return (endMinutes - startMinutes)/60;
 
+  }
   //TODO Hämta för varje dag, går det att lägga dessa i en gemensam array?
-
+  getTestNumber() {
+    return 100;
+  }
 }

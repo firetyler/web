@@ -4,6 +4,7 @@ import {Month} from "../month";
 import {Days} from "../days";
 import {TimeFiltersComponent} from "../../time-filters/time-filters.component";
 import {CsvFileReaderService} from "../../service/csv-file-reader.service";
+import {ScheduleEntry, SchemaService} from "../../service/schema.service";
 
 declare var google: any;
 
@@ -13,33 +14,34 @@ declare var google: any;
   styleUrls: ['./price-graph.component.css']
 })
 export class PriceGraphComponent implements OnInit {
-  @Input() value : any;
-  rooms : any[] = [];
-  carry : any[] = [];
-  constructor(private service : SeviceService,private room : CsvFileReaderService) {
+  @Input() value: any;
+  rooms: any[] = [];
+  carry: any[] = [];
+
+  constructor(private service: SeviceService, private room: CsvFileReaderService, private sched : SchemaService) {
   }
 
-  async ngOnInit(){
+  async ngOnInit() {
 
     google.charts.load('current', {'packages': ['corechart']});
-   await google.charts.setOnLoadCallback(this.drawChart( await this.room.getRooms()));
+    await google.charts.setOnLoadCallback(this.drawChart(await this.sched.getSoapData("","")));
   }
 
-   async drawChart(json : any) {
-    let  carry :any[] = [['ID', 'course','startDate','startTime','endTime']];
+  async drawChart(json: ScheduleEntry[]) {
+    let carry: any[] = [['ID', 'totalHours', 'startDate', 'startTime', 'endTime']];
+    for (let i = 0; i < json.length; i++) {
 
-    for (let i = 0;i < json.length;i++){
-
-    this.carry.push([json[i].ID, json[i].course,json[i].startDate, json[i].startTime,json[i].endTime]);
+      this.carry.push([json[i].room, json[i].getTotalHours(), json[i].getTestNumber(), json[i].getTestNumber(), json[i].getTestNumber()]);
 
     }
-     console.log(this.carry);
-   // console.log(carry);
-    const data = google.visualization.arrayToDataTable(this.carry);
+    console.log(this.carry);
+    // console.log(carry);
+    const data = google.visualization.arrayToDataTable((carry));
     const options = {
       title: '',
-      hAxis: {title: 'dagar',
-        format : ' dd mm yyyy'
+      hAxis: {
+        title: 'dagar',
+        format: ' dd mm yyyy'
       },
       vAxis: {title: 'timmar'},
       bubble: {
@@ -58,7 +60,7 @@ export class PriceGraphComponent implements OnInit {
     };
 
     const chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
-    chart.draw(data, options);
+    chart.draw( data, options);
   }
 
 
