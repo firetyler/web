@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {CsvFileReaderService, Room} from '../../../service/csv-file-reader.service'
 import * as Http from "http";
 import {style} from "@angular/animations";
+import {iterator} from "rxjs/internal/symbol/iterator";
 
 
 //https://mdbootstrap.com/docs/b4/angular/forms/search/
@@ -11,23 +13,56 @@ import {style} from "@angular/animations";
   styleUrls: ['./search-bar.component.css']
 })
 export class SearchBarComponent {
+  constructor(private roomService: CsvFileReaderService) {
+  }
+
   show = false
   elementClicked = 'Click any of the list item below'
 
   searchText: any;
-  dataset: any = ['MDB', 'Angular', 'Bootstrap', 'Framework', 'SPA', 'React', 'Vue', 'help', 'fly', 'dance', 'lila'];
+  dataset: any = [];
   pDataset: any = [];
-  UniqSet: any = [];
 
-  // Fake API URL
-  url: string = 'https://jsonplaceholder.typicode.com/users';
-  usersArray: Array<any> = [];
+  ngOnInit() {
+    this.separateRoomsFromArray();
+  }
+
+
+   async separateRoomsFromArray() {
+    let data = await this.roomService.getRooms();
+
+    //console.log(data);
+    // let result = data.map(a => );
+    // console.log(result);
+
+
+     for(let i =0; i<data.length;i++){
+      // this.dataset.push(data[i].id);
+       console.log(data[i]);
+       if (!this.dataset.includes(data[i].id)) {
+         this.dataset.push(data[i].id.toString()+","+data[i].academy.toString())
+       }
+     }
+
+      // this.dataset.push(result);
+
+
+
+     //console.log(data);
+    // console.log(data.filter(x => x.getRoom()));
+
+    //const result = ( data).find(x => x.getRoom());
+
+    //console.log(result);
+
+
+
+  }
 
   // @ts-ignore
   onClick(e) {
     this.elementClicked = 'Last clicked: ' + e.target.innerHTML;
-
-    if(!this.pDataset.includes(e.target.innerHTML)){
+    if (!this.pDataset.includes(e.target.innerHTML)) {
       this.pDataset.push(e.target.innerHTML)
     }
   }

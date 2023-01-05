@@ -20,6 +20,9 @@ import { QuanDataComponent } from './quanData/quan-data/quan-data.component';
 import { UnbookedComponent } from './quanData/unbooked/unbooked.component';
 import { BookedComponent } from './quanData/booked/booked.component';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {FilterBarComponent} from "./filter-bar/filter-bar.component";
+import {TimeFiltersComponent} from "./time-filters/time-filters.component";
+import {FilterBarModule} from "./filter-bar/filter-bar.module";
 
 
 @NgModule({
@@ -33,6 +36,8 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
     QuanDataComponent,
     UnbookedComponent,
     BookedComponent,
+    FilterBarComponent,
+    TimeFiltersComponent,
   ],
   imports: [
     BrowserModule,
@@ -49,7 +54,8 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
     MatRadioModule,
     MatMenuModule,
     MatButtonModule,
-    HttpClientModule
+    HttpClientModule,
+    FilterBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]
