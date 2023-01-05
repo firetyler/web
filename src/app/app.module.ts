@@ -23,6 +23,11 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {FilterBarComponent} from "./filter-bar/filter-bar.component";
 import {TimeFiltersComponent} from "./time-filters/time-filters.component";
 import {FilterBarModule} from "./filter-bar/filter-bar.module";
+import { AppRoutingModule } from './app-routing.module';
+import { AkademiComponent } from './akademi/akademi.component';
+import { HusComponent } from './hus/hus.component';
+import { LevelComponent } from './level/level.component';
+import { RoomComponent } from './room/room.component';
 
 
 @NgModule({
@@ -38,6 +43,10 @@ import {FilterBarModule} from "./filter-bar/filter-bar.module";
     BookedComponent,
     FilterBarComponent,
     TimeFiltersComponent,
+    AkademiComponent,
+    HusComponent,
+    LevelComponent,
+    RoomComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,7 +64,8 @@ import {FilterBarModule} from "./filter-bar/filter-bar.module";
     MatMenuModule,
     MatButtonModule,
     HttpClientModule,
-    FilterBarModule
+    FilterBarModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

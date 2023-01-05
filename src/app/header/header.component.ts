@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -9,5 +9,23 @@ import {Component} from '@angular/core';
 })
 
 export class HeaderComponent {
+  constructor(private location: Location) { }
+  onSwitchAkademi() {
+    this.location.replaceState('/Akademi')
+    location.reload();
+  }
+  onSwitchHus() {
+    this.location.replaceState('/Hus')
+    location.reload();
+  }
 
+  onSwitchLevel() {
+    this.location.replaceState('/Level')
+    location.reload();
+  }
+
+  onSwitchRoom() {
+    this.location.replaceState('/Room')
+    location.reload();
+  }
 }

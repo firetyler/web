@@ -3,6 +3,7 @@ import {CsvFileReaderService, Room} from '../../../service/csv-file-reader.servi
 import * as Http from "http";
 import {style} from "@angular/animations";
 import {iterator} from "rxjs/internal/symbol/iterator";
+import { Location } from '@angular/common';
 
 
 //https://mdbootstrap.com/docs/b4/angular/forms/search/
@@ -13,7 +14,7 @@ import {iterator} from "rxjs/internal/symbol/iterator";
   styleUrls: ['./search-bar.component.css']
 })
 export class SearchBarComponent {
-  constructor(private roomService: CsvFileReaderService) {
+  constructor(private roomService: CsvFileReaderService,private location: Location) {
   }
 
   show = false
@@ -24,38 +25,37 @@ export class SearchBarComponent {
   pDataset: any = [];
 
   ngOnInit() {
-    this.separateRoomsFromArray();
+    if(this.location.path() == '/Akademi'){
+      this.separateRoomsFromArrayAkademi();
+    }
+    if(this.location.path() == '/Hus'){
+      this.separateRoomsFromArrayHus();
+    }
+
   }
 
 
-   async separateRoomsFromArray() {
+   async separateRoomsFromArrayAkademi() {
     let data = await this.roomService.getRooms();
 
-    //console.log(data);
-    // let result = data.map(a => );
-    // console.log(result);
-
-
      for(let i =0; i<data.length;i++){
-      // this.dataset.push(data[i].id);
        console.log(data[i]);
-       if (!this.dataset.includes(data[i].id)) {
-         this.dataset.push(data[i].id.toString()+","+data[i].academy.toString())
+       if (!this.dataset.includes(data[i].academy)) {
+         this.dataset.push(data[i].academy.toString())
        }
      }
 
-      // this.dataset.push(result);
+  }
 
+  async separateRoomsFromArrayHus() {
+    let data = await this.roomService.getRooms();
 
-
-     //console.log(data);
-    // console.log(data.filter(x => x.getRoom()));
-
-    //const result = ( data).find(x => x.getRoom());
-
-    //console.log(result);
-
-
+    for(let i =0; i<data.length;i++){
+      console.log(data[i]);
+      if (!this.dataset.includes(data[i].id)) {
+        this.dataset.push(data[i].id.toString())
+      }
+    }
 
   }
 
