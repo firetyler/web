@@ -62,7 +62,6 @@ import {BehaviorService} from "./service/behavior.service";
     MatMenuModule,
     MatButtonModule,
     MatBottomSheetModule,
-    MatNativeDateModule,
     HttpClientModule
   ],
   providers: [BehaviorService],
