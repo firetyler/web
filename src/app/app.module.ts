@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {MatNativeDateModule} from '@angular/material/core';
+
 import { AppComponent } from './app.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -23,6 +23,7 @@ import { QuanDataComponent } from './quanData/quan-data/quan-data.component';
 import { UnbookedComponent } from './quanData/unbooked/unbooked.component';
 import { BookedComponent } from './quanData/booked/booked.component';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
+import { TestingComponent } from './testing/testing.component';
 
 import { PriceGraphComponent } from './graph/price-graph/price-graph.component';
 import { BehaviorGraphComponent } from './graph/behavior-graph/behavior-graph.component';
@@ -32,6 +33,7 @@ import {BehaviorService} from "./service/behavior.service";
   declarations: [
     AppComponent,
     MiniHeaderComponent,
+    AppComponent,
     HeaderComponent,
     DialogWindowComponent,
     DialogWindowOverViewComponentComponent,
@@ -42,6 +44,7 @@ import {BehaviorService} from "./service/behavior.service";
     BookedComponent,
     PriceGraphComponent,
     BehaviorGraphComponent,
+    TestingComponent,
   ],
   imports: [
     BrowserModule,
