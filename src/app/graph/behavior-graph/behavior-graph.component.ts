@@ -22,13 +22,18 @@ export class BehaviorGraphComponent {
   }
 
   drawChart(json : any){
+    const jsonn = [
+      {'ID' : "99123" , 'course' : "DVG320", 'StartTime' : "0800" , 'EndTime' : "1000", 'Date' : new Date(2020,12,1)},
+      {'ID' : "99123" , 'course' : "DVG320", 'StartTime' : "1000" , 'EndTime' : "1200", 'Date' : new Date(2020,12,1)}];
     var chart = new google.visualization.Timeline(document.getElementById('behavior_graph'));
-
-    for(let i = 0; i < json.length; i++){
-
-    }
-
     var dataTable = new google.visualization.dataTable();
+    dataTable.addColumn({ type: 'String', id: 'Room' });
+    dataTable.addColumn({ type: 'string', id: 'style', role: 'style' });
+    dataTable.addColumn({ type: 'date', id: 'date' });
+
+
+    dataTable.addRows([ ,this.behavior.getBehavior( jsonn), new Date(0,0,0)]);
+
     var options = {};
 
 
