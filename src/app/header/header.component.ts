@@ -11,6 +11,7 @@ import { Location } from '@angular/common';
 export class HeaderComponent {
 
   constructor(private location: Location) { }
+
   onSwitchHomePage() {
     this.location.replaceState('')
     location.reload();
