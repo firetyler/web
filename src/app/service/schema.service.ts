@@ -76,8 +76,9 @@ export class SchemaService {
           resurser[0]));
       }
     }
+ //   console.log(this.scheduleEntryArray);
     return this.scheduleEntryArray;
-    //console.log(this.scheduleEntryArray);
+
   }
 
   readResurser(resurser: any) {
@@ -121,7 +122,9 @@ export class ScheduleEntry {
     const startTimeArray = this.startTime.split(':');
     const endTimeArray = this.endTime.split(':');
     let startMinutes = 60 * parseInt(startTimeArray[0]) + parseInt(startTimeArray[1]);
-    let endMinutes = 60 * parseInt(endTimeArray[0] + parseInt(endTimeArray[1]));
+    let endMinutes = 60 * parseInt(endTimeArray[0]) + parseInt(endTimeArray[1]);
+
+
     return (endMinutes - startMinutes)/60;
 
   }
@@ -130,7 +133,8 @@ export class ScheduleEntry {
     return 100;
   }
   getpercentOfTotaltimeForOneRoom() : number{
-    let totalpercent: number = this.getTotalHours()/100;
+    let totalpercent: number = this.getTotalHours()/8*100;
+  //  console.log(totalpercent);
     return totalpercent;
   }
 }

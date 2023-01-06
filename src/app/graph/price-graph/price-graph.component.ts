@@ -45,7 +45,7 @@ export class PriceGraphComponent implements OnInit {
 
 
     }
-    console.log(carry);
+   // console.log(carry);
     // console.log(carry);
 
     const options = {

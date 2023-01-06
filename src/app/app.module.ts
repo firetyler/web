@@ -27,7 +27,6 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import { TestingComponent } from './testing/testing.component';
 
 import {RouterModule} from "@angular/router";
-import { CalculationsComponent } from './service/calculations/calculations.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +44,7 @@ import { CalculationsComponent } from './service/calculations/calculations.compo
     TimeFiltersComponent,
 
     PriceGraphComponent,
-      CalculationsComponent,
+
   ],
   imports: [
     BrowserModule,
