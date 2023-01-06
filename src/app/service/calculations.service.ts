@@ -26,7 +26,7 @@ export class CalculationsService {
     for (let i = 0; i< 124; i++){
       total.push(data[i].getTotalHours());
     }
-    console.log(total);
+    //console.log(total);
     return total;
   }
 
