@@ -18,7 +18,6 @@ import { DialogWindowOverViewComponentComponent } from './dialog-window-over-vie
 import {DialogWindowComponent} from "./dialog-window/dialog-window.component";
 import { FooterComponent } from './footer/footer.component';
 import { PriceGraphComponent } from './graph/price-graph/price-graph.component';
-import {TimeFiltersComponent} from './time-filters/time-filters.component'
 import { CostComponent } from './quanData/cost/cost.component';
 import { QuanDataComponent } from './quanData/quan-data/quan-data.component';
 import { UnbookedComponent } from './quanData/unbooked/unbooked.component';
@@ -56,11 +55,7 @@ import { CalculationsComponent } from './service/calculations/calculations.compo
     HusComponent,
     LevelComponent,
     RoomComponent,
-    TestingComponent,
-    TimeFiltersComponent,
-
-    PriceGraphComponent,
-      CalculationsComponent,
+    PriceGraphComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +74,7 @@ import { CalculationsComponent } from './service/calculations/calculations.compo
     MatButtonModule,
     HttpClientModule,
     FilterBarModule,
-    AppRoutingModule
+    AppRoutingModule,
     HttpClientModule,
     MatBottomSheetModule,
     MatNativeDateModule,

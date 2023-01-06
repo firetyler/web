@@ -1,10 +1,14 @@
 
 <div class="miniHeader" >
 <div id="innerBox">
-  <input type="radio" class="graphRadioButton" name="graph">
+  <input type="radio" class="graphRadioButton" name="graph" (click)="showGraph1()"  >
   <label class="labelGraph">Boknings Beteende</label>
 
-  <input type="radio" class="graphRadioButton" name="graph">
+  <input type="radio" class="graphRadioButton" name="graph" (click)="showGraph2()" >
   <label class="labelGraph">Användningskostnad</label>
 </div>
+  <div class=" ">
+    <app-price-graph *ngIf="showchild1==true"></app-price-graph>
+    <div *ngIf="showchild2==true"><p style="color: white">testing Ground</p></div>
+  </div>
 </div>

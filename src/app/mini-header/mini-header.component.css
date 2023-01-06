@@ -1,5 +1,5 @@
 .miniHeader{
-  background-color: #22223B;
+  background-color: #292c2c;
   height: auto;
   width: auto;
   text-align: center;
@@ -9,5 +9,5 @@
 }
 
 #innerBox{
-  background-color: lightblue;
+  background-color: #f8f9fa;
 }

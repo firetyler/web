@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+
 import { Location } from '@angular/common';
 
 
@@ -10,12 +10,9 @@ import {Component, OnInit} from '@angular/core';
 })
 export class HeaderComponent implements OnInit{
   list: string[] = ['Akademi', 'hus', 'våning', 'rum'];
-  constructor() {
-  }
 
   ngOnInit(): void {
   }
-
 
   constructor(private location: Location) { }
 
