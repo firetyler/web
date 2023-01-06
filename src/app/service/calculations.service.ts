@@ -23,7 +23,7 @@ export class CalculationsService {
   }
   totalBoked(data : ScheduleEntry[]){
     const total : any[] = [];
-    for (let i = 0; i< 124; i++){
+    for (let i = 0; i< data.length; i++){
       total.push(data[i].getTotalHours());
     }
     //console.log(total);
