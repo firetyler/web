@@ -1,4 +1,5 @@
 import {Injectable} from '@angular/core';
+import {SchemaService} from "./schema.service";
 import {ScheduleEntry} from "./schema.service";
 import {CsvFileReaderService} from "./csv-file-reader.service";
 import {startWith} from "rxjs";
@@ -7,17 +8,36 @@ import {startWith} from "rxjs";
   providedIn: 'root'
 })
 export class Behavior2Service {
-  private testScheduleEntry: any[] = [new ScheduleEntry("2012-01-01 08:00:00",
-    "2012-01-01 10:00:00", "11121", "DVG002")];
+ // private testScheduleEntry: any[] = [new ScheduleEntry("2012-01-01 08:00:00",
+ //   "2012-01-01 10:00:00", "11121", "DVG002")];
   private roomBehavior: Behavior[] = [];
 
-  constructor(private schedule: ScheduleEntry, private room: CsvFileReaderService) {
-    const allRooms = room.getRooms();
-    for (let i = 0; i < 6; i++) {
-      if (this.testScheduleEntry[0].room === allRooms[i].id) {
-        this.roomBehavior.push(new Behavior(allRooms[i].id, this.testScheduleEntry));
+
+  constructor(private sched: SchemaService, private room: CsvFileReaderService) {
+   this.create();
+  }
+  async  create(){
+    await this.startService(await this.sched.getSoapData("",""));
+  }
+  async startService(data : ScheduleEntry[]) {
+
+    //let schedule : ScheduleEntry[] = await this.sched.getSoapData("", "");
+  //  console.log("fuck"+schedule);
+    //console.log(this.sched);
+    const allRooms = await this.room.getRooms();
+  //  console.log("HOR SCHED!!!!!!! " + schedule);
+    for (let i = 0; i < allRooms.length; i++) {
+      if (parseInt(data[1].room) == allRooms[i].id) {
+      //  console.log("I fucking if-fucking-sats, oooh sats ")
+        this.roomBehavior.push(new Behavior(allRooms[i].id, data));
+       // console.log("FUCKING ROOMBEHAVIOR ARRAY"+this.roomBehavior)
       }
     }
+    console.log(this.roomBehavior);
+
+  }
+  getRoomBehavior() {
+    return this.roomBehavior;
   }
 }
 
@@ -37,6 +57,7 @@ export class Behavior {
   }
 
   setColor() {
+    console.log("Fucking color" + this.bookings)
     let hasBadBehavior = false;
     let totalTime = 0;
     let beforeLunch;

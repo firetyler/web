@@ -11,7 +11,7 @@ export class SchemaService {
   private jObj: any;
   private scheduleEntryArray: ScheduleEntry[] = [];
 
-  async getSoapData(startDatum: String, slutDatum: String) {
+  async getSoapData(startDatum: String, slutDatum: String): Promise<ScheduleEntry[]> {
     let svar = "";
     const startDatumTest = "2019-02-5";
     const slutDatumTest = "2019-02-5";
@@ -69,14 +69,14 @@ export class SchemaService {
 
         }
       } else if(!isNaN(+resurser[1])) {
-        console.log("Hej från fucking if-sats")
         this.scheduleEntryArray.push(new ScheduleEntry(this.jObj[i]['ns2:startDatumTid']['ns2:varde'],
           this.jObj[i]['ns2:slutDatumTid']['ns2:varde'],
           resurser[1],
           resurser[0]));
       }
     }
-    console.log(this.scheduleEntryArray);
+   // console.log(this.scheduleEntryArray);
+    return this.scheduleEntryArray;
   }
 
   readResurser(resurser: any) {

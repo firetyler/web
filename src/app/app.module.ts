@@ -27,7 +27,7 @@ import { TestingComponent } from './testing/testing.component';
 
 import { PriceGraphComponent } from './graph/price-graph/price-graph.component';
 import { BehaviorGraphComponent } from './graph/behavior-graph/behavior-graph.component';
-import {BehaviorService} from "./service/behavior.service";
+import {Behavior2Service} from "./service/behavior2.service";
 
 @NgModule({
   declarations: [
@@ -64,7 +64,7 @@ import {BehaviorService} from "./service/behavior.service";
     MatBottomSheetModule,
     HttpClientModule
   ],
-  providers: [BehaviorService],
+  providers: [Behavior2Service],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

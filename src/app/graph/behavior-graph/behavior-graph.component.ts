@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import {BehaviorService} from 'src/app/service/behavior.service';
+import {Behavior2Service} from 'src/app/service/behavior2.service';
 
 declare var google: any;
 
@@ -7,18 +7,19 @@ declare var google: any;
   selector: 'app-behavior-graph',
   templateUrl: './behavior-graph.component.html',
   styleUrls: ['./behavior-graph.component.css'],
-  providers : [BehaviorService]
+  providers : [Behavior2Service]
 
 })
 export class BehaviorGraphComponent {
   @Input() value : any;
 
-  constructor(private behavior: BehaviorService){
+  constructor(private behavior: Behavior2Service){
   }
 
   ngOnInit(): void {
-    google.charts.load("current", {packages:["timeline"]});
-    google.charts.setOnLoadCallback(this.drawChart);
+    console.log(this.behavior.getRoomBehavior());
+    //google.charts.load("current", {packages:["timeline"]});
+    //google.charts.setOnLoadCallback(this.drawChart);
   }
 
   drawChart(json : any){
@@ -32,7 +33,7 @@ export class BehaviorGraphComponent {
     dataTable.addColumn({ type: 'date', id: 'date' });
 
 
-    dataTable.addRows([ ,this.behavior.getBehavior( jsonn), new Date(0,0,0)]);
+    //dataTable.addRows([ ,this.behavior.getBehavior( jsonn), new Date(0,0,0)]);
 
     var options = {};
 
