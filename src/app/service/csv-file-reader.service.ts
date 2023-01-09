@@ -9,20 +9,19 @@ import axios from "axios";
 
 export class CsvFileReaderService {
   private roomArray: Room[] = [];
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
   async getRooms() {
-    const axi = axios.create();
     let data = "";
+    const axi = axios.create();
     await axi.get('assets/rooms.csv', {responseType: 'text'})
       .then(
         res => {
           data = res.data;
-          console.log(this.roomArray);
         }, error => {
           console.log(error)
         }
-      );
+      )
     let csvToRowArray = data.split("\n");
     for (let i =1; i < csvToRowArray.length-1; i++) {
       let row = csvToRowArray[i].split(";");
@@ -31,6 +30,7 @@ export class CsvFileReaderService {
         parseInt(row[2],10),
         parseInt(row[3],10)));
     }
+  //  console.log(this.roomArray);
     return this.roomArray;
   }
 

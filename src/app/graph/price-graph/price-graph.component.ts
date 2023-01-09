@@ -1,48 +1,78 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {SeviceService} from "../sevice.service";
+import {Month} from "../month";
+import {Days} from "../days";
+import {TimeFiltersComponent} from "../../time-filters/time-filters.component";
+import {CsvFileReaderService} from "../../service/csv-file-reader.service";
+import {ScheduleEntry, SchemaService} from "../../service/schema.service";
+
 declare var google: any;
+
 @Component({
   selector: 'app-price-graph',
   templateUrl: './price-graph.component.html',
   styleUrls: ['./price-graph.component.css']
 })
-export class PriceGraphComponent implements OnInit{
-  constructor() {
+export class PriceGraphComponent implements OnInit {
+  @Input() value: any;
+  rooms: any[] = [];
+  carry: any[] = [];
+
+  constructor(private service: SeviceService, private room: CsvFileReaderService, private sched : SchemaService) {
   }
-  ngOnInit(): void {
-    google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(this.drawChart);
+
+  async ngOnInit() {
+
+    google.charts.load('current', {'packages': ['corechart']});
+    await google.charts.setOnLoadCallback(this.drawChart(await this.sched.getSoapData("","")));
   }
-    drawChart(){
-      var data = google.visualization.arrayToDataTable([
-        ['ID', 'Life Expectancy', 'Fertility Rate', 'Region',     'Population'],
-        ['CAN',    80.66,              1.67,      'North America',  33739900],
-        ['DEU',    79.84,              1.36,      'Europe',         81902307],
-        ['DNK',    78.6,               1.84,      'Europe',         5523095],
-        ['EGY',    72.73,              2.78,      'Middle East',    79716203],
-        ['GBR',    80.05,              2,         'Europe',         61801570],
-        ['IRN',    72.49,              1.7,       'Middle East',    73137148],
-        ['IRQ',    68.09,              4.77,      'Middle East',    31090763],
-        ['ISR',    81.55,              2.96,      'Middle East',    7485600],
-        ['RUS',    68.6,               1.54,      'Europe',         141850000],
-        ['USA',    78.09,              2.05,      'North America',  307007000]
-      ]);
-      var options = {
-        title: 'example' +
-          ' X=Life Expectancy, Y=Fertility, Bubble size=Population, Bubble color=Region',
-        hAxis: {title: 'Life Expectancy'},
-        vAxis: {title: 'Fertility Rate'},
-        bubble: {
-          textStyle: {fontSize: 13},
-          fontName : 'Times-Roman',
-          colors : 'black',
-          italic : true
+
+  async drawChart(json: ScheduleEntry[]) {
+
+// First index in laptop code is ['ID','date','bookedTime','akademi']
+    // second index and come numbers and informations ['99123',Fri Jan 01 2021 00:00:00 GMT+0100 , 2 ,'atm']
+   let limit : number = 0
+   const carry: any[] = [[{type :'string' ,role:'ID'},{type : 'number', role : 'startDate'}, { type : 'number',role :'totalHours'}]];
+    for (let i = 0; i < json.length; i++) {
+        if (json[i].room  !=limit){
+         // const carry: any[] = [[{role:'ID'},{role : 'startDate'}, {role :'totalHours'}]];
+          carry.push([json[i].room,json[i].getTestNumber(), json[i].getTotalHours()]);
+        //  console.log(json[i].startDate);
+        //  console.log(json[i].getTestNumber());
+        }else{
 
         }
-      };
-      var chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
-      chart.draw(data,options);
+
 
     }
+   // console.log(carry);
+    // console.log(carry);
+
+    const options = {
+      title: '',
+      hAxis: {
+        title: 'dagar',
+        format: ' dd mm yyyy'
+      },
+      vAxis: {title: 'timmar'},
+      bubble: {
+        textStyle: {fontSize: 13},
+        fontName: 'Times-Roman',
+        colors: 'black',
+        italic: true
+      },
+      gridlines: {
+        count: -1,
+        units: {
+          days: {format: ['MMM dd']},
+          hours: {format: ['HH:mm', 'ha']},
+        }
+      },
+    };
+    const data = google.visualization.arrayToDataTable(carry);
+    const chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
+    chart.draw( data, options);
+  }
 
 
 }

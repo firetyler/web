@@ -1,11 +1,13 @@
-
 <div>
   <app-header></app-header>
   <app-mini-header></app-mini-header>
-  <app-price-graph></app-price-graph>
-  <app-behavior-graph></app-behavior-graph>
   <div class="bottom-part">
-    <app-quan-data></app-quan-data>
+    <router-outlet>
+      <app-quan-data></app-quan-data>
+      <app-time-filters></app-time-filters>
+      <app-price-graph></app-price-graph>
+      <app-behavior-graph></app-behavior-graph>
+    </router-outlet>
     <app-footer></app-footer>
   </div>
 </div>

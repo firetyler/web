@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Behavior2Service} from 'src/app/service/behavior2.service';
+import {ScheduleEntry} from "../../service/schema.service";
 
 declare var google: any;
 
@@ -37,10 +38,10 @@ export class BehaviorGraphComponent implements OnInit{
       dataTable.addColumn({ type: 'date', id: 'End' });
 
 
-
+//console.log(this.behavior.getRoomBehavior());
 
     for(let i =0; i<jsonn.length; i++){
-      dataTable.addRows([[jsonn[i].ID,jsonn[i].corses, jsonn[i].color,jsonn[i].Start, jsonn[i].End,]]);
+      dataTable.addRows([[jsonn[i].ID,jsonn[i].corses, jsonn[i].color,jsonn[i].Start, jsonn[i].End]]);
     }
     var options = {
       timeline : {

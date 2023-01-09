@@ -3,43 +3,41 @@ import {SchemaService} from "./schema.service";
 import {ScheduleEntry} from "./schema.service";
 import {CsvFileReaderService} from "./csv-file-reader.service";
 import {startWith} from "rxjs";
+import {MapRoomsService} from "./map-rooms.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class Behavior2Service {
- // private testScheduleEntry: any[] = [new ScheduleEntry("2012-01-01 08:00:00",
- //   "2012-01-01 10:00:00", "11121", "DVG002")];
+  // private testScheduleEntry: any[] = [new ScheduleEntry("2012-01-01 08:00:00",
+  //   "2012-01-01 10:00:00", "11121", "DVG002")];
   private roomBehavior: Behavior[] = [];
-  private listOfData : any[] = [];
+  private listOfData: any[] = [];
+  private listOfFullData : any[] = [];
 
-  constructor(private sched: SchemaService, private room: CsvFileReaderService) {
-   this.create();
+  constructor(private mapRoom: MapRoomsService, private sched: SchemaService, private room: CsvFileReaderService) {
+    this.create();
   }
-  async  create(){
-    await this.startService(await this.sched.getSoapData("",""));
-  }
-  async startService(data : ScheduleEntry[]) {
-/**
-    //let schedule : ScheduleEntry[] = await this.sched.getSoapData("", "");
-  //  console.log("fuck"+schedule);
-    //console.log(this.sched);
-    const allRooms = await this.room.getRooms();
-  //  console.log("HOR SCHED!!!!!!! " + schedule);
-    for (let i = 0; i < allRooms.length; i++) {
-      if (parseInt(data[1].room) == allRooms[i].id) {
-      //  console.log("I fucking if-fucking-sats, oooh sats ")
-        this.roomBehavior.push(new Behavior(allRooms[i].id, data));
-       // console.log("FUCKING ROOMBEHAVIOR ARRAY"+this.roomBehavior)
-      }
-    }
-    console.log(this.roomBehavior);
-**/
 
-    for(let j = 0; j<data.length; j++){
-      this.listOfData.push()
-    }
+  async create() {
+    await this.startService();
   }
+
+  async startService() {
+    this.listOfData.push(this.mapRoom)
+    console.log(this.listOfData);
+    for (let i =0; i < this.listOfData.length;i++){
+        this.listOfFullData.push(this.listOfData[i].scheduleEntryArray[i].room,
+          this.listOfData[i].scheduleEntryArray[i].course,
+          this.listOfData[i].scheduleEntryArray[i].startDate,
+          this.listOfData[i].scheduleEntryArray[i].endDate);
+
+
+    }
+    console.log(this.listOfFullData);
+    return this.listOfFullData;
+  }
+
   getRoomBehavior() {
     return this.roomBehavior;
   }
@@ -113,9 +111,9 @@ export class Behavior {
         this.dateError = true;
       }
     }
-    if(this.dateError){
+    if (this.dateError) {
       this.date = new Date(0, 0, 0);
-    }else {
+    } else {
       let split = this.bookings[0].startDate.split("-");
       this.date = new Date(parseInt(split[0]), parseInt(split[1]), parseInt(split[2]));
     }

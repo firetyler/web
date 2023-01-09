@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import {MatNativeDateModule} from '@angular/material/core';
 import { AppComponent } from './app.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
@@ -16,8 +16,9 @@ import {MatButtonModule} from "@angular/material/button";
 import {HeaderComponent} from "./header/header.component";
 import { DialogWindowOverViewComponentComponent } from './dialog-window-over-view-component/dialog-window-over-view-component.component';
 import {DialogWindowComponent} from "./dialog-window/dialog-window.component";
-
 import { FooterComponent } from './footer/footer.component';
+
+import {TimeFiltersComponent} from './time-filters/time-filters.component'
 import { CostComponent } from './quanData/cost/cost.component';
 import { QuanDataComponent } from './quanData/quan-data/quan-data.component';
 import { UnbookedComponent } from './quanData/unbooked/unbooked.component';
@@ -28,6 +29,7 @@ import { TestingComponent } from './testing/testing.component';
 import { PriceGraphComponent } from './graph/price-graph/price-graph.component';
 import { BehaviorGraphComponent } from './graph/behavior-graph/behavior-graph.component';
 import {Behavior2Service} from "./service/behavior2.service";
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import {Behavior2Service} from "./service/behavior2.service";
     DialogWindowComponent,
     DialogWindowOverViewComponentComponent,
     FooterComponent,
+    PriceGraphComponent,
     CostComponent,
     QuanDataComponent,
     UnbookedComponent,
@@ -45,8 +48,13 @@ import {Behavior2Service} from "./service/behavior2.service";
     PriceGraphComponent,
     BehaviorGraphComponent,
     TestingComponent,
+    TimeFiltersComponent,
+
+    PriceGraphComponent,
+
   ],
   imports: [
+
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
@@ -61,8 +69,23 @@ import {Behavior2Service} from "./service/behavior2.service";
     MatRadioModule,
     MatMenuModule,
     MatButtonModule,
+    HttpClientModule,
     MatBottomSheetModule,
-    HttpClientModule
+    MatNativeDateModule,
+    HttpClientModule,
+    RouterModule.forRoot([
+      {path : 'footer', component : FooterComponent},
+      {path : 'header' , component : HeaderComponent},
+      {path : 'mini-header' , component : MiniHeaderComponent},
+      {path : 'quanData-head' , component : BookedComponent},
+      {path :  'quanData-cost' , component : CostComponent},
+      {path : 'quan-data' , component : QuanDataComponent},
+      {path : 'quan-unbooked' , component : UnbookedComponent}
+    ])
+  ],
+  entryComponents: [
+    HeaderComponent
+
   ],
   providers: [Behavior2Service],
   bootstrap: [AppComponent]
