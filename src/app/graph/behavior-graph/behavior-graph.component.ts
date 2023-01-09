@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Behavior2Service} from 'src/app/service/behavior2.service';
 
 declare var google: any;
@@ -10,32 +10,44 @@ declare var google: any;
   providers : [Behavior2Service]
 
 })
-export class BehaviorGraphComponent {
+export class BehaviorGraphComponent implements OnInit{
   @Input() value : any;
 
-  constructor(private behavior: Behavior2Service){
+  constructor(private behavior: Behavior2Service) {
   }
-
-  ngOnInit(): void {
-    console.log(this.behavior.getRoomBehavior());
-    //google.charts.load("current", {packages:["timeline"]});
-    //google.charts.setOnLoadCallback(this.drawChart);
+  ngOnInit() {
+    //console.log(this.behavior.getRoomBehavior());
+    google.charts.load("current", {packages:["timeline"]});
+    google.charts.setOnLoadCallback(this.drawChart);
   }
 
   drawChart(json : any){
     const jsonn = [
-      {'ID' : "99123" , 'course' : "DVG320", 'StartTime' : "0800" , 'EndTime' : "1000", 'Date' : new Date(2020,12,1)},
-      {'ID' : "99123" , 'course' : "DVG320", 'StartTime' : "1000" , 'EndTime' : "1200", 'Date' : new Date(2020,12,1)}];
+      {'ID' : '99123','corses': 'hfaiufhiuahfuiahiuwef','color' : '#0000ff', 'Start' : new Date(2020,12,1),'End' : new Date(2020,12,2)},
+      {'ID' : '99123','corses': 'hfaiufhiuahfuiahiuwef','color' : '#0000ff', 'Start' : new Date(2020,12,2),'End' : new Date(2020,12,3)},
+      {'ID' : '99128', 'corses': 'hfaiufhiuahfuiahiuwef','color' : '#0000ff','Start' : new Date(2020,12,1),'End' : new Date(2020,12,2)}
+      ,{'ID' : '99128', 'corses': 'hfaiufhiuahfuiahiuwef','color' : '#ff0000','Start' : new Date(2020,12,2),'End' : new Date(2020,12,3)}];
+
     var chart = new google.visualization.Timeline(document.getElementById('behavior_graph'));
-    var dataTable = new google.visualization.dataTable();
-    dataTable.addColumn({ type: 'String', id: 'Room' });
+    var dataTable = new google.visualization.DataTable();
+    dataTable.addColumn({ type: 'string', id: 'Room' });
+    dataTable.addColumn({type : 'string' , id : 'corses'})
     dataTable.addColumn({ type: 'string', id: 'style', role: 'style' });
-    dataTable.addColumn({ type: 'date', id: 'date' });
+    dataTable.addColumn({ type: 'date', id: 'Start' });
+      dataTable.addColumn({ type: 'date', id: 'End' });
 
 
-    //dataTable.addRows([ ,this.behavior.getBehavior( jsonn), new Date(0,0,0)]);
 
-    var options = {};
+
+    for(let i =0; i<jsonn.length; i++){
+      dataTable.addRows([[jsonn[i].ID,jsonn[i].corses, jsonn[i].color,jsonn[i].Start, jsonn[i].End,]]);
+    }
+    var options = {
+      timeline : {
+        colorByRowLabel : false
+
+      }
+    };
 
 
 
@@ -93,7 +105,7 @@ export class BehaviorGraphComponent {
       [ 'Petunia Room',   'App Engine',          new Date(0,0,0,16,30,0), new Date(0,0,0,18,30,0) ]]);*/
 
 
-    chart.draw(dataTable, options);
+    chart.draw(dataTable,options);
   }
 
 }

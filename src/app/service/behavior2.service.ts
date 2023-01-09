@@ -11,7 +11,7 @@ export class Behavior2Service {
  // private testScheduleEntry: any[] = [new ScheduleEntry("2012-01-01 08:00:00",
  //   "2012-01-01 10:00:00", "11121", "DVG002")];
   private roomBehavior: Behavior[] = [];
-
+  private listOfData : any[] = [];
 
   constructor(private sched: SchemaService, private room: CsvFileReaderService) {
    this.create();
@@ -20,7 +20,7 @@ export class Behavior2Service {
     await this.startService(await this.sched.getSoapData("",""));
   }
   async startService(data : ScheduleEntry[]) {
-
+/**
     //let schedule : ScheduleEntry[] = await this.sched.getSoapData("", "");
   //  console.log("fuck"+schedule);
     //console.log(this.sched);
@@ -34,7 +34,11 @@ export class Behavior2Service {
       }
     }
     console.log(this.roomBehavior);
+**/
 
+    for(let j = 0; j<data.length; j++){
+      this.listOfData.push()
+    }
   }
   getRoomBehavior() {
     return this.roomBehavior;
