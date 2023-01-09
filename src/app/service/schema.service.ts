@@ -76,7 +76,8 @@ export class SchemaService {
           resurser[0]));
       }
     }
-// console.log(this.scheduleEntryArray);
+
+ //console.log(this.scheduleEntryArray);
     return this.scheduleEntryArray;
 
   }
@@ -96,6 +97,7 @@ export class SchemaService {
     }
     return resursIndex;
   }
+
 }
 
 export class ScheduleEntry {
