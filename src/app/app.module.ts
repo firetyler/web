@@ -19,7 +19,9 @@ import {DialogWindowComponent} from "./dialog-window/dialog-window.component";
 
 import { FooterComponent } from './footer/footer.component';
 import { PriceGraphComponent } from './graph/price-graph/price-graph.component';
-import {TimeFiltersComponent} from './time-filters/time-filters.component'
+import {TimeFiltersComponent} from './time-filters/time-filters.component';
+import { PrintGraphComponent } from './graph/print-graph/print-graph.component'
+import {NgxPrintModule} from "ngx-print";
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import {TimeFiltersComponent} from './time-filters/time-filters.component'
     TimeFiltersComponent,
 
     PriceGraphComponent,
+     PrintGraphComponent,
   ],
   imports: [
 
@@ -50,7 +53,8 @@ import {TimeFiltersComponent} from './time-filters/time-filters.component'
     MatMenuModule,
     MatButtonModule,
     MatBottomSheetModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    NgxPrintModule
 
   ],
   entryComponents: [

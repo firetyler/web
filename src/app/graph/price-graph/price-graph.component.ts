@@ -13,6 +13,7 @@ declare var google: any;
 })
 export class PriceGraphComponent implements OnInit {
   @Input() value : any;
+  private img: any;
   constructor(private service : SeviceService) {
   }
 
@@ -21,7 +22,7 @@ export class PriceGraphComponent implements OnInit {
     google.charts.setOnLoadCallback(this.drawChart);
   }
 
-  drawChart(json : any) {
+  async drawChart(json : any) {
     const jsonn = [
       {'ID' : "99123" , 'Date' : new Date(2020,12,1), 'bookedTime' : 2, 'akademi' : "atm"}];
     const  carray :any[] = [['ID', 'date','bookedTime','akademi']];
@@ -57,4 +58,7 @@ export class PriceGraphComponent implements OnInit {
   }
 
 
+  onClick() {
+
+  }
 }
