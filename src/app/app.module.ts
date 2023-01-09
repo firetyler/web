@@ -17,6 +17,12 @@ import {HeaderComponent} from "./header/header.component";
 import { DialogWindowOverViewComponentComponent } from './dialog-window-over-view-component/dialog-window-over-view-component.component';
 import {DialogWindowComponent} from "./dialog-window/dialog-window.component";
 import { FooterComponent } from './footer/footer.component';
+import { CostComponent } from './quanData/cost/cost.component';
+import { QuanDataComponent } from './quanData/quan-data/quan-data.component';
+import { UnbookedComponent } from './quanData/unbooked/unbooked.component';
+import { BookedComponent } from './quanData/booked/booked.component';
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {RouterModule} from "@angular/router";
 import { PriceGraphComponent } from './graph/price-graph/price-graph.component';
 import {TimeFiltersComponent} from './time-filters/time-filters.component';
 import {NgxPrintModule} from "ngx-print";
@@ -25,15 +31,19 @@ import {NgxPrintModule} from "ngx-print";
   declarations: [
     AppComponent,
     MiniHeaderComponent,
+    AppComponent,
     HeaderComponent,
     DialogWindowComponent,
     DialogWindowOverViewComponentComponent,
     FooterComponent,
     TimeFiltersComponent,
     PriceGraphComponent,
+    CostComponent,
+    QuanDataComponent,
+    UnbookedComponent,
+    BookedComponent,
   ],
   imports: [
-
     BrowserModule,
     ReactiveFormsModule,
     FormsModule,
@@ -50,12 +60,21 @@ import {NgxPrintModule} from "ngx-print";
     MatButtonModule,
     MatBottomSheetModule,
     MatNativeDateModule,
-    NgxPrintModule
-
+    NgxPrintModule,
+    MatButtonModule,
+    HttpClientModule,
+    RouterModule.forRoot([
+      {path : 'footer', component : FooterComponent},
+      {path : 'header' , component : HeaderComponent},
+      {path : 'mini-header' , component : MiniHeaderComponent},
+      {path : 'quanData-head' , component : BookedComponent},
+      {path :  'quanData-cost' , component : CostComponent},
+      {path : 'quan-data' , component : QuanDataComponent},
+      {path : 'quan-unbooked' , component : UnbookedComponent}
+    ])
   ],
   entryComponents: [
- HeaderComponent
-
+    HeaderComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
