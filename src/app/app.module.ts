@@ -16,11 +16,9 @@ import {MatButtonModule} from "@angular/material/button";
 import {HeaderComponent} from "./header/header.component";
 import { DialogWindowOverViewComponentComponent } from './dialog-window-over-view-component/dialog-window-over-view-component.component';
 import {DialogWindowComponent} from "./dialog-window/dialog-window.component";
-
 import { FooterComponent } from './footer/footer.component';
 import { PriceGraphComponent } from './graph/price-graph/price-graph.component';
 import {TimeFiltersComponent} from './time-filters/time-filters.component';
-import { PrintGraphComponent } from './graph/print-graph/print-graph.component'
 import {NgxPrintModule} from "ngx-print";
 
 @NgModule({
@@ -32,9 +30,7 @@ import {NgxPrintModule} from "ngx-print";
     DialogWindowOverViewComponentComponent,
     FooterComponent,
     TimeFiltersComponent,
-
     PriceGraphComponent,
-     PrintGraphComponent,
   ],
   imports: [
 

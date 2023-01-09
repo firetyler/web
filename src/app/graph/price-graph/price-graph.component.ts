@@ -56,9 +56,4 @@ export class PriceGraphComponent implements OnInit {
     const chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
     chart.draw(data, options);
   }
-
-
-  onClick() {
-
-  }
 }
