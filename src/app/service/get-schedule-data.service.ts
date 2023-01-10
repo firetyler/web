@@ -5,8 +5,14 @@ import {ScheduleEntry, SchemaService} from "./schema.service";
   providedIn: 'root'
 })
 export class GetScheduleDataService {
+  inputYear : number  = 2018;
+  inputMonth : number = 2;
+  inputDay : number = 35;
+
   startDatum: string = "";
   slutDatum: string = "";
+  testDatum: Date = new Date(this.inputYear,this.inputMonth,this.inputDay);
+
   scheduleArray: ScheduleEntry[] = [];
   constructor(private getData: SchemaService) { }
 
@@ -17,8 +23,9 @@ export class GetScheduleDataService {
   }
 
   getSoapDataIterated() {
-    let datumArray = this.startDatum.split("-");
+    console.log(this.testDatum.getFullYear()+"-"+this.testDatum.getMonth()+"-"+this.testDatum.getDate()  + " Inputdatum");
 
+this.testDatum.getDay()
   }
   //TODO hämta datum
   //TODO hämta soap för varje dag
