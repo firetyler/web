@@ -1,3 +1,4 @@
+<!--
 <div id="box" class="Container" class="w-25 p-3" class="h-100 d-inline-block"  class="float-sm-end" >
 
 
@@ -13,6 +14,7 @@
     ></mat-datepicker-toggle>
     <mat-datepicker #picker [startView]="'year'" (monthSelected)="monthChanged($event, picker)"></mat-datepicker>
   </mat-form-field>
+
 
 <form >
 
@@ -100,4 +102,13 @@
   </div>
 </form>
 </div>
+</div>
+-->
+<div  >
+  <mat-form-field>
+    <mat-label>mat-label only</mat-label>
+    <input matInput [matDatepicker]="picker2" autocomplete="off">
+    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+    <mat-datepicker #picker2 color="primary"></mat-datepicker>
+  </mat-form-field>
 </div>
