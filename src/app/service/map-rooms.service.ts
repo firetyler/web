@@ -67,12 +67,12 @@ export class MapRoomsService {
 
     for (let i = 0; i < arr.length; i++) {
       for(let j = 0; j<this.dataCsv.length;j++){
-        if(this.dataCsv[j].id == arr[i].room)
+        if(this.dataCsv[j].id == arr[i].room && this.dataCsv[j].seats != 0)
           arr2.push(new RoomMapEntry(this.dataCsv[j].id,this.dataCsv[j].academy,this.dataCsv[j].seats,this.dataCsv[j].price
             ,arr[i].startDate,arr[i].course,arr[i].startTime,arr[i].endTime));
       }
     }
-    return arr2;
+    return console.log(arr2);
   }
 
 }
