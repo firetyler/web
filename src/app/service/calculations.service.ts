@@ -11,17 +11,17 @@ export class CalculationsService {
     this.create("","");
   }
   async create(data : string,data2 : string){
-    this.bokedProcent(await  this.data.getSoapData(data, data2));
-    this.totalBoked(await  this.data.getSoapData(data,data2));
+    this.bookedProcent(await  this.data.getSoapData(data, data2));
+    this.totalBooked(await  this.data.getSoapData(data,data2));
   }
-    bokedProcent(data : ScheduleEntry[]){
-    const boked : any[] = [];
+    bookedProcent(data : ScheduleEntry[]){
+    const booked : any[] = [];
     for (let j = 0; j < data.length; j++){
-      boked.push(data[j].getpercentOfTotaltimeForOneRoom());
+      booked.push(data[j].getpercentOfTotaltimeForOneRoom());
     }
-    return boked;
+    return booked;
   }
-  totalBoked(data : ScheduleEntry[]){
+  totalBooked(data : ScheduleEntry[]){
     const total : any[] = [];
     for (let i = 0; i< data.length; i++){
       total.push(data[i].getTotalHours());
@@ -30,7 +30,7 @@ export class CalculationsService {
     return total;
   }
 
-  unboked(){
+  unbooked(){
 
   }
 }

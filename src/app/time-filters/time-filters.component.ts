@@ -1,4 +1,11 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output,Input} from '@angular/core';
+import {MatDatepickerInputEvent} from "@angular/material/datepicker";
+
+import {DateAdapter, MAT_DATE_LOCALE, NativeDateAdapter} from "@angular/material/core";
+import { Platform } from '@angular/cdk/platform';
+
+import { MonthpickerDateAdapter } from './monthpicker-date-formats';
+
 interface Year {
   value: string;
   viewValue: string;
@@ -14,7 +21,14 @@ let dayName = date.getDay(); // 0 to 6 it returns the day of the week
 @Component({
   selector: 'app-time-filters',
   templateUrl: './time-filters.component.html',
-  styleUrls: ['./time-filters.component.css']
+  styleUrls: ['./time-filters.component.css'],
+  providers: [
+    {
+      provide: DateAdapter,
+      useClass: MonthpickerDateAdapter,
+      deps: [MAT_DATE_LOCALE, Platform],
+    },
+  ]
 })
 export class TimeFiltersComponent {
   numbers: Array<number> = [];
@@ -40,4 +54,21 @@ export class TimeFiltersComponent {
     {value: year - 4, viewValue: year - 4},
   ];
 
+
+  @Input()
+  public monthAndYear: Date | null = null;
+
+  @Output()
+  public monthAndYearChange = new EventEmitter<Date | null>();
+
+  public emitDateChange(event: MatDatepickerInputEvent<Date | null, unknown>): void {
+    this.monthAndYearChange.emit(event.value);
+  }
+
+  public monthChanged(value: any, widget: any): void {
+    this.monthAndYear = value;
+    widget.close();
+  }
 }
+
+

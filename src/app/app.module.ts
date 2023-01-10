@@ -27,6 +27,7 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import { TestingComponent } from './testing/testing.component';
 
 import {RouterModule} from "@angular/router";
+import {MatDatepickerModule} from "@angular/material/datepicker";
 
 @NgModule({
   declarations: [
@@ -65,14 +66,15 @@ import {RouterModule} from "@angular/router";
     MatBottomSheetModule,
     MatNativeDateModule,
     RouterModule.forRoot([
-      {path : 'footer', component : FooterComponent},
-      {path : 'header' , component : HeaderComponent},
-      {path : 'mini-header' , component : MiniHeaderComponent},
-      {path : 'quanData-head' , component : BookedComponent},
-      {path :  'quanData-cost' , component : CostComponent},
-      {path : 'quan-data' , component : QuanDataComponent},
-      {path : 'quan-unbooked' , component : UnbookedComponent}
-    ])
+      {path: 'footer', component: FooterComponent},
+      {path: 'header', component: HeaderComponent},
+      {path: 'mini-header', component: MiniHeaderComponent},
+      {path: 'quanData-head', component: BookedComponent},
+      {path: 'quanData-cost', component: CostComponent},
+      {path: 'quan-data', component: QuanDataComponent},
+      {path: 'quan-unbooked', component: UnbookedComponent}
+    ]),
+    MatDatepickerModule
   ],
   entryComponents: [
     HeaderComponent
