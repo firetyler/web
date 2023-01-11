@@ -33,7 +33,7 @@ let dayName = date.getDay(); // 0 to 6 it returns the day of the week
   }]
 
 })
-export class TimeFiltersComponent implements OnChanges {
+export class TimeFiltersComponent {
   numbers: Array<number> = [];
   lists: Array<number>[] = [];
   startDate: Date | undefined;
@@ -43,19 +43,15 @@ export class TimeFiltersComponent implements OnChanges {
   constructor(private getSchedData: GetScheduleDataService) {
     //this.numbers = Array(53).fill(1).map((x, i) => i + 1);
   }
-
-  ngOnChanges(changes: SimpleChanges): void {
+  /*
+    ngOnInit(): void {
+      //this.getWeekNumber();
+      //console.log(this.getWeekNumber());
+      //this.getWeeks();
 
     }
 
-  ngOnInit(): void {
-    //this.getWeekNumber();
-    //console.log(this.getWeekNumber());
-    //this.getWeeks();
-
-  }
-
-  /*// @ts-ignore
+    // @ts-ignore
  years: Year<number>[] = [
     {value: "Select", viewValue: "Select"},
     {value: year, viewValue: year},
