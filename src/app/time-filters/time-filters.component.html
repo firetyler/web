@@ -1,104 +1,117 @@
-<div id="box" class="Container" class="w-25 p-3" class="h-100 d-inline-block"  class="float-sm-end" >
+<div id="box" class="Container" class="w-25 p-3" class="h-100 d-inline-block" class="float-sm-end">
+  <div id="innerBox">
+
+    <!--<mat-form-field appearance="fill">
+      <mat-label>monthpicker</mat-label>
+      <input matInput [(ngModel)]="monthAndYear" name="monthAndYear" [matDatepicker]="picker" (dateChange)="emitDateChange($event)" />
+      <mat-hint>MM/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker [startView]="'year'" (monthSelected)="monthChanged($event, picker)"></mat-datepicker>
+    </mat-form-field>
 
 
-<div id="innerBox">
+  <form >
 
-  <mat-form-field appearance="fill">
-    <mat-label>monthpicker</mat-label>
-    <input matInput [(ngModel)]="monthAndYear" name="monthAndYear" [matDatepicker]="picker" (dateChange)="emitDateChange($event)" />
-    <mat-hint>MM/YYYY</mat-hint>
-    <mat-datepicker-toggle
-      matSuffix
-      [for]="picker"
-    ></mat-datepicker-toggle>
-    <mat-datepicker #picker [startView]="'year'" (monthSelected)="monthChanged($event, picker)"></mat-datepicker>
-  </mat-form-field>
-
-
-<form >
-
-  <div>
-    <label>Select Year</label>
-    <select  placeholder="Select Year" class="form-select" aria-label="Default select example">
-      <option *ngFor="let year of years" [value]="year.value">
-        {{year.viewValue}}
-      </option >
-    </select>
-  </div>
-
-<div>
-      <label>Select Month</label>
-    <select  placeholder="Month"class="form-select" aria-label="Default select example">
-      <option name="" value="" style="display:none;">Select</option>
-      <option name="Jan" value="">Jan</option >
-      <option  name="Feb" value="">Feb</option >
-      <option  name="Mar" value="">Mar</option >
-      <option  name="Apr" value="">Apr</option>
-      <option  name="May" value="">May</option >
-      <option  name="Jun" value="">Jun</option >
-      <option  name="Jul" value="">Jul</option >
-      <option  name="Aug" value="">Aug</option >
-      <option  name="Sep" value="">Sep</option >
-      <option  name="nov" value="">Nov</option >
-      <option  name="Oct" value="">Oct</option >
-      <option  name="Dec" value="">Dec</option >
-    </select>
-</div>
-<div>
-    <label>Select Week</label>
-    <select  placeholder="week"class="form-select" aria-label="Default select example" >
-      <option name="" value="" style="display:none;">Select</option>
-      <option *ngFor='let item of numbers; let i = index'>
-        {{item}}
-      </option >
-    </select>
-
-</div>
+    <div>
+      <label>Select Year</label>
+      <select  placeholder="Select Year" class="form-select" aria-label="Default select example">
+        <option *ngFor="let year of years" [value]="year.value">
+          {{year.viewValue}}
+        </option >
+      </select>
+    </div>
 
   <div>
-    <label>Select Day</label>
-    <select  placeholder="Day" class="form-select" aria-label="Default select example">
-      <option name="" value="" style="display:none;">Select</option>
-      <option name="Monday" value="">Monday</option>
-      <option name="Tuesday" value="">Tuesday</option>
-      <option name="Wednesday" value="">Wednesday</option>
-      <option name="Thursday" value="">Thursday</option>
-      <option name="Friday" value="">Friday</option>
-      <option name="Saturday" value="">Saturday</option>
-      <option name="Sunday " value="">Sunday </option>
-    </select>
+        <label>Select Month</label>
+      <select  placeholder="Month"class="form-select" aria-label="Default select example">
+        <option name="" value="" style="display:none;">Select</option>
+        <option name="Jan" value="">Jan</option >
+        <option  name="Feb" value="">Feb</option >
+        <option  name="Mar" value="">Mar</option >
+        <option  name="Apr" value="">Apr</option>
+        <option  name="May" value="">May</option >
+        <option  name="Jun" value="">Jun</option >
+        <option  name="Jul" value="">Jul</option >
+        <option  name="Aug" value="">Aug</option >
+        <option  name="Sep" value="">Sep</option >
+        <option  name="nov" value="">Nov</option >
+        <option  name="Oct" value="">Oct</option >
+        <option  name="Dec" value="">Dec</option >
+      </select>
   </div>
-
-
-
   <div>
-    <br>
-    <p>Termin: </p>
-    <input type="radio" id="term1" name="term">
-    <label>&nbsp;Term 1</label>
-    <br>
-    <input type="radio" id="term2" name="term">
-    <label>&nbsp;Term 2</label>
-    <br>
-    <input type="radio" id="term3" name="term">
-    <label>&nbsp;Term 3</label>
+      <label>Select Week</label>
+      <select  placeholder="week"class="form-select" aria-label="Default select example" >
+        <option name="" value="" style="display:none;">Select</option>
+        <option *ngFor='let item of numbers; let i = index'>
+          {{item}}
+        </option >
+      </select>
+
   </div>
 
-  <div>
-    <br>
-    <p>Period: </p>
-    <input type="radio" id="period1" name="period">
-    <label> &nbsp;Period 1 </label>
-    <br>
-    <input type="radio" id="period2" name="period">
-    <label> &nbsp;Period 2 </label>
-    <br>
-    <input type="radio" id="period3" name="period">
-    <label> &nbsp;Period 3 </label>
-    <br>
-    <input type="radio" id="period4" name="period">
-    <label> &nbsp;Period 4</label>
+    <div>
+      <label>Select Day</label>
+      <select  placeholder="Day" class="form-select" aria-label="Default select example">
+        <option name="" value="" style="display:none;">Select</option>
+        <option name="Monday" value="">Monday</option>
+        <option name="Tuesday" value="">Tuesday</option>
+        <option name="Wednesday" value="">Wednesday</option>
+        <option name="Thursday" value="">Thursday</option>
+        <option name="Friday" value="">Friday</option>
+        <option name="Saturday" value="">Saturday</option>
+        <option name="Sunday " value="">Sunday </option>
+      </select>
+    </div>
+
+
+
+    <div>
+      <br>
+      <p>Termin: </p>
+      <input type="radio" id="term1" name="term">
+      <label>&nbsp;Term 1</label>
+      <br>
+      <input type="radio" id="term2" name="term">
+      <label>&nbsp;Term 2</label>
+      <br>
+      <input type="radio" id="term3" name="term">
+      <label>&nbsp;Term 3</label>
+    </div>
+
+    <div>
+      <br>
+      <p>Period: </p>
+      <input type="radio" id="period1" name="period">
+      <label> &nbsp;Period 1 </label>
+      <br>
+      <input type="radio" id="period2" name="period">
+      <label> &nbsp;Period 2 </label>
+      <br>
+      <input type="radio" id="period3" name="period">
+      <label> &nbsp;Period 3 </label>
+      <br>
+      <input type="radio" id="period4" name="period">
+      <label> &nbsp;Period 4</label>
+    </div>
+  </form>
+  -->
+    <div id="datepicker">
+      <mat-form-field appearance="fill">
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" (dateChange)="onUpdate($event)">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </div>
+    Välj en längd: <br>
+    <mat-radio-button *ngFor="let list of list" (click)="onSelect(list)">
+      {{list}}
+    </mat-radio-button>
+
   </div>
-</form>
-</div>
 </div>

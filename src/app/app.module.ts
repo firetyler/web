@@ -29,6 +29,7 @@ import {RouterModule} from "@angular/router";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
+import {MatCardModule} from "@angular/material/card";
 
 
 @NgModule({
@@ -78,7 +79,8 @@ import {MatIconModule} from "@angular/material/icon";
     ]),
     MatDatepickerModule,
     MatInputModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule
   ],
   entryComponents: [
     HeaderComponent

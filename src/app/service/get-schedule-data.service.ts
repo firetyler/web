@@ -10,8 +10,8 @@ export class GetScheduleDataService {
   scheduleArray: ScheduleEntry[] = [];
   constructor(private getData: SchemaService) { }
 
-  setDates() {
-    //Hämta datum från klass som inte finns
+  setDates(startDate: Date, numberOfDays: number) {
+    console.log(startDate + " bajs " + numberOfDays);
     this.startDatum = "2022-01-12";
     this.slutDatum = "2022-02-13";
   }

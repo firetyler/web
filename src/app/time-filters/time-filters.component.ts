@@ -1,11 +1,14 @@
-import {Component, EventEmitter, Output,Input} from '@angular/core';
+import {Component, OnChanges, SimpleChanges} from '@angular/core';
 import {MatDatepickerInputEvent} from "@angular/material/datepicker";
 
 import {DateAdapter, MAT_DATE_LOCALE, NativeDateAdapter} from "@angular/material/core";
-import { Platform } from '@angular/cdk/platform';
+import {Platform} from '@angular/cdk/platform';
 
-import { MonthpickerDateAdapter } from './monthpicker-date-formats';
+import {MonthpickerDateAdapter} from './monthpicker-date-formats';
+import {MAT_RADIO_DEFAULT_OPTIONS} from "@angular/material/radio";
+import {GetScheduleDataService} from "../service/get-schedule-data.service";
 
+/*
 interface Year {
   value: string;
   viewValue: string;
@@ -17,35 +20,42 @@ interface Week {
 let  date = new Date();
 let year = date.getFullYear();
 let dayName = date.getDay(); // 0 to 6 it returns the day of the week
+*/
 
 
 @Component({
   selector: 'app-time-filters',
   templateUrl: './time-filters.component.html',
   styleUrls: ['./time-filters.component.css'],
-  providers: [
-    {
-      provide: DateAdapter,
-      useClass: MonthpickerDateAdapter,
-      deps: [MAT_DATE_LOCALE, Platform],
-    },
-  ]
-})
-export class TimeFiltersComponent {
-  numbers: Array<number> = [];
-  lists : Array <number>[] = [];
+  providers: [{
+    provide: MAT_RADIO_DEFAULT_OPTIONS,
+    useValue: {color: 'primary'},
+  }]
 
-  constructor() {
-    this.numbers = Array(53).fill(1).map((x, i) => i + 1);
+})
+export class TimeFiltersComponent implements OnChanges {
+  numbers: Array<number> = [];
+  lists: Array<number>[] = [];
+  startDate: Date | undefined;
+  numberOfDays: number = 0;
+  list: any[] = ["7 dagar", "30 dagar"];
+
+  constructor(private getSchedData: GetScheduleDataService) {
+    //this.numbers = Array(53).fill(1).map((x, i) => i + 1);
   }
+
+  ngOnChanges(changes: SimpleChanges): void {
+
+    }
 
   ngOnInit(): void {
-    this.getWeekNumber();
-       console.log(this.getWeekNumber());
+    //this.getWeekNumber();
+    //console.log(this.getWeekNumber());
     //this.getWeeks();
+
   }
 
-  // @ts-ignore
+  /*// @ts-ignore
  years: Year<number>[] = [
     {value: "Select", viewValue: "Select"},
     {value: year, viewValue: year},
@@ -70,6 +80,20 @@ export class TimeFiltersComponent {
   public monthChanged(value: any, widget: any): void {
     this.monthAndYear = value;
     widget.close();
+  }*/
+
+  onUpdate(dateObject: any) {
+    this.startDate = dateObject.value;
+    console.log(this.startDate);
+  }
+
+  onSelect(event: any) {
+    let numberOfDays = event.split(' ');
+    this.numberOfDays = parseInt(numberOfDays[0],10);
+    console.log(this.numberOfDays);
+    if (this.startDate != undefined && this.numberOfDays != 0) {
+      this.getSchedData.setDates(this.startDate, this.numberOfDays);
+    }
   }
 }
 
