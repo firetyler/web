@@ -10,8 +10,7 @@
   margin-bottom: 35px;
 }
 #innerBox{
-  padding: 3px;
-  padding-top: 100px;
+  padding: 100px 3px 3px;
   background-color: lightblue;
   height: 740px;
 
