@@ -9,16 +9,20 @@ import {GetScheduleDataService} from "./get-schedule-data.service";
   providedIn: 'root'
 })
 export class MapRoomsService {
+  tempArray: any[] = [];
+  dataEntry: any[] = [];
+  dataCsv: any[] = [];
+  private entryIndex : number = 0;
+  private csvIndex: number = 0;
 
-  constructor(private csV: CsvFileReaderService, private schema: SchemaService, private calc: CalculationsService,
-              private getSchedule: GetScheduleDataService) {
+  constructor(private csV: CsvFileReaderService, private schema: SchemaService, private calc: CalculationsService,private getSchedule: GetScheduleDataService) {
 
   }
 
   async create() {
     //await this.getRoomNumberCsvService();
     //await this.getRoomNumberScheduleEntryService();
-    await this.mergingCsvAndEntryService();
+    await this.getDataEntryArray();
   }
 
   mappingArray(csvInput: Room, schemaInput: ScheduleEntry) {
@@ -49,24 +53,50 @@ export class MapRoomsService {
 
   //test av ett duplicerings fel
   //!tempArray.includes(dataEntry[i].room)
-  async mergingCsvAndEntryService() {
-    const tempArray: any[] = [];
-    let dataEntry = await this.schema.getSoapData(new Date());
-    //TODO byt till rätt input
-    let dataCsv = await this.csV.getRooms();
-    for (let i = 0; i < dataEntry.length; i++) {
-      for (let j = 0; j < dataCsv.length; j++) {
-        //if (dataEntry.filter()) {
-          if (dataEntry[i].room == dataCsv[j].id) {
 
-            //console.log(dataEntry[i].room, dataEntry[i].startTime, dataEntry[i].endTime,
-              //dataEntry[i].startDate, dataEntry[i].endDate, dataEntry[i].course, dataCsv[j].academy,
-              //dataCsv[j].seats, dataCsv[j].price);
+
+  async getDataEntryArray() {
+    this.dataEntry = await this.schema.getSoapData(new Date());
+    this.dataCsv = await this.csV.getRooms();
+    let arr: any [] = [];
+    let arr2: any [] = [];
+    for (let i = 0; i < this.dataEntry.length; i++) {
+          if (!arr.includes(this.dataEntry[i])) {
+            arr.push(this.dataEntry[i]);
           }
         }
-      }
 
+    for (let i = 0; i < arr.length; i++) {
+      for(let j = 0; j<this.dataCsv.length;j++){
+        if(this.dataCsv[j].id == arr[i].room && this.dataCsv[j].seats != 0)
+          arr2.push(new RoomMapEntry(this.dataCsv[j].id,this.dataCsv[j].academy,this.dataCsv[j].seats,this.dataCsv[j].price
+            ,arr[i].startDate,arr[i].course,arr[i].startTime,arr[i].endTime));
+      }
     }
-  //}
+    return console.log(arr2);
+  }
+
+}
+
+
+export class RoomMapEntry {
+  startDate: string;
+  course: string;
+  academy: string;
+  seats: number;
+  price: number;
+  startTime: string;
+  endTime: string;
+  room:number;
+
+  constructor(room: number,academy: string, seats: number,price:number,startDate: string, course: string,startTime: string, endTime: string) {
+    this.room = room;
+    this.course = course;
+    this.academy=academy;
+    this.seats=seats;
+    this.price=price;
+    this.startDate=startDate;
+    this.startTime=startTime;
+    this.endTime=endTime;
 
 }
