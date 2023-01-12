@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule,HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import {MatNativeDateModule} from '@angular/material/core';
 import { AppComponent } from './app.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
@@ -25,6 +25,10 @@ import { UnbookedComponent } from './quanData/unbooked/unbooked.component';
 import { BookedComponent } from './quanData/booked/booked.component';
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import { TestingComponent } from './testing/testing.component';
+
+import { PriceGraphComponent } from './graph/price-graph/price-graph.component';
+import { BehaviorGraphComponent } from './graph/behavior-graph/behavior-graph.component';
+import {Behavior2Service} from "./service/behavior2.service";
 import {RouterModule} from "@angular/router";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatInputModule} from "@angular/material/input";
@@ -40,10 +44,12 @@ import {MatCardModule} from "@angular/material/card";
     DialogWindowComponent,
     DialogWindowOverViewComponentComponent,
     FooterComponent,
+    PriceGraphComponent,
     CostComponent,
     QuanDataComponent,
     UnbookedComponent,
     BookedComponent,
+    BehaviorGraphComponent,
     TestingComponent,
     TimeFiltersComponent,
 
