@@ -8,7 +8,7 @@ import {AppComponent} from "../app.component";
   styleUrls: ['./mini-header.component.css'],
   providers: [{
     provide: MAT_RADIO_DEFAULT_OPTIONS,
-    useValue: { color: 'primary' },
+    useValue: { color: 'primary'},
   }]
 })
 
