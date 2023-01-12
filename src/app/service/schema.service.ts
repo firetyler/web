@@ -11,8 +11,9 @@ export class SchemaService {
   private jObj: any;
   private scheduleEntryArray: ScheduleEntry[] = [];
 
-  async getSoapData(startDatum: String, slutDatum: String): Promise<ScheduleEntry[]> {
+  async getSoapData(inputDate: Date): Promise<ScheduleEntry[]> {
     let svar = "";
+    let date = inputDate.getFullYear() + "-" + (inputDate.getMonth()+1) + "-" + inputDate.getDate();
     const startDatumTest = "2019-02-5";
     const slutDatumTest = "2019-02-5";
     const url = 'https://kronoxtest.hig.se:8443/appserver-ejb/RapportEJB';

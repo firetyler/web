@@ -13,7 +13,7 @@ export class TestingComponent implements OnInit {
   constructor(private h: MapRoomsService, private service : SchemaService,private  service2 : CalculationsService) {}
 
   ngOnInit(): void {
-    this.service.getSoapData("","");
+    this.service.getSoapData(new Date());
     this.service2.create("","");
     this.h.create();
   }

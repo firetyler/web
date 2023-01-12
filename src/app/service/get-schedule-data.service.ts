@@ -5,22 +5,30 @@ import {ScheduleEntry, SchemaService} from "./schema.service";
   providedIn: 'root'
 })
 export class GetScheduleDataService {
-  startDatum: string = "";
-  slutDatum: string = "";
+  private startDate: Date = new Date();
+  private numberOfDays: number = 0;
   scheduleArray: ScheduleEntry[] = [];
   constructor(private getData: SchemaService) { }
 
   setDates(startDate: Date, numberOfDays: number) {
-    console.log(startDate + " bajs " + numberOfDays);
-    this.startDatum = "2022-01-12";
-    this.slutDatum = "2022-02-13";
+
+    this.startDate = startDate;
+    this.numberOfDays = numberOfDays;
+    this.getSoapDataIterated()
   }
 
-  getSoapDataIterated() {
-    let datumArray = this.startDatum.split("-");
-
+  async getSoapDataIterated() {
+    const date = new Date();
+    let count = 1;
+    do {
+      date.setFullYear(this.startDate.getFullYear(),this.startDate.getMonth(),this.startDate.getDate()+count);
+      let tempArray = await this.getData.getSoapData(date);
+      tempArray.forEach((item) => this.scheduleArray.push(item));
+      count++;
+    } while (count <= this.numberOfDays);
   }
-  //TODO hämta datum
-  //TODO hämta soap för varje dag
-  //TODO skicka tillbaka en lång array med allt B)
+
+  getScheduleArray() {
+    return this.scheduleArray;
+  }
 }

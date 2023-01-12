@@ -11,8 +11,9 @@ export class CalculationsService {
     this.create("","");
   }
   async create(data : string,data2 : string){
-    this.bookedProcent(await  this.data.getSoapData(data, data2));
-    this.totalBooked(await  this.data.getSoapData(data,data2));
+    this.bookedProcent(await  this.data.getSoapData(new Date()));
+    this.totalBooked(await  this.data.getSoapData(new Date));
+    //TODO Byt till rätt input
   }
     bookedProcent(data : ScheduleEntry[]){
     const booked : any[] = [];

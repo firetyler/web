@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {ScheduleEntry, SchemaService} from "./schema.service";
 import {CalculationsService} from "./calculations.service";
 import {CsvFileReaderService, Room} from "./csv-file-reader.service";
+import {GetScheduleDataService} from "./get-schedule-data.service";
 
 
 @Injectable({
@@ -9,7 +10,8 @@ import {CsvFileReaderService, Room} from "./csv-file-reader.service";
 })
 export class MapRoomsService {
 
-  constructor(private csV: CsvFileReaderService, private schema: SchemaService, private calc: CalculationsService) {
+  constructor(private csV: CsvFileReaderService, private schema: SchemaService, private calc: CalculationsService,
+              private getSchedule: GetScheduleDataService) {
 
   }
 
@@ -49,16 +51,17 @@ export class MapRoomsService {
   //!tempArray.includes(dataEntry[i].room)
   async mergingCsvAndEntryService() {
     const tempArray: any[] = [];
-    let dataEntry = await this.schema.getSoapData("", "");
+    let dataEntry = await this.schema.getSoapData(new Date());
+    //TODO byt till rätt input
     let dataCsv = await this.csV.getRooms();
     for (let i = 0; i < dataEntry.length; i++) {
       for (let j = 0; j < dataCsv.length; j++) {
         //if (dataEntry.filter()) {
           if (dataEntry[i].room == dataCsv[j].id) {
 
-            console.log(dataEntry[i].room, dataEntry[i].startTime, dataEntry[i].endTime,
-              dataEntry[i].startDate, dataEntry[i].endDate, dataEntry[i].course, dataCsv[j].academy,
-              dataCsv[j].seats, dataCsv[j].price);
+            //console.log(dataEntry[i].room, dataEntry[i].startTime, dataEntry[i].endTime,
+              //dataEntry[i].startDate, dataEntry[i].endDate, dataEntry[i].course, dataCsv[j].academy,
+              //dataCsv[j].seats, dataCsv[j].price);
           }
         }
       }

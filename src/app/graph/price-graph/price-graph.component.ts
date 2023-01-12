@@ -24,7 +24,8 @@ export class PriceGraphComponent implements OnInit {
   async ngOnInit() {
 
     google.charts.load('current', {'packages': ['corechart']});
-    await google.charts.setOnLoadCallback(this.drawChart(await this.sched.getSoapData("","")));
+    await google.charts.setOnLoadCallback(this.drawChart(await this.sched.getSoapData(new Date())));
+    //TODO byt till rätt input till this.drawChart()
   }
 
   async drawChart(json: ScheduleEntry[]) {

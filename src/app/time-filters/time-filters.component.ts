@@ -40,7 +40,7 @@ export class TimeFiltersComponent {
   numberOfDays: number = 0;
   list: any[] = ["7 dagar", "30 dagar"];
 
-  constructor(private getSchedData: GetScheduleDataService) {
+  constructor(private dataService: GetScheduleDataService) {
     //this.numbers = Array(53).fill(1).map((x, i) => i + 1);
   }
   /*
@@ -80,15 +80,15 @@ export class TimeFiltersComponent {
 
   onUpdate(dateObject: any) {
     this.startDate = dateObject.value;
-    console.log(this.startDate);
   }
 
   onSelect(event: any) {
     let numberOfDays = event.split(' ');
     this.numberOfDays = parseInt(numberOfDays[0],10);
-    console.log(this.numberOfDays);
     if (this.startDate != undefined && this.numberOfDays != 0) {
-      this.getSchedData.setDates(this.startDate, this.numberOfDays);
+      this.dataService.setDates(this.startDate, this.numberOfDays);
+    } else {
+      alert("Vänligen välj ett datum och välj sedan antalet dagar igen!")
     }
   }
 }
