@@ -20,28 +20,28 @@ export class PriceGraphComponent implements OnInit {
   rooms: any[] = [];
   carry: any[] = [];
 
-  constructor(private mapRoom : MapRoomsService) {
+  constructor(private sched : SchemaService,private mapRoomsService:MapRoomsService,private getScheduleDataService:GetScheduleDataService) {
   }
 
   async ngOnInit() {
 
     google.charts.load('current', {'packages': ['corechart']});
-    await google.charts.setOnLoadCallback(this.drawChart(await  this.mapRoom.getDataEntryArray()));
+    await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoomsService.getEntryArray(), await this.getScheduleDataService.getScheduleArray()));
     //TODO byt till rätt input till this.drawChart()
   }
 
-  async drawChart(json: RoomMapEntry[]) {
+  async drawChart(roomEntry:RoomMapEntry[],Schedule : ScheduleEntry[]) {
 
 // First index in laptop code is ['ID','date','bookedTime','akademi']
     // second index and come numbers and informations ['99123',Fri Jan 01 2021 00:00:00 GMT+0100 , 2 ,'atm']
    let limit : number = 0
-   const carry: any[] = [[{type :'string' ,role:'ID'},{type : 'number', role : 'startDate'}, { type : 'number',role :'totalHours'}]];
-    for (let i = 0; i < json.length; i++) {
+   const carry: any[] = [[{type :'string' ,role:'ID'},{type : 'number', role : 'price'},{ type : 'number',role :'seats'}]];
+    for (let i = 0; i < roomEntry.length; i++) {
 
-        carry.push([json[i].room,json[i].price,json[i].seats])
+      carry.push([roomEntry[i].room,roomEntry[i].price,roomEntry[i].seats]);
 
 
-        if (json[i].room  !=limit){
+        if (roomEntry[i].room  !=limit){
          // const carry: any[] = [[{role:'ID'},{role : 'startDate'}, {role :'totalHours'}]];
         //  carry.push([json[i].room, json[i].getTotalHours(),json[i].getTestNumber()]);
         //  console.log(json[i].startDate);
@@ -58,10 +58,10 @@ export class PriceGraphComponent implements OnInit {
     const options = {
       title: '',
       hAxis: {
-        title: 'dagar',
+        title: 'pris',
         format: ' dd mm yyyy'
       },
-      vAxis: {title: 'timmar'},
+      vAxis: {title: 'totala timmer'},
       bubble: {
         textStyle: {fontSize: 13},
         fontName: 'Times-Roman',

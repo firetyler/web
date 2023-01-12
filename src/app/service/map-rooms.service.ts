@@ -12,10 +12,12 @@ export class MapRoomsService {
   tempArray: any[] = [];
   dataEntry: any[] = [];
   dataCsv: any[] = [];
+  arr: any [] = [];
+  arr2: any [] = [];
   private entryIndex: number = 0;
   private csvIndex: number = 0;
 
-  constructor(private scheduleEntry : ScheduleEntry ,private csV: CsvFileReaderService, private schema: SchemaService, private calc: CalculationsService, private getSchedule: GetScheduleDataService) {
+  constructor(private csV: CsvFileReaderService, private schema: SchemaService, private calc: CalculationsService, private getSchedule: GetScheduleDataService) {
 
   }
 
@@ -37,28 +39,31 @@ export class MapRoomsService {
     }
   }
   async getDataEntryArray() {
-    this.dataEntry = await this.schema.getSoapData(new Date());
+    this.dataEntry =this.getSchedule.getScheduleArray();
     this.dataCsv = await this.csV.getRooms();
-    let arr: any [] = [];
-    let arr2: any [] = [];
+
     for (let i = 0; i < this.dataEntry.length; i++) {
-      if (!arr.includes(this.dataEntry[i])) {
-        arr.push(this.dataEntry[i]);
+      if (!this.arr.includes(this.dataEntry[i])) {
+        this.arr.push(this.dataEntry[i]);
       }
     }
 
-    for (let i = 0; i < arr.length; i++) {
+    for (let i = 0; i < this.arr.length; i++) {
       for (let j = 0; j < this.dataCsv.length; j++) {
-        if (this.dataCsv[j].id == arr[i].room && this.dataCsv[j].seats != 0)
-          arr2.push(new RoomMapEntry(this.dataCsv[j].id, this.dataCsv[j].academy, this.dataCsv[j].seats, this.dataCsv[j].price
-            , arr[i].startDate, arr[i].course, arr[i].startTime, arr[i].endTime));
+        if (this.dataCsv[j].id == this.arr[i].room && this.dataCsv[j].seats != 0)
+          this.arr2.push(new RoomMapEntry(this.dataCsv[j].id, this.dataCsv[j].academy, this.dataCsv[j].seats, this.dataCsv[j].price
+            , this.arr[i].startDate, this.arr[i].course, this.arr[i].startTime, this.arr[i].endTime));
       }
     }
-    return arr2;
+
+    return this.arr2;
   }
- async getTotalHours(){
-   this.scheduleEntry.getTotalHours();
+
+  async getEntryArray(){
+    console.log(this.arr2);
+    return this.arr2;
   }
+
 
 }
 
