@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {MAT_RADIO_DEFAULT_OPTIONS} from "@angular/material/radio";
+import {AppComponent} from "../app.component";
 
 @Component({
   selector: 'app-mini-header',
@@ -11,8 +12,10 @@ import {MAT_RADIO_DEFAULT_OPTIONS} from "@angular/material/radio";
   }]
 })
 export class MiniHeaderComponent {
-  list: any[] = ["Bokningsbeteende ", "Användningskostnad "];
-  constructor() { }
-  ngOnInit(): void {
+  list: any[] = ["Bokningsbeteende", "Användningskostnad"];
+  constructor(private main: AppComponent) { }
+
+  onSelect(list: any) {
+    this.main.onKey(list);
   }
 }
