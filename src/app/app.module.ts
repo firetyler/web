@@ -23,18 +23,13 @@ import { CostComponent } from './quanData/cost/cost.component';
 import { QuanDataComponent } from './quanData/quan-data/quan-data.component';
 import { UnbookedComponent } from './quanData/unbooked/unbooked.component';
 import { BookedComponent } from './quanData/booked/booked.component';
-import {HttpClient, HttpClientModule} from "@angular/common/http";
 import { TestingComponent } from './testing/testing.component';
-
-import { PriceGraphComponent } from './graph/price-graph/price-graph.component';
 import { BehaviorGraphComponent } from './graph/behavior-graph/behavior-graph.component';
-import {Behavior2Service} from "./service/behavior2.service";
 import {RouterModule} from "@angular/router";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {MatCardModule} from "@angular/material/card";
-
 
 @NgModule({
   declarations: [
@@ -52,9 +47,7 @@ import {MatCardModule} from "@angular/material/card";
     BehaviorGraphComponent,
     TestingComponent,
     TimeFiltersComponent,
-
     PriceGraphComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -71,7 +64,6 @@ import {MatCardModule} from "@angular/material/card";
     MatRadioModule,
     MatMenuModule,
     MatButtonModule,
-    HttpClientModule,
     MatBottomSheetModule,
     MatNativeDateModule,
     RouterModule.forRoot([
@@ -87,9 +79,6 @@ import {MatCardModule} from "@angular/material/card";
     MatInputModule,
     MatIconModule,
     MatCardModule
-  ],
-  entryComponents: [
-    HeaderComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

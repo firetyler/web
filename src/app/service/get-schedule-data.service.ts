@@ -19,13 +19,15 @@ export class GetScheduleDataService {
 
   async getSoapDataIterated() {
     const date = new Date();
-    let count = 1;
+    let count = 0;
     do {
       date.setFullYear(this.startDate.getFullYear(),this.startDate.getMonth(),this.startDate.getDate()+count);
       let tempArray = await this.getData.getSoapData(date);
       tempArray.forEach((item) => this.scheduleArray.push(item));
+      console.log(date)
       count++;
-    } while (count <= this.numberOfDays);
+    } while (count < this.numberOfDays);
+
   }
 
   getScheduleArray() {

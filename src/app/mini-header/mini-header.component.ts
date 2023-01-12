@@ -11,6 +11,7 @@ import {MAT_RADIO_DEFAULT_OPTIONS} from "@angular/material/radio";
   }]
 })
 export class MiniHeaderComponent {
+  list: any[] = ["Bokningsbeteende ", "Användningskostnad "];
   constructor() { }
   ngOnInit(): void {
   }
