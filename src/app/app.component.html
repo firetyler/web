@@ -1,16 +1,17 @@
-<div>
-  <app-header></app-header>
-  <app-mini-header></app-mini-header>
-  <div class="bottom-part">
-    <router-outlet>
-      <app-time-filters></app-time-filters>
-      <app-price-graph></app-price-graph>
-      <app-behavior-graph></app-behavior-graph>
-      <app-quan-data></app-quan-data>
-    </router-outlet>
-    <app-footer></app-footer>
-  </div>
+<app-header></app-header>
+<app-mini-header></app-mini-header>
+<div class="bottom-part">
+  <router-outlet>
+    <app-time-filters></app-time-filters>
+    <ng-container [ngSwitch]="componentName">
+      <app-price-graph *ngSwitchCase="'Bokningsbeteende'"></app-price-graph>
+      <app-behavior-graph *ngSwitchCase="'Användningskostnad'"></app-behavior-graph>
+    </ng-container>
+    <app-quan-data></app-quan-data>
+  </router-outlet>
+  <app-footer></app-footer>
 </div>
+
 <app-testing></app-testing>
 
 

@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'web';
+  componentName: any;
+
+  onKey(componentName: string) {
+    this.componentName = componentName;
+  }
 }

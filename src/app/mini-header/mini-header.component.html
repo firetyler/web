@@ -1,6 +1,5 @@
-
-<div class="miniHeader" >
-<div id="innerBox">
-  <mat-radio-button *ngFor="let list of list">{{list}}</mat-radio-button>
-</div>
+<div class="miniHeader">
+  <div id="innerBox">
+    <mat-radio-button *ngFor="let alt of selection" (click)="onSelect(alt)">{{alt}}</mat-radio-button>
+  </div>
 </div>
