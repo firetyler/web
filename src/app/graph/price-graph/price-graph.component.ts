@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {SeviceService} from "../sevice.service";
 import {Month} from "../month";
 import {Days} from "../days";
@@ -17,42 +17,32 @@ declare var google: any;
 })
 export class PriceGraphComponent implements OnInit {
   @Input() value: any;
-  rooms: any[] = [];
-  carry: any[] = [];
-
-  constructor(private sched : SchemaService,private mapRoomsService:MapRoomsService,private getScheduleDataService:GetScheduleDataService) {
+  carry: any[] = [[{type: 'number', role: 'room'}, {type: 'number', role: 'price'},
+    {type: 'number',role: 'seats'}, {type: 'string', role: 'academy'}]];
+  constructor(private mapRoomsService: MapRoomsService) {
   }
 
   async ngOnInit() {
-
     google.charts.load('current', {'packages': ['corechart']});
-    await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoomsService.getEntryArray(), await this.getScheduleDataService.getScheduleArray()));
+
+    await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoomsService.getDataEntryArray()));
+    //console.log(await this.mapRoomsService.getDataEntryArray() + "k")
     //TODO byt till rätt input till this.drawChart()
   }
 
-  async drawChart(roomEntry:RoomMapEntry[],Schedule : ScheduleEntry[]) {
+  async drawChart(roomEntry: RoomMapEntry[]) {
 
 // First index in laptop code is ['ID','date','bookedTime','akademi']
     // second index and come numbers and informations ['99123',Fri Jan 01 2021 00:00:00 GMT+0100 , 2 ,'atm']
-   let limit : number = 0
-   const carry: any[] = [[{type :'string' ,role:'ID'},{type : 'number', role : 'price'},{ type : 'number',role :'seats'}]];
+    let limit: number = 0
+
+    //this.carry.push(this.mapRoomsService);
+//console.log(this.carry);
     for (let i = 0; i < roomEntry.length; i++) {
 
-      carry.push([roomEntry[i].room,roomEntry[i].price,roomEntry[i].seats]);
-
-
-        if (roomEntry[i].room  !=limit){
-         // const carry: any[] = [[{role:'ID'},{role : 'startDate'}, {role :'totalHours'}]];
-        //  carry.push([json[i].room, json[i].getTotalHours(),json[i].getTestNumber()]);
-        //  console.log(json[i].startDate);
-        //  console.log(json[i].getTestNumber());
-        }else{
-
-        }
-
-
+      this.carry.push([roomEntry[i].room, roomEntry[i].price, roomEntry[i].seats, roomEntry[i].academy]);
     }
-   // console.log(carry);
+    console.log(this.carry);
     // console.log(carry);
 
     const options = {
@@ -76,9 +66,9 @@ export class PriceGraphComponent implements OnInit {
         }
       },
     };
-    const data = google.visualization.arrayToDataTable(carry);
+    const data = google.visualization.arrayToDataTable(this.carry);
     const chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
-    chart.draw( data, options);
+    chart.draw(data, options);
   }
 
 

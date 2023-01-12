@@ -24,20 +24,9 @@ export class MapRoomsService {
   async create() {
     //await this.getRoomNumberCsvService();
     //await this.getRoomNumberScheduleEntryService();
-    await this.getDataEntryArray();
+   // await this.getDataEntryArray();
   }
 
-  mappingArray(csvInput: Room, schemaInput: ScheduleEntry) {
-    const room: any[] = [];
-    const csv: any[] = [];
-    const schema: any[] = [];
-    for (let i = 0; i < ScheduleEntry.length; i++) {
-      for (let j = 0; j < ScheduleEntry.length; j++) {
-
-
-      }
-    }
-  }
   async getDataEntryArray() {
     this.dataEntry =this.getSchedule.getScheduleArray();
     this.dataCsv = await this.csV.getRooms();
