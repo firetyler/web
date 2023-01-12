@@ -12,10 +12,10 @@ export class MapRoomsService {
   tempArray: any[] = [];
   dataEntry: any[] = [];
   dataCsv: any[] = [];
-  private entryIndex : number = 0;
+  private entryIndex: number = 0;
   private csvIndex: number = 0;
 
-  constructor(private csV: CsvFileReaderService, private schema: SchemaService, private calc: CalculationsService,private getSchedule: GetScheduleDataService) {
+  constructor(private scheduleEntry : ScheduleEntry ,private csV: CsvFileReaderService, private schema: SchemaService, private calc: CalculationsService, private getSchedule: GetScheduleDataService) {
 
   }
 
@@ -36,44 +36,28 @@ export class MapRoomsService {
       }
     }
   }
-
-  /*async getRoomNumberScheduleEntryService() {
-    let data = await this.schema.getSoapData("", "");
-    for (let j = 0; j < data.length; j++) {
-      //console.log("Room " + data[j].room);
-    }
-  }*/
-
-  /* async getRoomNumberCsvService() {
-     let data = await this.csV.getRooms();
-     for (let i = 0; i < data.length; i++) {
-       //console.log("Csv " + data[i].id);
-     }
-   }*/
-
-  //test av ett duplicerings fel
-  //!tempArray.includes(dataEntry[i].room)
-
-
   async getDataEntryArray() {
     this.dataEntry = await this.schema.getSoapData(new Date());
     this.dataCsv = await this.csV.getRooms();
     let arr: any [] = [];
     let arr2: any [] = [];
     for (let i = 0; i < this.dataEntry.length; i++) {
-          if (!arr.includes(this.dataEntry[i])) {
-            arr.push(this.dataEntry[i]);
-          }
-        }
-
-    for (let i = 0; i < arr.length; i++) {
-      for(let j = 0; j<this.dataCsv.length;j++){
-        if(this.dataCsv[j].id == arr[i].room && this.dataCsv[j].seats != 0)
-          arr2.push(new RoomMapEntry(this.dataCsv[j].id,this.dataCsv[j].academy,this.dataCsv[j].seats,this.dataCsv[j].price
-            ,arr[i].startDate,arr[i].course,arr[i].startTime,arr[i].endTime));
+      if (!arr.includes(this.dataEntry[i])) {
+        arr.push(this.dataEntry[i]);
       }
     }
-    return console.log(arr2);
+
+    for (let i = 0; i < arr.length; i++) {
+      for (let j = 0; j < this.dataCsv.length; j++) {
+        if (this.dataCsv[j].id == arr[i].room && this.dataCsv[j].seats != 0)
+          arr2.push(new RoomMapEntry(this.dataCsv[j].id, this.dataCsv[j].academy, this.dataCsv[j].seats, this.dataCsv[j].price
+            , arr[i].startDate, arr[i].course, arr[i].startTime, arr[i].endTime));
+      }
+    }
+    return arr2;
+  }
+ async getTotalHours(){
+   this.scheduleEntry.getTotalHours();
   }
 
 }
@@ -87,16 +71,18 @@ export class RoomMapEntry {
   price: number;
   startTime: string;
   endTime: string;
-  room:number;
+  room: number;
 
-  constructor(room: number,academy: string, seats: number,price:number,startDate: string, course: string,startTime: string, endTime: string) {
+  constructor(room: number, academy: string, seats: number, price: number, startDate: string, course: string, startTime: string, endTime: string) {
     this.room = room;
     this.course = course;
-    this.academy=academy;
-    this.seats=seats;
-    this.price=price;
-    this.startDate=startDate;
-    this.startTime=startTime;
-    this.endTime=endTime;
+    this.academy = academy;
+    this.seats = seats;
+    this.price = price;
+    this.startDate = startDate;
+    this.startTime = startTime;
+    this.endTime = endTime;
+
+  }
 
 }

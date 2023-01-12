@@ -5,6 +5,8 @@ import {Days} from "../days";
 import {TimeFiltersComponent} from "../../time-filters/time-filters.component";
 import {CsvFileReaderService} from "../../service/csv-file-reader.service";
 import {ScheduleEntry, SchemaService} from "../../service/schema.service";
+import {GetScheduleDataService} from "../../service/get-schedule-data.service";
+import {MapRoomsService, RoomMapEntry} from "../../service/map-rooms.service";
 
 declare var google: any;
 
@@ -18,26 +20,30 @@ export class PriceGraphComponent implements OnInit {
   rooms: any[] = [];
   carry: any[] = [];
 
-  constructor(private service: SeviceService, private room: CsvFileReaderService, private sched : SchemaService) {
+  constructor(private mapRoom : MapRoomsService) {
   }
 
   async ngOnInit() {
 
     google.charts.load('current', {'packages': ['corechart']});
-    await google.charts.setOnLoadCallback(this.drawChart(await this.sched.getSoapData(new Date())));
+    await google.charts.setOnLoadCallback(this.drawChart(await  this.mapRoom.getDataEntryArray()));
     //TODO byt till rätt input till this.drawChart()
   }
 
-  async drawChart(json: ScheduleEntry[]) {
+  async drawChart(json: RoomMapEntry[]) {
 
 // First index in laptop code is ['ID','date','bookedTime','akademi']
     // second index and come numbers and informations ['99123',Fri Jan 01 2021 00:00:00 GMT+0100 , 2 ,'atm']
    let limit : number = 0
    const carry: any[] = [[{type :'string' ,role:'ID'},{type : 'number', role : 'startDate'}, { type : 'number',role :'totalHours'}]];
     for (let i = 0; i < json.length; i++) {
+
+        carry.push([json[i].room,json[i].price,json[i].seats])
+
+
         if (json[i].room  !=limit){
          // const carry: any[] = [[{role:'ID'},{role : 'startDate'}, {role :'totalHours'}]];
-          carry.push([json[i].room,json[i].getTestNumber(), json[i].getTotalHours()]);
+        //  carry.push([json[i].room, json[i].getTotalHours(),json[i].getTestNumber()]);
         //  console.log(json[i].startDate);
         //  console.log(json[i].getTestNumber());
         }else{
