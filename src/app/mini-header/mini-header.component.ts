@@ -11,11 +11,12 @@ import {AppComponent} from "../app.component";
     useValue: { color: 'primary' },
   }]
 })
+
 export class MiniHeaderComponent {
-  list: any[] = ["Bokningsbeteende", "Användningskostnad"];
+  selection: any[] = ["Bokningsbeteende", "Användningskostnad"];
   constructor(private main: AppComponent) { }
 
-  onSelect(list: any) {
-    this.main.onKey(list);
+  onSelect(alt: any) {
+    this.main.onKey(alt);
   }
 }
