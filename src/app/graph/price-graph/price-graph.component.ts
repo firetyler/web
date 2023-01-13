@@ -3,10 +3,11 @@ import {SeviceService} from "../sevice.service";
 import {Month} from "../month";
 import {Days} from "../days";
 import {TimeFiltersComponent} from "../../time-filters/time-filters.component";
-import {CsvFileReaderService} from "../../service/csv-file-reader.service";
+import {CsvFileReaderService, Room} from "../../service/csv-file-reader.service";
 import {ScheduleEntry, SchemaService} from "../../service/schema.service";
 import {GetScheduleDataService} from "../../service/get-schedule-data.service";
 import {MapRoomsService, RoomMapEntry} from "../../service/map-rooms.service";
+import {CalculationsService} from "../../service/calculations.service";
 
 declare var google: any;
 
@@ -17,37 +18,46 @@ declare var google: any;
 })
 export class PriceGraphComponent implements OnInit {
   @Input() value: any;
-  private listOfData: any[] = [];
-  private listOfFullData : any[] = [];
-  constructor(private service: SeviceService, private room: CsvFileReaderService, private sched : SchemaService,private mapRoom : MapRoomsService) {
+  rooms: any[] = [];
+  carry: any[] = [];
+  data : any[] = [];
+  arr: any [] = [];
+  dataEntry =  this.getSchedule.getScheduleArray();
+  dataCsv =  this.csV.getRooms();
+  constructor(private csV: CsvFileReaderService, private calc: CalculationsService, private getSchedule: GetScheduleDataService) {
   }
 
   async ngOnInit() {
+
     google.charts.load('current', {'packages': ['corechart']});
-    //google.load('visualization', '1.0', {'packages':['corechart']});
-   // await google.charts.setOnLoadCallback(this.drawChart(await this.sched.getSoapData(new Date())));
-    await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.getDataEntryArray()));
-    //console.log(await this.mapRoomsService.getDataEntryArray() + "k")
+    await google.charts.setOnLoadCallback( await this.drawChart( await this.dataEntry, await this.dataCsv)); //(await this.sched.getSoapData(new Date())  this is working
     //TODO byt till rätt input till this.drawChart()
   }
 
-  async drawChart(json: RoomMapEntry[]) {
-    const carry: any[] = [[{type :'string' ,role:'ID'},{type : 'number', role : 'startDate'}, { type : 'number',role :'totalHours'}]];
-
-// First index in laptop code is ['ID','date','bookedTime','akademi']
-    // second index and come numbers and informations ['99123',Fri Jan 01 2021 00:00:00 GMT+0100 , 2 ,'atm']
-    let limit: number = 0
-
-    //this.listOfData.push(this.mapRoomsService)
-
+  async drawChart(json: ScheduleEntry[],json2:Room[]) {
 
     for (let i = 0; i < json.length; i++) {
-      //console.log("Inside Loop")
-      carry.push([json[i].room,json[i].price, json[i].seats]);
-      //console.log("roomEntry for rooms"+roomEntry[i].room);
+      if (!this.arr.includes(json[i])) {
+        this.arr.push(json[i]);
+      }
+
     }
-  //  console.log(carry);
-    // console.log(carry);
+// First index in laptop code is ['ID','date','bookedTime','akademi']
+    // second index and come numbers and informations ['99123',Fri Jan 01 2021 00:00:00 GMT+0100 , 2 ,'atm']
+    let limit : number = 0
+    const carry: any[] = [[{type :'string' ,role:'ID'},{type : 'number', role : 'price'}, { type : 'number',role :'seats'}]]; // never touch
+    for (let i = 0; i < json.length; i++) {
+      for(let j =0; j<json2.length;j++){
+        if (json2[j].id == this.arr[i].room && json2[j].seats != 0){
+
+          // const carry: any[] = [[{role:'ID'},{role : 'startDate'}, {role :'totalHours'}]];
+          carry.push([json[i].room,json2[j].price, json2[j].seats]); // [] this is important never forget it
+          //  console.log(json[i].startDate);
+          //  console.log(json[i].getTestNumber());
+      }
+      }
+    }
+    console.log(carry)
 
     const options = {
       title: '',
@@ -70,9 +80,9 @@ export class PriceGraphComponent implements OnInit {
         }
       },
     };
-    const data = google.visualization.arrayToDataTable(carry);
-    const chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
-    chart.draw(data, options);
+    this.data = google.visualization.arrayToDataTable(carry);
+    const chart = new google.visualization.BubbleChart(<HTMLInputElement>document.getElementById('series_chart_div'));
+    chart.draw(this.data, options);
 
   }
 

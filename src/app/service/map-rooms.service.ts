@@ -28,7 +28,7 @@ export class MapRoomsService {
   async getDataEntryArray(){
     //this.dataEntry =  await this.getSchedule.getScheduleArray();
    // console.log("entry " + this.dataEntry[0].room)
-    this.dataEntry = await this.schema.getSoapData(new Date());
+    this.dataEntry = await this.getSchedule.getScheduleArray();
     this.dataCsv = await this.csV.getRooms();
 
     for (let i = 0; i < this.dataEntry.length; i++) {
@@ -47,11 +47,6 @@ export class MapRoomsService {
     }
 
 
-    return this.arr2;
-  }
-
-  async getEntryArray(){
-    console.log("Map room service class "+this.arr2);
     return this.arr2;
   }
 

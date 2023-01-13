@@ -1,6 +1,7 @@
 import {Injectable, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import axios from "axios";
+import {ScheduleEntry} from "./schema.service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class CsvFileReaderService {
   private roomArray: Room[] = [];
   constructor() { }
 
-  async getRooms() {
+  async getRooms() : Promise<Room[]> {
     let data = "";
     const axi = axios.create();
     await axi.get('assets/rooms.csv', {responseType: 'text'})

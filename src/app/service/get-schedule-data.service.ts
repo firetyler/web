@@ -32,6 +32,8 @@ export class GetScheduleDataService {
     if(this.scheduleArray.length < 1) {
       alert("finns inget innehåll");
     }
+    console.log("console.log(this.scheduleArray)")
+    console.log(this.scheduleArray)
     return this.scheduleArray;
   }
 }
