@@ -80,7 +80,7 @@ import {MatCardModule} from "@angular/material/card";
     MatButtonModule,
     HttpClientModule,
     FilterBarModule,
-    AppRoutingModule
+    AppRoutingModule,
     MatBottomSheetModule,
     MatNativeDateModule,
     RouterModule.forRoot([

@@ -1,9 +1,6 @@
-import {Component} from '@angular/core';
-import {CsvFileReaderService, Room} from '../../../service/csv-file-reader.service'
-import * as Http from "http";
-import {style} from "@angular/animations";
-import {iterator} from "rxjs/internal/symbol/iterator";
-import { Location } from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {CsvFileReaderService} from '../../../service/csv-file-reader.service'
+import {Location} from '@angular/common';
 
 
 //https://mdbootstrap.com/docs/b4/angular/forms/search/
@@ -13,55 +10,46 @@ import { Location } from '@angular/common';
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.css']
 })
-export class SearchBarComponent {
-  constructor(private roomService: CsvFileReaderService,private location: Location) {
+export class SearchBarComponent implements OnInit {
+  constructor(private roomService: CsvFileReaderService, private location: Location) {
   }
 
   show = false
   elementClicked = 'Click any of the list item below'
-
   searchText: any;
   dataset: any = [];
   pDataset: any = [];
 
   ngOnInit() {
-    if(this.location.path() == '/Academy'){
-      this.separateRoomsFromArrayAkademi();
+    if (this.location.path() == '/Academy') {
+      this.separateRoomsFromArrayAcademy();
+    } else if (this.location.path() == '/Room') {
+      this.separateRoomsFromArrayRoom();
     }
-    if(this.location.path() == '/Hus'){
-      this.separateRoomsFromArrayHus();
-    }
-
   }
 
-
-   async separateRoomsFromArrayAkademi() {
+  async separateRoomsFromArrayAcademy() {
     let data = await this.roomService.getRooms();
-
-     for(let i =0; i<data.length;i++){
-       console.log(data[i]);
-       if (!this.dataset.includes(data[i].academy)) {
-         this.dataset.push(data[i].academy.toString())
-       }
-     }
-
+    for (let i = 0; i < data.length; i++) {
+      console.log(data[i]);
+      if (!this.dataset.includes(data[i].academy)) {
+        this.dataset.push(data[i].academy.toString())
+      }
+    }
   }
 
-  async separateRoomsFromArrayHus() {
+  async separateRoomsFromArrayRoom() {
     let data = await this.roomService.getRooms();
-
-    for(let i =0; i<data.length;i++){
+    for (let i = 0; i < data.length; i++) {
       console.log(data[i]);
       if (!this.dataset.includes(data[i].id)) {
         this.dataset.push(data[i].id.toString())
       }
     }
-
   }
 
-  // @ts-ignore
-  onClick(e) {
-    this.elementClicked = 'Last clicked: ' + e.target.innerHTML;
+  onClick(e: any) {
+    this.elementClicked = 'Senast vald: ' + e.target.innerHTML;
     if (!this.pDataset.includes(e.target.innerHTML)) {
       this.pDataset.push(e.target.innerHTML)
     }
@@ -70,6 +58,4 @@ export class SearchBarComponent {
   onClickRemove(i: number) {
     this.pDataset.splice(i, 1);
   }
-
 }
-
