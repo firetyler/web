@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {ScheduleEntry, SchemaService} from "./schema.service";
+import {SchemaService} from "./schema.service";
 import {CalculationsService} from "./calculations.service";
-import {CsvFileReaderService, Room} from "./csv-file-reader.service";
+import {CsvFileReaderService} from "./csv-file-reader.service";
 import {GetScheduleDataService} from "./get-schedule-data.service";
 
 
@@ -14,8 +14,6 @@ export class MapRoomsService {
   dataCsv: any[] = [];
   arr: any [] = [];
   arr2: any [] = [];
-  private entryIndex: number = 0;
-  private csvIndex: number = 0;
 
   constructor(private csV: CsvFileReaderService, private schema: SchemaService, private calc: CalculationsService, private getSchedule: GetScheduleDataService) {
 
@@ -27,8 +25,10 @@ export class MapRoomsService {
    // await this.getDataEntryArray();
   }
 
-  async getDataEntryArray() {
-    this.dataEntry =this.getSchedule.getScheduleArray();
+  async getDataEntryArray(){
+    //this.dataEntry =  await this.getSchedule.getScheduleArray();
+   // console.log("entry " + this.dataEntry[0].room)
+    this.dataEntry = await this.schema.getSoapData(new Date());
     this.dataCsv = await this.csV.getRooms();
 
     for (let i = 0; i < this.dataEntry.length; i++) {
@@ -36,6 +36,7 @@ export class MapRoomsService {
         this.arr.push(this.dataEntry[i]);
       }
     }
+
 
     for (let i = 0; i < this.arr.length; i++) {
       for (let j = 0; j < this.dataCsv.length; j++) {
@@ -45,11 +46,12 @@ export class MapRoomsService {
       }
     }
 
+
     return this.arr2;
   }
 
   async getEntryArray(){
-    console.log(this.arr2);
+    console.log("Map room service class "+this.arr2);
     return this.arr2;
   }
 

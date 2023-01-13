@@ -17,32 +17,36 @@ declare var google: any;
 })
 export class PriceGraphComponent implements OnInit {
   @Input() value: any;
-  carry: any[] = [[{type: 'number', role: 'room'}, {type: 'number', role: 'price'},
-    {type: 'number',role: 'seats'}, {type: 'string', role: 'academy'}]];
-  constructor(private mapRoomsService: MapRoomsService) {
+  private listOfData: any[] = [];
+  private listOfFullData : any[] = [];
+  constructor(private service: SeviceService, private room: CsvFileReaderService, private sched : SchemaService,private mapRoom : MapRoomsService) {
   }
 
   async ngOnInit() {
     google.charts.load('current', {'packages': ['corechart']});
-
-    await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoomsService.getDataEntryArray()));
+    //google.load('visualization', '1.0', {'packages':['corechart']});
+   // await google.charts.setOnLoadCallback(this.drawChart(await this.sched.getSoapData(new Date())));
+    await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.getDataEntryArray()));
     //console.log(await this.mapRoomsService.getDataEntryArray() + "k")
     //TODO byt till rätt input till this.drawChart()
   }
 
-  async drawChart(roomEntry: RoomMapEntry[]) {
+  async drawChart(json: RoomMapEntry[]) {
+    const carry: any[] = [[{type :'string' ,role:'ID'},{type : 'number', role : 'startDate'}, { type : 'number',role :'totalHours'}]];
 
 // First index in laptop code is ['ID','date','bookedTime','akademi']
     // second index and come numbers and informations ['99123',Fri Jan 01 2021 00:00:00 GMT+0100 , 2 ,'atm']
     let limit: number = 0
 
-    //this.carry.push(this.mapRoomsService);
-//console.log(this.carry);
-    for (let i = 0; i < roomEntry.length; i++) {
+    //this.listOfData.push(this.mapRoomsService)
 
-      this.carry.push([roomEntry[i].room, roomEntry[i].price, roomEntry[i].seats, roomEntry[i].academy]);
+
+    for (let i = 0; i < json.length; i++) {
+      //console.log("Inside Loop")
+      carry.push([json[i].room,json[i].price, json[i].seats]);
+      //console.log("roomEntry for rooms"+roomEntry[i].room);
     }
-    console.log(this.carry);
+  //  console.log(carry);
     // console.log(carry);
 
     const options = {
@@ -66,9 +70,10 @@ export class PriceGraphComponent implements OnInit {
         }
       },
     };
-    const data = google.visualization.arrayToDataTable(this.carry);
+    const data = google.visualization.arrayToDataTable(carry);
     const chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
     chart.draw(data, options);
+
   }
 
 

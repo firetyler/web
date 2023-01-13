@@ -26,11 +26,12 @@ export class GetScheduleDataService {
       tempArray.forEach((item) => this.scheduleArray.push(item));
       count++;
     } while (count < this.numberOfDays);
-    console.log(this.scheduleArray)
   }
 
-  getScheduleArray() {
-
+  async getScheduleArray() {
+    if(this.scheduleArray.length < 1) {
+      alert("finns inget innehåll");
+    }
     return this.scheduleArray;
   }
 }
