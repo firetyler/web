@@ -27,13 +27,13 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {FilterBarComponent} from "./filter-bar/filter-bar.component";
 import {FilterBarModule} from "./filter-bar/filter-bar.module";
 import { AppRoutingModule } from './app-routing.module';
-import { AkademiComponent } from './Academy/akademi.component';
-import { HusComponent } from './hus/hus.component';
+import { AkademiComponent } from './academy/akademi.component';
+import { HouseComponent } from './house/house.component';
 import { LevelComponent } from './level/level.component';
 import { RoomComponent } from './room/room.component';
 import { TestingComponent } from './testing/testing.component';
 import { BehaviorGraphComponent } from './graph/behavior-graph/behavior-graph.component';
-import {RouterModule} from "@angular/router";
+//import {RouterModule} from "@angular/router";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
@@ -55,7 +55,7 @@ import {MatCardModule} from "@angular/material/card";
     FilterBarComponent,
     TimeFiltersComponent,
     AkademiComponent,
-    HusComponent,
+    HouseComponent,
     LevelComponent,
     RoomComponent,
     BehaviorGraphComponent,
@@ -83,15 +83,15 @@ import {MatCardModule} from "@angular/material/card";
     AppRoutingModule,
     MatBottomSheetModule,
     MatNativeDateModule,
-    RouterModule.forRoot([
-      {path: 'footer', component: FooterComponent},
-      {path: 'header', component: HeaderComponent},
-      {path: 'mini-header', component: MiniHeaderComponent},
-      {path: 'quanData-head', component: BookedComponent},
-      {path: 'quanData-cost', component: CostComponent},
-      {path: 'quan-data', component: QuanDataComponent},
-      {path: 'quan-unbooked', component: UnbookedComponent}
-    ]),
+   // RouterModule.forRoot([
+   //   {path: 'footer', component: FooterComponent},
+   //   {path: 'header', component: HeaderComponent},
+   //   {path: 'mini-header', component: MiniHeaderComponent},
+   //   {path: 'quanData-head', component: BookedComponent},
+   //   {path: 'quanData-cost', component: CostComponent},
+   //   {path: 'quan-data', component: QuanDataComponent},
+   //   {path: 'quan-unbooked', component: UnbookedComponent}
+   // ]),
     MatDatepickerModule,
     MatInputModule,
     MatIconModule,
