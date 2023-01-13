@@ -7,11 +7,11 @@ import {MAT_RADIO_DEFAULT_OPTIONS} from "@angular/material/radio";
   styleUrls: ['./mini-header.component.css'],
   providers: [{
     provide: MAT_RADIO_DEFAULT_OPTIONS,
-    useValue: { color: 'primary' },
+    useValue: { color: 'warn' },
   }]
 })
 export class MiniHeaderComponent {
-  list: any[] = ["Bokningsbeteende ", "Användningskostnad "];
+  list: any[] = [{name: "Bokningsbeteende"}, {name: "Användningskostnad"}];
   constructor() { }
   ngOnInit(): void {
   }

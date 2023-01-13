@@ -1,13 +1,23 @@
 .miniHeader{
-  background-color: #22223B;
+  background-color: #292c2c;
   height: auto;
   width: auto;
   text-align: center;
   font-size: 20px;
   position: relative;
-  padding: 5px;
+}
+#line{
+  height: 6px;
+  width: auto;
+  padding: 0px;
+  margin: 0px;
 }
 
-#innerBox{
-  background-color: lightblue;
+.item{
+  color:#ffcc00;
+  font-weight: bold;
+  font-family: Playfair;
+  font-size: medium;
 }
+
+
