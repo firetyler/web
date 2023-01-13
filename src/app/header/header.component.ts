@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Location } from '@angular/common';
 
 
@@ -7,13 +7,17 @@ import { Location } from '@angular/common';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
+export class HeaderComponent implements OnInit{
+  list: string[] = ['Akademi', 'hus', 'våning', 'rum'];
 
-export class HeaderComponent {
   constructor(private location: Location) { }
   onSwitchAkademi() {
     this.location.replaceState('/Academy')
     location.reload();
   }
+  ngOnInit(): void {
+  }
+
   onSwitchHus() {
     this.location.replaceState('/Hus')
     location.reload();

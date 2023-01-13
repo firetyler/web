@@ -8,10 +8,8 @@ import axios from "axios";
 
 
 export class CsvFileReaderService {
-  private roomArray: any[] = [];
-
-  constructor(private http: HttpClient) {
-  }
+  private roomArray: Room[] = [];
+  constructor() { }
 
   async getRooms() {
     let data = "";
@@ -19,19 +17,20 @@ export class CsvFileReaderService {
     await axi.get('assets/rooms.csv', {responseType: 'text'})
       .then(
         res => {
-        data = res.data;
+          data = res.data;
         }, error => {
           console.log(error)
         }
-      );
+      )
     let csvToRowArray = data.split("\n");
-    for (let i = 1; i < csvToRowArray.length - 1; i++) {
+    for (let i =1; i < csvToRowArray.length-1; i++) {
       let row = csvToRowArray[i].split(";");
-      this.roomArray.push(new Room(parseInt(row[0], 10),
+      this.roomArray.push(new Room(parseInt(row[0],10),
         row[1],
-        parseInt(row[2], 10),
-        parseInt(row[3], 10)));
+        parseInt(row[2],10),
+        parseInt(row[3],10)));
     }
+  //  console.log(this.roomArray);
     return this.roomArray;
   }
 }
@@ -48,25 +47,6 @@ export class Room {
     this.seats = seats;
     this.price = price;
   }
-
-  getRoom() {
-    return this.id;
-  }
-
-  getAcademy() {
-    return this.academy;
-  }
-
-
-  getSeats() {
-    return this.seats;
-  }
-
-  getPrice() {
-    return this.price;
-  }
-
-
 }
 
 

@@ -1,17 +1,23 @@
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+/*@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 #box{
   background-color: #22223B;
   height: 750px;
   color: white;
   text-align: left;
+  width: 500px;
+}*/
+#datepicker {
+  margin-bottom: 35px;
 }
-
 #innerBox{
-  padding: 3px;
+  padding: 100px 3px 3px;
   background-color: lightblue;
   height: 740px;
-  width: 100px;
+
   margin: 5px;
+}
+.demo-inline-calendar-card {
+  width: 300px;
 }
 
 

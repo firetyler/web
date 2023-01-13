@@ -9,12 +9,15 @@ div{
 
 }
 .buttom_row{
-  position: relative;
+  position: fixed;
   align-content: center;
   max-width: 100%;
 
   color: white;
 }
-
-
-
+.popupWindow{
+  position: fixed;
+  right: 180px;
+  top: 20px;
+  color: white;
+}

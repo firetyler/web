@@ -1,10 +1,5 @@
-
-<div class="miniHeader" >
-<div id="innerBox">
-  <input type="radio" class="graphRadioButton" name="graph">
-  <label class="labelGraph">Boknings Beteende</label>
-
-  <input type="radio" class="graphRadioButton" name="graph">
-  <label class="labelGraph">Användningskostnad</label>
-</div>
+<div class="miniHeader">
+  <div id="innerBox">
+    <mat-radio-button *ngFor="let alt of selection" (click)="onSelect(alt)">{{alt}}</mat-radio-button>
+  </div>
 </div>
