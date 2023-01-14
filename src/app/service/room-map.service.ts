@@ -18,20 +18,33 @@ export class RoomMapService {
   async mapRooms() {
     let roomExists: boolean = false;
     this.listOfRooms = await this.csvReader.getRooms();
+   // console.log(this.listOfRooms);
     this.listOfScheduleEntry = await this.getScheduleData.getScheduleArray();
+   // console.log( this.listOfScheduleEntry);
     this.listOfScheduleEntry.forEach((entry) => {
+    //  console.log(entry)
       for (let i = 0; i < this.listWithData.length; i++) {
         if (this.listWithData[i].id == entry.room) {
+        //  console.log("fuck you if sats")
           this.listWithData[i].entry.push(entry);
           roomExists = true;
         }
+
       }
+
       if (!roomExists) {
         let temp = this.listOfRooms.filter((room) => room.id == entry.room);
-        this.listWithData.push(new MapRoomEntry(temp[0].id, entry.startDate, temp[0].academy, temp[0].seats, temp[0].price, entry))
-        roomExists = false;
+     //   console.log(temp)
+        if (temp.length > 0){
+          this.listWithData.push(new MapRoomEntry(temp[0].id, entry.startDate, temp[0].academy, temp[0].seats, temp[0].price, entry))
+        }
+
+
       }
+      roomExists = false;
     });
+
+    console.log(this.listWithData);
   }
 
 

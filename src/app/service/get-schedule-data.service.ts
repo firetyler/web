@@ -10,10 +10,10 @@ export class GetScheduleDataService {
   scheduleArray: ScheduleEntry[] = [];
   constructor(private getData: SchemaService) { }
 
-  setDates(startDate: Date, numberOfDays: number) {
+  async setDates(startDate: Date, numberOfDays: number) {
     this.startDate = startDate;
     this.numberOfDays = numberOfDays;
-    this.getSoapDataIterated()
+    await this.getSoapDataIterated()
   }
 
   async getSoapDataIterated() {
