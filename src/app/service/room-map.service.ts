@@ -67,7 +67,11 @@ export class MapRoomEntry {
     this.entry.push(entry);
   }
 
-  getEntry() {
-    return this.entry;
-  }
+getTotalHours(){
+    let hours = 0;
+    this.entry.forEach((j) => {
+      hours += j.getTotalHours();
+    });
+    return hours;
+}
 }
