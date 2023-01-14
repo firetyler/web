@@ -8,7 +8,7 @@ import axios from "axios";
 
 
 export class CsvFileReaderService {
-  private roomArray: Room[] = [];
+  private roomArray: RoomEntry[] = [];
   constructor() { }
 
   async getRooms() {
@@ -25,7 +25,7 @@ export class CsvFileReaderService {
     let csvToRowArray = data.split("\n");
     for (let i =1; i < csvToRowArray.length-1; i++) {
       let row = csvToRowArray[i].split(";");
-      this.roomArray.push(new Room(parseInt(row[0],10),
+      this.roomArray.push(new RoomEntry(parseInt(row[0],10),
         row[1],
         parseInt(row[2],10),
         parseInt(row[3],10)));
@@ -36,7 +36,7 @@ export class CsvFileReaderService {
 
 }
 
-export class Room {
+export class RoomEntry {
   id: number;
   academy: string;
   seats: number;

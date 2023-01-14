@@ -14,6 +14,7 @@ export class MapRoomsService {
   dataCsv: any[] = [];
   arr: any [] = [];
   arr2: any [] = [];
+  stuf : any[] = [];
 
   constructor(private csV: CsvFileReaderService, private schema: SchemaService, private calc: CalculationsService, private getSchedule: GetScheduleDataService) {
 
@@ -28,6 +29,7 @@ export class MapRoomsService {
   async getDataEntryArray(){
     //this.dataEntry =  await this.getSchedule.getScheduleArray();
    // console.log("entry " + this.dataEntry[0].room)
+   // this.dataEntry = await  this.getSchedule.getScheduleArray();
     this.dataEntry = await this.schema.getSoapData(new Date());
     this.dataCsv = await this.csV.getRooms();
 
