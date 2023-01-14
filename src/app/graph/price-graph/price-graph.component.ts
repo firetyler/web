@@ -7,6 +7,7 @@ import {CsvFileReaderService} from "../../service/csv-file-reader.service";
 import {ScheduleEntry, SchemaService} from "../../service/schema.service";
 import {GetScheduleDataService} from "../../service/get-schedule-data.service";
 import {MapRoomsService, RoomMapEntry} from "../../service/map-rooms.service";
+import {MapRoomEntry, RoomMapService} from "../../service/room-map.service";
 
 declare var google: any;
 
@@ -19,20 +20,20 @@ export class PriceGraphComponent implements OnInit {
   @Input() value: any;
   private listOfData: any[] = [];
   private listOfFullData : any[] = [];
-  constructor(private service: SeviceService, private room: CsvFileReaderService, private sched : SchemaService,private mapRoom : MapRoomsService) {
+  constructor( private mapRoom : RoomMapService) {
   }
 
   async ngOnInit() {
     google.charts.load('current', {'packages': ['corechart']});
     //google.load('visualization', '1.0', {'packages':['corechart']});
    // await google.charts.setOnLoadCallback(this.drawChart(await this.sched.getSoapData(new Date())));
-    await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.getDataEntryArray()));
+    await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.mapRooms()));
     //console.log(await this.mapRoomsService.getDataEntryArray() + "k")
     //TODO byt till rätt input till this.drawChart()
   }
 
-  async drawChart(json: RoomMapEntry[]) {
-    const carry: any[] = [[{type :'string' ,role:'ID'},{type : 'number', role : 'startDate'}, { type : 'number',role :'totalHours'}]];
+  async drawChart(json: MapRoomEntry[]) {
+    let carry : any[] = [['id','price','seats','totalHours','academy']];
 
 // First index in laptop code is ['ID','date','bookedTime','akademi']
     // second index and come numbers and informations ['99123',Fri Jan 01 2021 00:00:00 GMT+0100 , 2 ,'atm']
@@ -43,10 +44,11 @@ export class PriceGraphComponent implements OnInit {
 
     for (let i = 0; i < json.length; i++) {
       //console.log("Inside Loop")
-      carry.push([json[i].room,json[i].price, json[i].seats]);
+      //if(json[i].price != 0 && json[i].seats != 0)
+      carry.push([json[i].id,json[i].price,json[i].seats, json[i].getTotalHours(),json[i].academy]);
       //console.log("roomEntry for rooms"+roomEntry[i].room);
     }
-  //  console.log(carry);
+    console.log(carry);
     // console.log(carry);
 
     const options = {

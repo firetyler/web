@@ -43,7 +43,7 @@ export class RoomMapService {
       }
       roomExists = false;
     });
-
+    return this.listWithData;
     console.log(this.listWithData);
   }
 
