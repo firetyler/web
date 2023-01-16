@@ -34,7 +34,7 @@ export class PriceGraphComponent implements OnInit {
   }
 
   async drawChart(json: MapRoomEntry[]) {
-    let carry : any[] = [['id','price','seats','Academy','totalHours']];
+    let carry : any[] = [['id','totalHours','price','Academy','seats']];
 
 // First index in laptop code is ['ID','date','bookedTime','akademi']
     // second index and come numbers and informations ['99123',Fri Jan 01 2021 00:00:00 GMT+0100 , 2 ,'atm']
@@ -46,7 +46,7 @@ export class PriceGraphComponent implements OnInit {
     for (let i = 0; i < json.length; i++) {
       //console.log("Inside Loop")
       //if(json[i].price != 0 && json[i].seats != 0)
-      carry.push([json[i].id.toString(),json[i].price,json[i].seats,json[i].academy, json[i].getTotalHours()]);
+      carry.push([json[i].id.toString(), json[i].getTotalHours(),json[i].price,json[i].academy,json[i].seats]);
       //console.log("roomEntry for rooms"+roomEntry[i].room);
     }
     console.log(carry);
@@ -54,9 +54,11 @@ export class PriceGraphComponent implements OnInit {
 
     const options = {
       title: '',
+      'width':800,
+      'height':800,
       hAxis: {
         title: 'pris',
-        format: ' dd mm yyyy'
+        format: ''
       },
       vAxis: {title: 'totala timmer'},
       bubble: {
