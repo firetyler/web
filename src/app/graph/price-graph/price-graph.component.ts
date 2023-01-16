@@ -53,18 +53,20 @@ export class PriceGraphComponent implements OnInit {
     // console.log(carry);
 
     const options = {
+      backgroundColor: 'white',
       title: '',
-      'width':800,
-      'height':800,
+      'width':1200,
+      'height':1000,
       hAxis: {
         title: 'pris',
         format: ''
       },
       vAxis: {title: 'totala timmer'},
       bubble: {
-        textStyle: {fontSize: 13},
+        textStyle: {fontSize: 12},
         fontName: 'Times-Roman',
         colors: 'black',
+        border: 'black',
         italic: true
       },
       gridlines: {
@@ -74,6 +76,11 @@ export class PriceGraphComponent implements OnInit {
           hours: {format: ['HH:mm', 'ha']},
         }
       },
+      explorer: {
+        axis: 'horizontal',
+        keepInBounds: true,
+        maxZoomIn: 4.0
+      }
     };
     let data = google.visualization.arrayToDataTable(carry);
     const chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));

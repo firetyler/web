@@ -11,6 +11,7 @@ export class GetScheduleDataService {
   constructor(private getData: SchemaService) { }
 
   async setDates(startDate: Date, numberOfDays: number) {
+    this.scheduleArray=[];
     this.startDate = startDate;
     this.numberOfDays = numberOfDays;
     await this.getSoapDataIterated()
