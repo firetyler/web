@@ -1,11 +1,11 @@
 <app-header></app-header>
 <app-mini-header></app-mini-header>
 <div class="bottom-part">
-  <router-outlet></router-outlet>
-    <app-time-filters></app-time-filters>
+  <router-outlet class="d-flex align-items-start justify-content-start"></router-outlet>
+    <app-time-filters class="d-flex align-items-end justify-content-end"></app-time-filters>
     <ng-container [ngSwitch]="componentName">
-      <app-price-graph *ngSwitchCase="'Bokningsbeteende'"></app-price-graph>
-      <app-behavior-graph *ngSwitchCase="'Användningskostnad'"></app-behavior-graph>
+      <app-price-graph *ngSwitchCase="'Bokningsbeteende'" class=" d-flex align-items-center justify-content-center"></app-price-graph>
+      <app-behavior-graph *ngSwitchCase="'Användningskostnad'" class=" d-flex align-items-center justify-content-center"></app-behavior-graph>
     </ng-container>
     <app-quan-data></app-quan-data>
   <app-footer></app-footer>

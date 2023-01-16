@@ -1,15 +1,15 @@
-<div id="box" class="Container" class="w-25 p-3" class="h-100 d-inline-block" class="float-sm-end">
-  <div id="innerBox">
-    <div id="datepicker">
-      <mat-form-field appearance="fill">
+<div>
+  <div>
+<mat-form-field appearance="fill">
         <mat-label>Välj ett datum</mat-label>
         <input matInput [matDatepicker]="picker" (dateChange)="onUpdate($event)">
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
-    </div>
-    Välj en längd: <br>
+  </div>
+  <div>
+Välj en period: <br>
     <mat-radio-button *ngFor="let list of list" (click)="onSelect(list)">
       {{list}}
     </mat-radio-button>

@@ -4,7 +4,7 @@
 </div>
 
 
-<div class="overflow-auto float-start bg-light h6 mh-100 position-relative "  style="height: 200px; width: 200px">
+<div style="height: 200px; width: 200px">
 
   <div id="dataBox" *ngFor="let data of dataset | filter: searchText" (click)="onClick($event)" class="beforeClick" >
   <p id="dataColor" >{{data}}</p>
@@ -13,7 +13,7 @@
 </div>
 
 
-<div class=" float-start  h6 h-100 position-relative "  style="max-height: 200px; width: 200px; overflow-y: auto; background: black ">
+<div style="max-height: 200px; width: 200px; overflow-y: auto; background: black ">
 <div style=" background: lightblue; margin: 3px; padding: 3px">
   <ul>
       <li >{{elementClicked}}</li>

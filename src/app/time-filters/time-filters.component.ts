@@ -14,7 +14,7 @@ import {GetScheduleDataService} from "../service/get-schedule-data.service";
   styleUrls: ['./time-filters.component.css'],
   providers: [{
     provide: MAT_RADIO_DEFAULT_OPTIONS,
-    useValue: {color: 'primary'},
+    useValue: {color: 'warn'},
   }]
 
 })

@@ -10,9 +10,7 @@ import {GetScheduleDataService} from "./service/get-schedule-data.service";
 export class AppComponent {
   title = 'web';
   componentName: any;
-  constructor(private h: RoomMapService,private service : GetScheduleDataService) {
 
-  }
 /**async getA(){
     await this.service.setDates(new Date(2019, 1, 4), 7);
     await this.h.mapRooms();
