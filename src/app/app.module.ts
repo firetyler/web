@@ -38,6 +38,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {MatCardModule} from "@angular/material/card";
+import { GraphSortingComponent } from './graph/graph-sorting/graph-sorting.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import {MatCardModule} from "@angular/material/card";
     TestingComponent,
     TimeFiltersComponent,
     PriceGraphComponent,
+    GraphSortingComponent,
   ],
   imports: [
     BrowserModule,

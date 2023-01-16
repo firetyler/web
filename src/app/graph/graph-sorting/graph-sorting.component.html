@@ -1,0 +1,11 @@
+<mat-form-field>
+  <mat-label id="mat-lable">Sortering</mat-label>
+  <mat-select id="mat-select" placeholder="Alternativ" (selectionChange)="onChange($event.value)">
+    <mat-option *ngFor="let data of sortOptions" [value]="data" >
+      {{data}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-radio-button *ngFor="let option of optionsList" (click)="onSelect(option)">
+  {{option}}
+</mat-radio-button>

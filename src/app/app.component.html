@@ -2,12 +2,13 @@
 <app-mini-header></app-mini-header>
 <div class="bottom-part">
   <router-outlet></router-outlet>
-    <app-time-filters></app-time-filters>
-    <ng-container [ngSwitch]="componentName">
-      <app-price-graph *ngSwitchCase="'Bokningsbeteende'"></app-price-graph>
-      <app-behavior-graph *ngSwitchCase="'Användningskostnad'"></app-behavior-graph>
-    </ng-container>
-    <app-quan-data></app-quan-data>
+  <app-time-filters></app-time-filters>
+  <app-graph-sorting></app-graph-sorting>
+  <ng-container [ngSwitch]="componentName">
+    <app-price-graph *ngSwitchCase="'Bokningsbeteende'"></app-price-graph>
+    <app-behavior-graph *ngSwitchCase="'Användningskostnad'"></app-behavior-graph>
+  </ng-container>
+  <app-quan-data></app-quan-data>
   <app-footer></app-footer>
 </div>
 <app-testing></app-testing>

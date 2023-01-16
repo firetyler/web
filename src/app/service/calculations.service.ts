@@ -1,37 +1,22 @@
 import { Injectable } from '@angular/core';
-import {ScheduleEntry, SchemaService} from "./schema.service";
-import {createObject} from "rxjs/internal/util/createObject";
+import {GetScheduleDataService} from "./get-schedule-data.service";
+import {TimeFiltersComponent} from "../time-filters/time-filters.component";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CalculationsService {
 
-  constructor(private data : SchemaService) {
-    this.create("","");
-  }
-  async create(data : string,data2 : string){
-    this.bookedProcent(await  this.data.getSoapData(new Date()));
-    this.totalBooked(await  this.data.getSoapData(new Date));
-    //TODO Byt till rätt input
-  }
-    bookedProcent(data : ScheduleEntry[]){
-    const booked : any[] = [];
-    for (let j = 0; j < data.length; j++){
-      booked.push(data[j].getpercentOfTotaltimeForOneRoom());
-    }
-    return booked;
-  }
-  totalBooked(data : ScheduleEntry[]){
-    const total : any[] = [];
-    for (let i = 0; i< data.length; i++){
-      total.push(data[i].getTotalHours());
-    }
-    //console.log(total);
-    return total;
-  }
-
-  unbooked(){
+  constructor(private getData: GetScheduleDataService, private getDays: TimeFiltersComponent) {}
+  //TODO Byt namn på metoder
+  procent() {
+    const numberOfDays = this.getDays.getNumberOfDays();
 
   }
+
+  //TODO Beräkna antalet använda timmar procentuellt för alla som visas
+  //TODO Beräkna kostnaden för bokade timmar
+  //TODO Beräkna kostnaden för obokade timmar
+
+
 }

@@ -15,7 +15,7 @@ export class RoomMapService {
   constructor(private csvReader: CsvFileReaderService, private getScheduleData: GetScheduleDataService) {
   }
 
-  async mapRooms() {
+  async mapRooms() : Promise<MapRoomEntry[]> {
     let roomExists: boolean = false;
     this.listOfRooms = await this.csvReader.getRooms();
    // console.log(this.listOfRooms);

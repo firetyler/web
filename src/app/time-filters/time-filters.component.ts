@@ -40,6 +40,13 @@ export class TimeFiltersComponent {
       alert("Vänligen välj ett datum och välj sedan antalet dagar igen!")
     }
   }
+
+  getNumberOfDays() {
+    return this.numberOfDays;
+  }
+  getNumberOfWorkDays() {
+
+  }
 }
 
 
