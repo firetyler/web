@@ -1,5 +1,5 @@
 .miniHeader{
-  background-color: #292c2c;
+  background-color: #242627;
   height: auto;
   width: auto;
   text-align: center;
@@ -14,9 +14,9 @@
 }
 
 .item{
-  color:#ffcc00;
+  color:white;
   font-weight: bold;
-  font-family: Playfair;
+  font-family: "Helvetica Neue";
   font-size: medium;
 }
 

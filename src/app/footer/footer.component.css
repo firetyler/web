@@ -4,7 +4,21 @@
 }
 
 .dark{
-  background-color: #292c2c;
+  background-color: #242627;
+}
+#header{
+  color: white;
+}
+
+.color{
+  background-color: #ffdd00;
+}
+
+#line{
+  height: 10px;
+  width: 90%;
+  padding: 0px;
+  margin: 0px;
 }
 
 
