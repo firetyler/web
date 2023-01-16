@@ -4,6 +4,8 @@ import {ScheduleEntry} from "./schema.service";
 import {CsvFileReaderService} from "./csv-file-reader.service";
 import {startWith} from "rxjs";
 import {MapRoomsService} from "./map-rooms.service";
+import {MapRoomEntry, RoomMapService} from "./room-map.service";
+import {closestNode} from "@angular/core/schematics/utils/typescript/nodes";
 
 @Injectable({
   providedIn: 'root'
@@ -14,27 +16,23 @@ export class Behavior2Service {
   private roomBehavior: Behavior[] = [];
   private listOfData: any[] = [];
   private listOfFullData : any[] = [];
-
-  constructor(private mapRoom: MapRoomsService, private sched: SchemaService, private room: CsvFileReaderService) {
+  constructor(private mapRoom: RoomMapService, private behav:Behavior) {
     this.create();
   }
 
   async create() {
-    await this.startService();
+    await this.startService( await this.mapRoom.mapRooms(),await this.behav.setColor() );
   }
 
-  async startService() {
-    this.listOfData.push(this.mapRoom)
-    console.log(this.listOfData);
-    for (let i =0; i < this.listOfData.length;i++){
-        this.listOfFullData.push(this.listOfData[i].scheduleEntryArray[i].room,
-          this.listOfData[i].scheduleEntryArray[i].course,
-          this.listOfData[i].scheduleEntryArray[i].startDate,
-          this.listOfData[i].scheduleEntryArray[i].endDate);
+  async startService(json: MapRoomEntry[],json2: Behavior[]) {
+
+    for (let i =0; i < json.length;i++){
+        this.listOfFullData.push(new Behavior(json[i].id,
+          json[i].entry[i].course,json[i].startDate,json[i].entry[i].endDate,json2[i].color));
 
 
     }
-    console.log(this.listOfFullData);
+    console.log("This is Here "+this.listOfData)
     return this.listOfFullData;
   }
 
@@ -45,55 +43,70 @@ export class Behavior2Service {
 
 export class Behavior {
   room: number;
-  color: string = "";
   date: any;
-  bookings: ScheduleEntry[];
+  bookings: MapRoomEntry[] = [];
   private dateError: boolean = false;
   private HOURS_OF_A_WORK_DAY = 8;
+  course: string;
+  color: any;
+  startDate: string;
+  endDate:string;
 
-  constructor(room: number, bookings: ScheduleEntry[]) {
+  constructor(room: number,course:string,startDate:string,endDate:string ,bookings: MapRoomEntry[]) {
     this.room = room;
-    this.setColor();
-    this.setDate();
-    this.bookings = bookings;
+    this.course=course;
+    this.startDate=startDate;
+    this.endDate=endDate;
+    this.color= this.setColor(bookings);
   }
 
-  setColor() {
-    console.log("Fucking color" + this.bookings)
+  setColor(bookings: MapRoomEntry[]) {
+    console.log("Fucking color" + bookings)
     let hasBadBehavior = false;
     let totalTime = 0;
     let beforeLunch;
     let afterLunch;
-    for (let i = 0; i < this.bookings.length; i++) {
-      let startTime = this.getMilitaryTime(this.bookings[i].startTime);
-      let endTime = this.getMilitaryTime(this.bookings[i].endTime);
-
+    console.log(bookings[0].entry[0].startTime)
+    console.log("outside loop")
+    for (let i = 0; i < bookings.length; i++) {
+      let startTime = this.getMilitaryTime(bookings[i].entry[i].startTime);
+      let endTime = this.getMilitaryTime(bookings[i].entry[i].endTime);
+        console.log("insinde loop")
       if (endTime > 1145 && endTime < 1215) {
-        beforeLunch = this.bookings[i];
+        console.log("endTime > 1145 && endTime < 1215")
+        beforeLunch = bookings[i].entry[i];
       } else if (startTime > 1245 && startTime < 1330) {
-        afterLunch = this.bookings[i];
+        console.log("startTime > 1245 && startTime < 1330")
+        afterLunch = bookings[i].entry[i];
       }
     }
 
     if (beforeLunch != undefined && afterLunch != undefined) {
+      console.log("first if")
       if (beforeLunch.course === afterLunch.course) {
+        console.log("second if")
         if (beforeLunch.getTotalHours() + afterLunch.getTotalHours() <= 4) {
+          console.log("true we are inside the third if")
           hasBadBehavior = true;
         }
       }
     }
 // TODO Byt ut loop mot olivers service
-    for (let i = 0; i < this.bookings.length; i++) {
-      totalTime += this.bookings[i].getTotalHours();
+    for (let i = 0; i < bookings.length; i++) {
+      totalTime += bookings[i].getTotalHours();
     }
     if (totalTime > 7 && !hasBadBehavior) {
-      this.color = '#0000ff';
-    } else if (this.bookings.length == 2 && hasBadBehavior) {
-      this.color = "#ff0000";
-    } else if (this.bookings.length > 2 && hasBadBehavior) {
-      this.color = '#ff8c00';
+      console.log("blue")
+     return this.color = '#0000ff';
+    } else if (bookings.length == 2 && hasBadBehavior) {
+      console.log("red")
+     return this.color = "#ff0000";
+    } else if (bookings.length > 2 && hasBadBehavior) {
+      console.log("orange")
+      return this.color = '#ff8c00';
     } else {
-      this.color = '#ffff00';
+      console.log("Yellow")
+    return  this.color = '#ffff00';
     }
   }
 
@@ -102,21 +115,21 @@ export class Behavior {
     return parseInt(militaryTime);
   }
 
-  setDate() {
-    this.date = this.bookings[0].startDate;
-    for (let i = 0; i < this.bookings.length; i++) {
-      if (this.bookings[i].startDate !== this.bookings[i].endDate) {
+ /* setDate(bookings: ScheduleEntry[]) {
+    this.date = bookings[0].startDate;
+    for (let i = 0; i < bookings.length; i++) {
+      if (bookings[i].startDate !== bookings[i].endDate) {
         this.dateError = true;
-      } else if (this.date !== this.bookings[i].startDate) {
+      } else if (this.date !== bookings[i].startDate) {
         this.dateError = true;
       }
     }
     if (this.dateError) {
       this.date = new Date(0, 0, 0);
     } else {
-      let split = this.bookings[0].startDate.split("-");
+      let split = bookings[0].startDate.split("-");
       this.date = new Date(parseInt(split[0]), parseInt(split[1]), parseInt(split[2]));
     }
 
-  }
+  }*/
 }

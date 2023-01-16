@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {CsvFileReaderService, RoomEntry} from "./csv-file-reader.service";
 import {GetScheduleDataService} from "./get-schedule-data.service";
 import {ScheduleEntry} from "./schema.service";
+import {Behavior, Behavior2Service} from "./behavior2.service";
 
 
 @Injectable({
@@ -11,6 +12,7 @@ export class RoomMapService {
   listOfRooms: RoomEntry[] = [];
   listOfScheduleEntry: ScheduleEntry[] = [];
   listWithData: MapRoomEntry[] = [];
+  ListOfColors: Behavior[] = [];
 
   constructor(private csvReader: CsvFileReaderService, private getScheduleData: GetScheduleDataService) {
   }
@@ -44,7 +46,6 @@ export class RoomMapService {
       roomExists = false;
     });
     return this.listWithData;
-    console.log(this.listWithData);
   }
 
 
@@ -54,6 +55,7 @@ export class MapRoomEntry {
   id: number;
   startDate: string;
   academy: string;
+
   seats: number;
   price: number;
   entry: ScheduleEntry[] = [];
@@ -64,6 +66,7 @@ export class MapRoomEntry {
     this.academy = academy;
     this.seats = seats;
     this.price = price;
+
     this.entry.push(entry);
   }
 
