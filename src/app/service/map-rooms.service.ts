@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {ScheduleEntry, SchemaService} from "./schema.service";
+import {SchemaService} from "./schema.service";
 import {CalculationsService} from "./calculations.service";
-import {CsvFileReaderService, Room} from "./csv-file-reader.service";
+import {CsvFileReaderService} from "./csv-file-reader.service";
 import {GetScheduleDataService} from "./get-schedule-data.service";
 
 
@@ -9,64 +9,78 @@ import {GetScheduleDataService} from "./get-schedule-data.service";
   providedIn: 'root'
 })
 export class MapRoomsService {
+  tempArray: any[] = [];
+  dataEntry: any[] = [];
+  dataCsv: any[] = [];
+  arr: any [] = [];
+  arr2: any [] = [];
+  stuf : any[] = [];
 
-  constructor(private csV: CsvFileReaderService, private schema: SchemaService, private calc: CalculationsService,
-              private getSchedule: GetScheduleDataService) {
+  constructor(private csV: CsvFileReaderService, private schema: SchemaService, private calc: CalculationsService, private getSchedule: GetScheduleDataService) {
 
   }
 
   async create() {
     //await this.getRoomNumberCsvService();
     //await this.getRoomNumberScheduleEntryService();
-    await this.mergingCsvAndEntryService();
+   // await this.getDataEntryArray();
   }
 
-  mappingArray(csvInput: Room, schemaInput: ScheduleEntry) {
-    const room: any[] = [];
-    const csv: any[] = [];
-    const schema: any[] = [];
-    for (let i = 0; i < ScheduleEntry.length; i++) {
-      for (let j = 0; j < ScheduleEntry.length; j++) {
+  async getDataEntryArray(){
+    //this.dataEntry =  await this.getSchedule.getScheduleArray();
+   // console.log("entry " + this.dataEntry[0].room)
+   // this.dataEntry = await  this.getSchedule.getScheduleArray();
+    this.dataEntry = await this.schema.getSoapData(new Date());
+    this.dataCsv = await this.csV.getRooms();
 
-
+    for (let i = 0; i < this.dataEntry.length; i++) {
+      if (!this.arr.includes(this.dataEntry[i])) {
+        this.arr.push(this.dataEntry[i]);
       }
     }
+
+
+    for (let i = 0; i < this.arr.length; i++) {
+      for (let j = 0; j < this.dataCsv.length; j++) {
+        if (this.dataCsv[j].id == this.arr[i].room && this.dataCsv[j].seats != 0)
+          this.arr2.push(new RoomMapEntry(this.dataCsv[j].id, this.dataCsv[j].academy, this.dataCsv[j].seats, this.dataCsv[j].price
+            , this.arr[i].startDate, this.arr[i].course, this.arr[i].startTime, this.arr[i].endTime));
+      }
+    }
+
+
+    return this.arr2;
   }
 
-  /*async getRoomNumberScheduleEntryService() {
-    let data = await this.schema.getSoapData("", "");
-    for (let j = 0; j < data.length; j++) {
-      //console.log("Room " + data[j].room);
-    }
-  }*/
+  async getEntryArray(){
+    console.log("Map room service class "+this.arr2);
+    return this.arr2;
+  }
 
-  /* async getRoomNumberCsvService() {
-     let data = await this.csV.getRooms();
-     for (let i = 0; i < data.length; i++) {
-       //console.log("Csv " + data[i].id);
-     }
-   }*/
 
-  //test av ett duplicerings fel
-  //!tempArray.includes(dataEntry[i].room)
-  async mergingCsvAndEntryService() {
-    const tempArray: any[] = [];
-    let dataEntry = await this.schema.getSoapData(new Date());
-    //TODO byt till rätt input
-    let dataCsv = await this.csV.getRooms();
-    for (let i = 0; i < dataEntry.length; i++) {
-      for (let j = 0; j < dataCsv.length; j++) {
-        //if (dataEntry.filter()) {
-          if (dataEntry[i].room == dataCsv[j].id) {
+}
 
-            //console.log(dataEntry[i].room, dataEntry[i].startTime, dataEntry[i].endTime,
-              //dataEntry[i].startDate, dataEntry[i].endDate, dataEntry[i].course, dataCsv[j].academy,
-              //dataCsv[j].seats, dataCsv[j].price);
-          }
-        }
-      }
 
-    }
-  //}
+export class RoomMapEntry {
+  startDate: string;
+  course: string;
+  academy: string;
+  seats: number;
+  price: number;
+  startTime: string;
+  endTime: string;
+  room: number;
+
+  constructor(room: number, academy: string, seats: number, price: number, startDate: string, course: string, startTime: string, endTime: string) {
+    this.room = room;
+    this.course = course;
+    this.academy = academy;
+    this.seats = seats;
+    this.price = price;
+    this.startDate = startDate;
+    this.startTime = startTime;
+    this.endTime = endTime;
+
+  }
 
 }

@@ -1,10 +1,13 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {SeviceService} from "../sevice.service";
 import {Month} from "../month";
 import {Days} from "../days";
 import {TimeFiltersComponent} from "../../time-filters/time-filters.component";
 import {CsvFileReaderService} from "../../service/csv-file-reader.service";
 import {ScheduleEntry, SchemaService} from "../../service/schema.service";
+import {GetScheduleDataService} from "../../service/get-schedule-data.service";
+import {MapRoomsService, RoomMapEntry} from "../../service/map-rooms.service";
+import {MapRoomEntry, RoomMapService} from "../../service/room-map.service";
 
 declare var google: any;
 
@@ -15,47 +18,46 @@ declare var google: any;
 })
 export class PriceGraphComponent implements OnInit {
   @Input() value: any;
-  rooms: any[] = [];
-  carry: any[] = [];
-
-  constructor(private service: SeviceService, private room: CsvFileReaderService, private sched : SchemaService) {
+  private listOfData: any[] = [];
+  private listOfFullData : any[] = [];
+  constructor( private mapRoom : RoomMapService) {
   }
 
   async ngOnInit() {
-
     google.charts.load('current', {'packages': ['corechart']});
-    await google.charts.setOnLoadCallback(this.drawChart(await this.sched.getSoapData(new Date())));
+    //google.load('visualization', '1.0', {'packages':['corechart']});
+   // await google.charts.setOnLoadCallback(this.drawChart(await this.sched.getSoapData(new Date())));
+    await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.mapRooms()));
+    //console.log(await this.mapRoomsService.getDataEntryArray() + "k")
     //TODO byt till rätt input till this.drawChart()
   }
 
-  async drawChart(json: ScheduleEntry[]) {
+  async drawChart(json: MapRoomEntry[]) {
+    let carry : any[] = [['id','price','seats','totalHours','academy']];
 
 // First index in laptop code is ['ID','date','bookedTime','akademi']
     // second index and come numbers and informations ['99123',Fri Jan 01 2021 00:00:00 GMT+0100 , 2 ,'atm']
-   let limit : number = 0
-   const carry: any[] = [[{type :'string' ,role:'ID'},{type : 'number', role : 'startDate'}, { type : 'number',role :'totalHours'}]];
+    let limit: number = 0
+
+    //this.listOfData.push(this.mapRoomsService)
+
+
     for (let i = 0; i < json.length; i++) {
-        if (json[i].room  !=limit){
-         // const carry: any[] = [[{role:'ID'},{role : 'startDate'}, {role :'totalHours'}]];
-          carry.push([json[i].room,json[i].getTestNumber(), json[i].getTotalHours()]);
-        //  console.log(json[i].startDate);
-        //  console.log(json[i].getTestNumber());
-        }else{
-
-        }
-
-
+      //console.log("Inside Loop")
+      //if(json[i].price != 0 && json[i].seats != 0)
+      carry.push([json[i].id,json[i].price,json[i].seats, json[i].getTotalHours(),json[i].academy]);
+      //console.log("roomEntry for rooms"+roomEntry[i].room);
     }
-   // console.log(carry);
+    console.log(carry);
     // console.log(carry);
 
     const options = {
       title: '',
       hAxis: {
-        title: 'dagar',
+        title: 'pris',
         format: ' dd mm yyyy'
       },
-      vAxis: {title: 'timmar'},
+      vAxis: {title: 'totala timmer'},
       bubble: {
         textStyle: {fontSize: 13},
         fontName: 'Times-Roman',
@@ -72,7 +74,8 @@ export class PriceGraphComponent implements OnInit {
     };
     const data = google.visualization.arrayToDataTable(carry);
     const chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
-    chart.draw( data, options);
+    chart.draw(data, options);
+
   }
 
 

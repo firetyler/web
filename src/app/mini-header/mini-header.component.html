@@ -1,6 +1,5 @@
 <div class="miniHeader" >
   <img id="line" src="../../assets/ThinLine.png">
 <div id="innerBox">
-  <mat-radio-button *ngFor="let list of list"> <div class="item">{{list.name}}</div> </mat-radio-button>
-</div>
+  <mat-radio-button *ngFor="let alt of selection" (click)="onSelect(alt)"> <div class="item">{{alt}}</div> </mat-radio-button>
 </div>

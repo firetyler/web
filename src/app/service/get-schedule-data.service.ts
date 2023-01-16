@@ -10,11 +10,10 @@ export class GetScheduleDataService {
   scheduleArray: ScheduleEntry[] = [];
   constructor(private getData: SchemaService) { }
 
-  setDates(startDate: Date, numberOfDays: number) {
-
+  async setDates(startDate: Date, numberOfDays: number) {
     this.startDate = startDate;
     this.numberOfDays = numberOfDays;
-    this.getSoapDataIterated()
+    await this.getSoapDataIterated()
   }
 
   async getSoapDataIterated() {
@@ -23,14 +22,16 @@ export class GetScheduleDataService {
     do {
       date.setFullYear(this.startDate.getFullYear(),this.startDate.getMonth(),this.startDate.getDate()+count);
       let tempArray = await this.getData.getSoapData(date);
+      console.log(tempArray);
       tempArray.forEach((item) => this.scheduleArray.push(item));
-      console.log(date)
       count++;
     } while (count < this.numberOfDays);
-
   }
 
-  getScheduleArray() {
+  async getScheduleArray() {
+    if(this.scheduleArray.length < 1) {
+      alert("finns inget innehåll");
+    }
     return this.scheduleArray;
   }
 }

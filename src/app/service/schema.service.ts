@@ -12,6 +12,7 @@ export class SchemaService {
   private scheduleEntryArray: ScheduleEntry[] = [];
 
   async getSoapData(inputDate: Date): Promise<ScheduleEntry[]> {
+    this.scheduleEntryArray = [];
     let svar = "";
     let date = inputDate.getFullYear() + "-" + (inputDate.getMonth()+1) + "-" + inputDate.getDate();
     const startDatumTest = "2019-02-5";
@@ -25,8 +26,8 @@ export class SchemaService {
       '<tjan:hamtaSchemaPosterOchForklaringsTexterForVillkorMedFastaDatum>' +
       '<arg0>' +
       '<typ:eventuelltKlientId>?</typ:eventuelltKlientId>' +
-      '<typ:slutDatum>' + slutDatumTest + '</typ:slutDatum>' +
-      '<typ:startDatum>' + startDatumTest + '</typ:startDatum>' +
+      '<typ:slutDatum>' + date + '</typ:slutDatum>' +
+      '<typ:startDatum>' + date + '</typ:startDatum>' +
       '<typ:villkor>' +
       '<typ:aktivitetstyp>Lektion</typ:aktivitetstyp>' +
       '<typ:bokningstyp>?</typ:bokningstyp>' +
@@ -77,7 +78,8 @@ export class SchemaService {
           resurser[0]));
       }
     }
-// console.log(this.scheduleEntryArray);
+
+ //console.log(this.scheduleEntryArray);
     return this.scheduleEntryArray;
 
   }
@@ -97,6 +99,7 @@ export class SchemaService {
     }
     return resursIndex;
   }
+
 }
 
 export class ScheduleEntry {
