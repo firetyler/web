@@ -1,10 +1,4 @@
-import {Component, OnChanges, SimpleChanges} from '@angular/core';
-import {MatDatepickerInputEvent} from "@angular/material/datepicker";
-
-import {DateAdapter, MAT_DATE_LOCALE, NativeDateAdapter} from "@angular/material/core";
-import {Platform} from '@angular/cdk/platform';
-
-import {MonthpickerDateAdapter} from './monthpicker-date-formats';
+import {Component} from '@angular/core';
 import {MAT_RADIO_DEFAULT_OPTIONS} from "@angular/material/radio";
 import {GetScheduleDataService} from "../service/get-schedule-data.service";
 
@@ -44,9 +38,21 @@ export class TimeFiltersComponent {
   getNumberOfDays() {
     return this.numberOfDays;
   }
-  getNumberOfWorkDays() {
 
+  getNumberOfWorkDays() {
+    if (this.startDate != undefined) {
+      let startDay = this.startDate.getDay();
+      if ((startDay == 5 || startDay == 0) && this.numberOfDays == 30) {
+        return this.numberOfDays - 9;
+      } else if (startDay == 6 && this.numberOfDays == 30) {
+        return this.numberOfDays - 10;
+      } else if (this.numberOfDays == 30 && (startDay < 5 && startDay > 0)) {
+        return this.numberOfDays - 8;
+      } else {
+        return 2;
+      }
+    } else {
+      return 0;
+    }
   }
 }
-
-

@@ -1,6 +1,6 @@
 <mat-form-field>
   <mat-label id="mat-lable">Sortering</mat-label>
-  <mat-select id="mat-select" placeholder="Alternativ" (selectionChange)="onChange($event.value)">
+  <mat-select id="mat-select" placeholder="Fallande" (selectionChange)="onChange($event.value)">
     <mat-option *ngFor="let data of sortOptions" [value]="data" >
       {{data}}
     </mat-option>

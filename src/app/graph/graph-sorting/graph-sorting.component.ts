@@ -8,7 +8,7 @@ import {MapRoomEntry, RoomMapService} from "../../service/room-map.service";
 })
 export class GraphSortingComponent implements OnInit {
   optionsList: string[] = ['Ingen sortering', 'Bokade timmar', 'Storlek', 'Bokningsbeteende', 'Bokningskostnad', 'Obokningskostnad'];
-  sortOptions: string[] = ['Stigande', 'Minskande'];
+  sortOptions: string[] = ['Stigande', 'Fallande'];
   startArray: MapRoomEntry[] = [];
   isDecending: boolean;
 
@@ -69,6 +69,10 @@ export class GraphSortingComponent implements OnInit {
   }
 
   onChange(value: any) {
-
+    if (value === 'Stigande') {
+      this.isDecending = false;
+    } else if (value === 'Fallande') {
+      this.isDecending = true;
+    }
   }
 }
