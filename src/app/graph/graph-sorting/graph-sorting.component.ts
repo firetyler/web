@@ -58,7 +58,15 @@ export class GraphSortingComponent implements OnInit {
 
       return sortedArray;
     } else if (option === 'Bokningskostnad') {
-
+      sortedArray.sort((entryOne, entryTwo) => {
+        if ((entryOne.getTotalHours()*entryOne.price) < (entryTwo.getTotalHours()*entryTwo.price)) {
+          return -1;
+        } else if ((entryOne.getTotalHours()*entryOne.price) > (entryTwo.getTotalHours()*entryTwo.price)){
+          return 1;
+        } else {
+          return 0;
+        }
+      });
       return sortedArray;
     } else if (option === 'Obokningskostnad') {
 

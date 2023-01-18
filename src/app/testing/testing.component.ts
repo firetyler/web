@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {SchemaService} from "../service/schema.service";
-import {CalculationsService} from "../service/calculations.service";
 import {MapRoomsService} from "../service/map-rooms.service";
 import {ScheduleEntry} from "../service/schema.service";
 import {Behavior2Service} from "../service/behavior2.service";
@@ -14,7 +13,7 @@ import {GetScheduleDataService} from "../service/get-schedule-data.service";
 })
 export class TestingComponent implements OnInit {
   json: any;
-  constructor(private service3 : Behavior2Service,private h: RoomMapService, private service : GetScheduleDataService,private  service2 : CalculationsService) {}
+  constructor(private service3 : Behavior2Service,private h: RoomMapService, private service : GetScheduleDataService) {}
 
   async ngOnInit() {
     /*    this.service.getSoapData(new Date());

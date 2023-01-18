@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import axios from "axios";
 import {XMLParser} from "fast-xml-parser";
-import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Injectable({
   providedIn: 'root'
@@ -78,10 +77,8 @@ export class SchemaService {
           resurser[0]));
       }
     }
-
  //console.log(this.scheduleEntryArray);
     return this.scheduleEntryArray;
-
   }
 
   readResurser(resurser: any) {
@@ -99,7 +96,6 @@ export class SchemaService {
     }
     return resursIndex;
   }
-
 }
 
 export class ScheduleEntry {
@@ -128,9 +124,7 @@ export class ScheduleEntry {
     let startMinutes = 60 * parseInt(startTimeArray[0]) + parseInt(startTimeArray[1]);
     let endMinutes = 60 * parseInt(endTimeArray[0]) + parseInt(endTimeArray[1]);
 
-
     return (endMinutes - startMinutes)/60;
-
   }
   //TODO Hämta för varje dag, går det att lägga dessa i en gemensam array?
   getTestNumber() {

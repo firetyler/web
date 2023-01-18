@@ -49,7 +49,7 @@ export class TimeFiltersComponent {
       } else if (this.numberOfDays == 30 && (startDay < 5 && startDay > 0)) {
         return this.numberOfDays - 8;
       } else {
-        return 2;
+        return this.numberOfDays - 2;
       }
     } else {
       return 0;

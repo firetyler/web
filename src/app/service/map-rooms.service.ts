@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {SchemaService} from "./schema.service";
-import {CalculationsService} from "./calculations.service";
 import {CsvFileReaderService} from "./csv-file-reader.service";
 import {GetScheduleDataService} from "./get-schedule-data.service";
 
@@ -16,7 +15,7 @@ export class MapRoomsService {
   arr2: any [] = [];
   stuf : any[] = [];
 
-  constructor(private csV: CsvFileReaderService, private schema: SchemaService, private calc: CalculationsService, private getSchedule: GetScheduleDataService) {
+  constructor(private csV: CsvFileReaderService, private schema: SchemaService, private getSchedule: GetScheduleDataService) {
 
   }
 
