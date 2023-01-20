@@ -5,7 +5,7 @@ export class MonthpickerDateAdapter extends NativeDateAdapter {
   constructor(matDateLocale: string, platform: Platform) {
     super(matDateLocale, platform);
   }
-
+//TODO bug i hur man väljer datum för 1 december funkar ej samt andra månader.
   override parse(value: string): Date | null {
     const monthAndYearRegex = /(10|11|12|0\d|\d)\/[\d]{4}/;
     if (value?.match(monthAndYearRegex)) {

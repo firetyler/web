@@ -26,6 +26,7 @@ export class GetScheduleDataService {
       console.log(tempArray);
       tempArray.forEach((item) => this.scheduleArray.push(item));
       count++;
+      //console.log(count)
     } while (count < this.numberOfDays);
   }
 
