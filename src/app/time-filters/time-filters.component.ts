@@ -25,6 +25,7 @@ export class TimeFiltersComponent {
   numberOfDays: number = 0;
   loader: boolean = true;
   list: any[] = ["7 dagar", "30 dagar"];
+  isHidden: boolean = true;
 
   constructor(private dataService: GetScheduleDataService) {}
 
@@ -36,6 +37,7 @@ export class TimeFiltersComponent {
     let numberOfDays = event.split(' ');
     this.numberOfDays = parseInt(numberOfDays[0],10);
     if (this.startDate != undefined && this.numberOfDays != 0) {
+      this.isHidden = false;
     await this.dataService.setDates(this.startDate, this.numberOfDays);
      await this.loading();
     } else {
