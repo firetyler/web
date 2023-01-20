@@ -58,8 +58,28 @@ export class GraphSortingComponent implements OnInit {
       }
       return sortedArray;
     } else if (option === 'Bokningsbeteende') {
-
-      return sortedArray;
+      let filterBlueYellow = sortedArray.filter((entry) => entry.color === '#0000ff' || entry.color === '#ffff00');
+      filterBlueYellow.sort((entryOne,entryTwo) => {
+        if(entryOne.color === '#0000ff' && entryTwo.color === '#ffff00') {
+          return 1;
+        } else if (entryOne.color === '#ffff00' && entryTwo.color === '#0000ff') {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+      let filterOrangeRed = sortedArray.filter((entry) => entry.color === "#ff0000" || entry.color === '#ff8c00');
+      filterOrangeRed.sort((entryOne,entryTwo) => {
+        if(entryOne.color === '#ff8c00' && entryTwo.color === "#ff0000") {
+          return 1;
+        } else if (entryOne.color === "#ff0000" && entryTwo.color === '#ff8c00') {
+          return -1;
+        } else {
+          return 0;
+        }
+      });
+      filterOrangeRed.forEach((entry) => filterBlueYellow.push(entry));
+      return filterBlueYellow;
     } else if (option === 'Bokningskostnad') {
       sortedArray.sort((entryOne, entryTwo) => {
         if (!this.isWorkDays){
