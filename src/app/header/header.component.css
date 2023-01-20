@@ -1,23 +1,16 @@
 div{
-  background-color: #22223B;
-  height: 130px;
+  background-color: #242627;
+ margin: 0px;
+  padding: 0px;
 }
 
-.container-fluid {
-  width: 100%;
-
+#logo{
 
 }
-.buttom_row{
-  position: fixed;
-  align-content: center;
-  max-width: 100%;
 
-  color: white;
+.yellow{
+  background-color: #ffdd00;
 }
-.popupWindow{
-  position: fixed;
-  right: 180px;
-  top: 20px;
-  color: white;
-}
+
+
+
