@@ -10,8 +10,21 @@
       </mat-form-field>
     </div>
     Välj en längd: <br>
-    <mat-radio-button *ngFor="let list of list" (click)="onSelect(list)">
+    <mat-radio-button  *ngFor="let list of list" (click)="onSelect(list)">
       {{list}}
-    </mat-radio-button>
+    </mat-radio-button >
+    <div >
+    <!--Loader Div Starts-->
+    <div class="spinner-grow text-primary" style="width: 1rem; height: 1rem;" role="status" *ngIf="loader">
+    </div>
+    <!--Loader Div Ends-->
+    <div class="container-fluid bg-image" *ngIf="!loader">
+      <h1>Data är laddad</h1>
+    </div>
+    </div>
   </div>
+
+
+
+
 </div>

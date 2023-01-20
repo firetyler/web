@@ -23,10 +23,8 @@ export class GetScheduleDataService {
     do {
       date.setFullYear(this.startDate.getFullYear(),this.startDate.getMonth(),this.startDate.getDate()+count);
       let tempArray = await this.getData.getSoapData(date);
-      console.log(tempArray);
       tempArray.forEach((item) => this.scheduleArray.push(item));
       count++;
-      //console.log(count)
     } while (count < this.numberOfDays);
   }
 

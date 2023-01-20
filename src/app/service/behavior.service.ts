@@ -20,9 +20,9 @@ export class BehaviorService {
     for (let i = 0; i < booking.entry.length; i++) {
       let startTime = this.getMilitaryTime(booking.entry[i].startTime);
       let endTime = this.getMilitaryTime(booking.entry[i].endTime);
-      if (endTime > 1145 && endTime < 1215) {
+      if (endTime > 114500 && endTime < 121500) {
         beforeLunch = booking.entry[i];
-      } else if (startTime > 1245 && startTime < 1330) {
+      } else if (startTime > 124500 && startTime < 133000) {
         afterLunch = booking.entry[i];
       }
     }

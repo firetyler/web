@@ -23,6 +23,7 @@ export class TimeFiltersComponent {
   lists: Array<number>[] = [];
   startDate: Date | undefined;
   numberOfDays: number = 0;
+  loader: boolean = true;
   list: any[] = ["7 dagar", "30 dagar"];
 
   constructor(private dataService: GetScheduleDataService) {}
@@ -31,14 +32,21 @@ export class TimeFiltersComponent {
     this.startDate = dateObject.value;
   }
 
-  onSelect(event: any) {
+ async onSelect(event: any) {
     let numberOfDays = event.split(' ');
     this.numberOfDays = parseInt(numberOfDays[0],10);
     if (this.startDate != undefined && this.numberOfDays != 0) {
-      this.dataService.setDates(this.startDate, this.numberOfDays);
+    await this.dataService.setDates(this.startDate, this.numberOfDays);
+     await this.loading();
     } else {
       alert("Vänligen välj ett datum och välj sedan antalet dagar igen!")
     }
+  }
+ async loading (){
+    setTimeout (() => {
+      this.loader = false;
+    },3000);
+    console.log("loding is finito")
   }
 }
 
