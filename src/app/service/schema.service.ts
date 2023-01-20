@@ -14,8 +14,6 @@ export class SchemaService {
     this.scheduleEntryArray = [];
     let svar = "";
     let date = inputDate.getFullYear() + "-" + (inputDate.getMonth()+1) + "-" + inputDate.getDate();
-    const startDatumTest = "2019-02-5";
-    const slutDatumTest = "2019-02-5";
     const url = 'https://kronoxtest.hig.se:8443/appserver-ejb/RapportEJB';
     const sr = '<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" ' +
       'xmlns:tjan=\"http://www.kronox.se/webb/tjanster/\" ' +
@@ -45,9 +43,12 @@ export class SchemaService {
       '</soapenv:Body>' +
       '</soapenv:Envelope>';
     const axi = axios.create();
-    await axi.post(url, sr).then((data) => {
-      svar = data.data;
-    });
+      await axi.post(url,sr).then(async (data) => {
+          svar = await data.data;
+
+      }).catch((error) => {
+        console.log(error);
+      });
     const parser = new XMLParser();
     this.jObj = parser.parse(svar);
     this.jObj = this.jObj['soap:Envelope']
@@ -56,18 +57,18 @@ export class SchemaService {
       ['return']
       ['ns2:schemaPoster'];
     //console.log(this.jObj);
-    for (let i = 0; i < this.jObj.length; i++) {
+
+    for (let i = 0; i < this.jObj?.length; i++) {
       let resurser: string[] = this.readResurser(this.jObj[i]['ns2:resurser']);
       if (resurser.length > 2) {
-        for (let j = 1; j < resurser.length; j++) {
+        for (let j = 1; j < resurser?.length; j++) {
           let courseId = resurser[0];
-          if (!isNaN(+resurser[j]) && resurser[j] !== '0') {
+          if (!isNaN(+resurser[j]) && resurser[j] !== '0' ) {
             this.scheduleEntryArray.push(new ScheduleEntry(this.jObj[i]['ns2:startDatumTid']['ns2:varde'],
               this.jObj[i]['ns2:slutDatumTid']['ns2:varde'],
               resurser[j],
               courseId));
           }
-
         }
       } else if(!isNaN(+resurser[1])) {
         //console.log("Hej från fucking if-sats")
@@ -76,6 +77,7 @@ export class SchemaService {
           resurser[1],
           resurser[0]));
       }
+      //console.log(resurser[1])
     }
  //console.log(this.scheduleEntryArray);
     return this.scheduleEntryArray;
@@ -83,7 +85,7 @@ export class SchemaService {
 
   readResurser(resurser: any) {
     let resursIndex = [];
-    for (let i = 0; i < resurser.length; i++) {
+    for (let i = 0; i < resurser?.length; i++) {
       if (resurser[i]['ns2:resursTyp'] === ("UTB_KURSINSTANS_GRUPPER")) {
         resursIndex.push(resurser[i]['ns2:resursId']);
       }
@@ -107,6 +109,7 @@ export class ScheduleEntry {
   course: string;
 
   constructor(startDateTime: string, endDateTime: string, room: string, course: string) {
+
     this.room = parseInt(room);
     this.course = course;
 
@@ -118,6 +121,7 @@ export class ScheduleEntry {
     this.endDate = dateAndTime[0];
     this.endTime = dateAndTime[1];
   }
+
   getTotalHours(): number {
     const startTimeArray = this.startTime.split(':');
     const endTimeArray = this.endTime.split(':');

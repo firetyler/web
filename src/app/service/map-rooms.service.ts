@@ -41,7 +41,7 @@ export class MapRoomsService {
 
     for (let i = 0; i < this.arr.length; i++) {
       for (let j = 0; j < this.dataCsv.length; j++) {
-        if (this.dataCsv[j].id == this.arr[i].room && this.dataCsv[j].seats != 0)
+        if (this.dataCsv[j].id == this.arr[i].room && this.dataCsv[j].seats != 0 )
           this.arr2.push(new RoomMapEntry(this.dataCsv[j].id, this.dataCsv[j].academy, this.dataCsv[j].seats, this.dataCsv[j].price
             , this.arr[i].startDate, this.arr[i].course, this.arr[i].startTime, this.arr[i].endTime));
       }
