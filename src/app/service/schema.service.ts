@@ -126,13 +126,5 @@ export class ScheduleEntry {
 
     return (endMinutes - startMinutes)/60;
   }
-  //TODO Hämta för varje dag, går det att lägga dessa i en gemensam array?
-  getTestNumber() {
-    return 100;
-  }
-  getpercentOfTotaltimeForOneRoom() : number{
-    let totalpercent: number = this.getTotalHours()/8*100;
-  //  console.log(totalpercent);
-    return totalpercent;
-  }
+
 }

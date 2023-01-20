@@ -9,11 +9,14 @@ import {MapRoomEntry, RoomMapService} from "../../service/room-map.service";
 export class GraphSortingComponent implements OnInit {
   optionsList: string[] = ['Ingen sortering', 'Bokade timmar', 'Storlek', 'Bokningsbeteende', 'Bokningskostnad', 'Obokningskostnad'];
   sortOptions: string[] = ['Stigande', 'Fallande'];
+  calcOptions: string[] = ['Arbetstider', "Hela dygn"];
   startArray: MapRoomEntry[] = [];
-  isDecending: boolean;
+  private isDecending: boolean;
+  private isWorkDays: boolean;
 
   constructor(private mapRoom: RoomMapService) {
     this.isDecending = true;
+    this.isWorkDays = true;
   }
 
   async ngOnInit() {
@@ -59,17 +62,51 @@ export class GraphSortingComponent implements OnInit {
       return sortedArray;
     } else if (option === 'Bokningskostnad') {
       sortedArray.sort((entryOne, entryTwo) => {
-        if ((entryOne.getTotalHours()*entryOne.price) < (entryTwo.getTotalHours()*entryTwo.price)) {
-          return -1;
-        } else if ((entryOne.getTotalHours()*entryOne.price) > (entryTwo.getTotalHours()*entryTwo.price)){
-          return 1;
+        if (!this.isWorkDays){
+          if ((entryOne.getTotalHours() * entryOne.price) < (entryTwo.getTotalHours() * entryTwo.price)) {
+            return -1;
+          } else if ((entryOne.getTotalHours() * entryOne.price) > (entryTwo.getTotalHours() * entryTwo.price)) {
+            return 1;
+          } else {
+            return 0;
+          }
         } else {
-          return 0;
+          if ((entryOne.getTotalWorkHours() * entryOne.price) < (entryTwo.getTotalWorkHours() * entryTwo.price)) {
+            return -1;
+          } else if ((entryOne.getTotalWorkHours() * entryOne.price) > (entryTwo.getTotalWorkHours() * entryTwo.price)) {
+            return 1;
+          } else {
+            return 0;
+          }
         }
       });
+      if (!this.isDecending) {
+        sortedArray.reverse();
+      }
       return sortedArray;
     } else if (option === 'Obokningskostnad') {
-
+      sortedArray.sort((entryOne, entryTwo) => {
+        if (!this.isWorkDays){
+          if (((24-entryOne.getTotalHours()) * entryOne.price) < ((24-entryTwo.getTotalHours()) * entryTwo.price)) {
+            return -1;
+          } else if (((24-entryOne.getTotalHours()) * entryOne.price) > ((24-entryTwo.getTotalHours()) * entryTwo.price)) {
+            return 1;
+          } else {
+            return 0;
+          }
+        } else {
+          if (((8- entryOne.getTotalWorkHours()) * entryOne.price) < ((8-entryTwo.getTotalWorkHours()) * entryTwo.price)) {
+            return -1;
+          } else if (((8-entryOne.getTotalWorkHours()) * entryOne.price) > ((8-entryTwo.getTotalWorkHours()) * entryTwo.price)) {
+            return 1;
+          } else {
+            return 0;
+          }
+        }
+      });
+      if (!this.isDecending) {
+        sortedArray.reverse();
+      }
       return sortedArray;
     } else {
       return this.getUnsortedArray();
@@ -81,6 +118,14 @@ export class GraphSortingComponent implements OnInit {
       this.isDecending = false;
     } else if (value === 'Fallande') {
       this.isDecending = true;
+    }
+  }
+
+  onCalcSelect(time: string) {
+    if (time === 'Arbetstider') {
+      this.isWorkDays = true;
+    } else if (time === "Hela dygn") {
+      this.isWorkDays = false;
     }
   }
 }

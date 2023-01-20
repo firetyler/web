@@ -15,17 +15,17 @@ export class RoomMapService {
   constructor(private csvReader: CsvFileReaderService, private getScheduleData: GetScheduleDataService) {
   }
 
-  async mapRooms() : Promise<MapRoomEntry[]> {
+  async mapRooms(): Promise<MapRoomEntry[]> {
     let roomExists: boolean = false;
     this.listOfRooms = await this.csvReader.getRooms();
-   // console.log(this.listOfRooms);
+    // console.log(this.listOfRooms);
     this.listOfScheduleEntry = await this.getScheduleData.getScheduleArray();
-   // console.log( this.listOfScheduleEntry);
+    // console.log( this.listOfScheduleEntry);
     this.listOfScheduleEntry.forEach((entry) => {
-    //  console.log(entry)
+      //  console.log(entry)
       for (let i = 0; i < this.listWithData.length; i++) {
         if (this.listWithData[i].id == entry.room) {
-        //  console.log("fuck you if sats")
+          //  console.log("fuck you if sats")
           this.listWithData[i].entry.push(entry);
           roomExists = true;
         }
@@ -34,8 +34,8 @@ export class RoomMapService {
 
       if (!roomExists) {
         let temp = this.listOfRooms.filter((room) => room.id == entry.room);
-     //   console.log(temp)
-        if (temp.length > 0){
+        //   console.log(temp)
+        if (temp.length > 0) {
           this.listWithData.push(new MapRoomEntry(temp[0].id, entry.startDate, temp[0].academy, temp[0].seats, temp[0].price, entry))
         }
 
@@ -67,11 +67,35 @@ export class MapRoomEntry {
     this.entry.push(entry);
   }
 
-getTotalHours(){
+  getTotalHours() {
     let hours = 0;
-    this.entry.forEach((j) => {
-      hours += j.getTotalHours();
+    this.entry.forEach((scheduleEntry) => {
+      hours += scheduleEntry.getTotalHours();
     });
     return hours;
-}
+  }
+
+  getTotalWorkHours() {
+    let hours = 0;
+    this.entry.forEach((scheduleEntry) => {
+      let startTime = parseInt(scheduleEntry.startTime.replace(":",""));
+      let endTime = parseInt(scheduleEntry.endTime.replace(":",""));
+      if ((startTime > 80000) && (endTime < 170000)) {
+        hours += scheduleEntry.getTotalHours();
+      } else if (startTime < 80000) {
+        const startTimeArray = [8,0];
+        const endTimeArray = scheduleEntry.startTime.split(':');
+        let startMinutes = 60 * startTimeArray[0] + startTimeArray[1];
+        let endMinutes = 60 * parseInt(endTimeArray[0]) + parseInt(endTimeArray[1]);
+        hours += (endMinutes-startMinutes);
+      } else if (endTime > 170000) {
+        const startTimeArray = scheduleEntry.startTime.split(':');
+        const endTimeArray = [17,0];
+        let startMinutes = 60 * parseInt(startTimeArray[0]) + parseInt(startTimeArray[1]);
+        let endMinutes = 60 * endTimeArray[0] + endTimeArray[1];
+        hours += (endMinutes - startMinutes)*60;
+      }
+    })
+    return hours;
+  }
 }
