@@ -38,6 +38,7 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {MatCardModule} from "@angular/material/card";
+import { StartComponent } from './start/start.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import {MatCardModule} from "@angular/material/card";
     TestingComponent,
     TimeFiltersComponent,
     PriceGraphComponent,
+    StartComponent,
   ],
   imports: [
     BrowserModule,
