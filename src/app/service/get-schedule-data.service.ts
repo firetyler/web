@@ -11,6 +11,7 @@ export class GetScheduleDataService {
   constructor(private getData: SchemaService) { }
 
   async setDates(startDate: Date, numberOfDays: number) {
+    this.scheduleArray=[];
     this.startDate = startDate;
     this.numberOfDays = numberOfDays;
     await this.getSoapDataIterated()
@@ -22,7 +23,6 @@ export class GetScheduleDataService {
     do {
       date.setFullYear(this.startDate.getFullYear(),this.startDate.getMonth(),this.startDate.getDate()+count);
       let tempArray = await this.getData.getSoapData(date);
-      console.log(tempArray);
       tempArray.forEach((item) => this.scheduleArray.push(item));
       count++;
     } while (count < this.numberOfDays);

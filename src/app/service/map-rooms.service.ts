@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {SchemaService} from "./schema.service";
-import {CalculationsService} from "./calculations.service";
 import {CsvFileReaderService} from "./csv-file-reader.service";
 import {GetScheduleDataService} from "./get-schedule-data.service";
 
@@ -16,7 +15,7 @@ export class MapRoomsService {
   arr2: any [] = [];
   stuf : any[] = [];
 
-  constructor(private csV: CsvFileReaderService, private schema: SchemaService, private calc: CalculationsService, private getSchedule: GetScheduleDataService) {
+  constructor(private csV: CsvFileReaderService, private schema: SchemaService, private getSchedule: GetScheduleDataService) {
 
   }
 
@@ -42,7 +41,7 @@ export class MapRoomsService {
 
     for (let i = 0; i < this.arr.length; i++) {
       for (let j = 0; j < this.dataCsv.length; j++) {
-        if (this.dataCsv[j].id == this.arr[i].room && this.dataCsv[j].seats != 0)
+        if (this.dataCsv[j].id == this.arr[i].room && this.dataCsv[j].seats != 0 )
           this.arr2.push(new RoomMapEntry(this.dataCsv[j].id, this.dataCsv[j].academy, this.dataCsv[j].seats, this.dataCsv[j].price
             , this.arr[i].startDate, this.arr[i].course, this.arr[i].startTime, this.arr[i].endTime));
       }

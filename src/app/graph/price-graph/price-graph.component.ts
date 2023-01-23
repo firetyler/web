@@ -8,6 +8,7 @@ import {ScheduleEntry, SchemaService} from "../../service/schema.service";
 import {GetScheduleDataService} from "../../service/get-schedule-data.service";
 import {MapRoomsService, RoomMapEntry} from "../../service/map-rooms.service";
 import {MapRoomEntry, RoomMapService} from "../../service/room-map.service";
+import * as http from "http";
 
 declare var google: any;
 
@@ -24,7 +25,7 @@ export class PriceGraphComponent implements OnInit {
   }
 
   async ngOnInit() {
-    google.charts.load('current', {'packages': ['corechart']});
+   await google.charts.load('current', {'packages': ['corechart']});
     //google.load('visualization', '1.0', {'packages':['corechart']});
    // await google.charts.setOnLoadCallback(this.drawChart(await this.sched.getSoapData(new Date())));
     await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.mapRooms()));
@@ -33,8 +34,7 @@ export class PriceGraphComponent implements OnInit {
   }
 
   async drawChart(json: MapRoomEntry[]) {
-    let carry : any[] = [['id','price','seats','totalHours','academy']];
-
+    let carry : any[] = [['id','totalHours','price','Academy','seats']];
 // First index in laptop code is ['ID','date','bookedTime','akademi']
     // second index and come numbers and informations ['99123',Fri Jan 01 2021 00:00:00 GMT+0100 , 2 ,'atm']
     let limit: number = 0
@@ -45,23 +45,27 @@ export class PriceGraphComponent implements OnInit {
     for (let i = 0; i < json.length; i++) {
       //console.log("Inside Loop")
       //if(json[i].price != 0 && json[i].seats != 0)
-      carry.push([json[i].id,json[i].price,json[i].seats, json[i].getTotalHours(),json[i].academy]);
+      carry.push([json[i].id.toString(), json[i].getTotalHours(),json[i].price,json[i].academy,json[i].seats]);
       //console.log("roomEntry for rooms"+roomEntry[i].room);
     }
     console.log(carry);
     // console.log(carry);
 
     const options = {
+      backgroundColor: 'white',
       title: '',
+      'width':1200,
+      'height':1000,
       hAxis: {
         title: 'pris',
-        format: ' dd mm yyyy'
+        format: ''
       },
       vAxis: {title: 'totala timmer'},
       bubble: {
-        textStyle: {fontSize: 13},
+        textStyle: {fontSize: 12},
         fontName: 'Times-Roman',
         colors: 'black',
+        border: 'black',
         italic: true
       },
       gridlines: {
@@ -71,8 +75,13 @@ export class PriceGraphComponent implements OnInit {
           hours: {format: ['HH:mm', 'ha']},
         }
       },
+      explorer: {
+        axis: 'horizontal',
+        keepInBounds: true,
+        maxZoomIn: 4.0
+      }
     };
-    const data = google.visualization.arrayToDataTable(carry);
+    let data = google.visualization.arrayToDataTable(carry);
     const chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
     chart.draw(data, options);
 

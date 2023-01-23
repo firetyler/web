@@ -39,6 +39,7 @@ import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {MatCardModule} from "@angular/material/card";
 import { StartComponent } from './start/start.component';
+import { GraphSortingComponent } from './graph/graph-sorting/graph-sorting.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { StartComponent } from './start/start.component';
     TestingComponent,
     TimeFiltersComponent,
     PriceGraphComponent,
+    GraphSortingComponent,
     StartComponent,
   ],
   imports: [

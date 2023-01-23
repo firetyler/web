@@ -5,8 +5,8 @@
   <router-outlet class="align-items-start m-0 p-0 justify-content-start"></router-outlet>
     <ng-container [ngSwitch]="componentName">
       <app-start *ngSwitchDefault></app-start>
-      <app-price-graph *ngSwitchCase="'Bokningsbeteende'" class=" d-flex align-items-center justify-content-center"></app-price-graph>
-      <app-behavior-graph *ngSwitchCase="'Användningskostnad'" class=" d-flex align-items-center justify-content-center"></app-behavior-graph>
+      <app-price-graph *ngSwitchCase="'Användningskostnad'" class=" d-flex align-items-center justify-content-center"></app-price-graph>
+      <app-behavior-graph *ngSwitchCase="'Bokningsbeteende'" class=" d-flex align-items-center justify-content-center"></app-behavior-graph>
     </ng-container>
     <app-time-filters class="align-items-end justify-content-end"></app-time-filters>
   </div>
