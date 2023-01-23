@@ -35,7 +35,7 @@ export class BehaviorGraphComponent implements OnInit{
 
 
 
-
+    console.log(json);
 //console.log(this.behavior.getRoomBehavior());
     for(let i =0; i<json.length; i++){
       dataTable.addRows([[json[i].id.toString(),json[i].academy,json[i].color,new Date(json[i].startDate),new Date(json[i].endDate)]]);

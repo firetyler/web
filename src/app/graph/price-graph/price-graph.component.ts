@@ -35,7 +35,6 @@ export class PriceGraphComponent implements OnInit {
 
   async drawChart(json: MapRoomEntry[]) {
     let carry : any[] = [['id','totalHours','price','Academy','seats']];
-
 // First index in laptop code is ['ID','date','bookedTime','akademi']
     // second index and come numbers and informations ['99123',Fri Jan 01 2021 00:00:00 GMT+0100 , 2 ,'atm']
     let limit: number = 0
