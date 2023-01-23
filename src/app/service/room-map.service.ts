@@ -11,8 +11,8 @@ import {BehaviorService} from "./behavior.service";
 export class RoomMapService {
   listOfRooms: RoomEntry[] = [];
   listOfScheduleEntry: ScheduleEntry[] = [];
-  listWithData: MapRoomEntry[] = [];
-  ListOfColors: string = "";
+  listWithDataBehavior: MapRoomEntry[] = [];
+  listWithDataCost : MapRoomEntry[] = [];
 
   constructor(private csvReader: CsvFileReaderService, private getScheduleData: GetScheduleDataService, private behavior: BehaviorService) {
   }
@@ -22,19 +22,21 @@ export class RoomMapService {
     this.listOfRooms = await this.csvReader.getRooms();
     this.listOfScheduleEntry = await this.getScheduleData.getScheduleArray();
     this.listOfScheduleEntry.forEach((entry) => {
-      let index: number = this.binarySearch(entry.room, entry.startDate, this.listWithData);
+      let index: number = this.binarySearch(entry.room, entry.startDate, this.listWithDataBehavior);
       if (index < 0) {
         let temp = this.listOfRooms.find((room) => room.id == entry.room);
         if (temp != undefined) {
-          this.listWithData.push(new MapRoomEntry(temp.id, entry.startDate, entry.endDate, temp.academy,
+          this.listWithDataBehavior.push(new MapRoomEntry(temp.id, entry.startDate, entry.endDate, temp.academy,
             temp.seats, temp.price, entry))
-          this.listWithData.sort((entryA,entryB) => entryA.id - entryB.id);
+          this.listWithDataBehavior.sort((entryA,entryB) => entryA.id - entryB.id);
         }
       } else{
-        this.listWithData[index].entry.push(entry);
+        this.listWithDataBehavior[index].entry.push(entry);
       }
 
     });
+
+
     /*   this.listOfScheduleEntry.forEach((entry) => {
         let mapRoom = this.listWithData.filter((mapRoom) => mapRoom.id == entry.room);
         if (mapRoom.length > 0) {
@@ -53,8 +55,8 @@ export class RoomMapService {
         roomExists = false;
       });*/
 
-    this.listWithData.forEach((entry) => entry.setColor(this.behavior.setColor(entry)))
-    return this.listWithData;
+    this.listWithDataBehavior.forEach((entry) => entry.setColor(this.behavior.setColor(entry)))
+    return this.listWithDataBehavior;
   }
 
   binarySearch(roomKey: number, dateKey: string, input: MapRoomEntry[]) {

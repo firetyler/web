@@ -1,6 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {BehaviorService} from 'src/app/service/behavior.service';
-import {ScheduleEntry} from "../../service/schema.service";
 import {MapRoomEntry, RoomMapService} from "../../service/room-map.service";
 
 declare var google: any;
@@ -18,7 +16,6 @@ export class BehaviorGraphComponent implements OnInit{
   constructor(private mapRoom : RoomMapService) {
   }
   async ngOnInit() {
-    //console.log(this.behavior.getRoomBehavior());
     await google.charts.load("current", {packages:["timeline"]});
     await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.mapRooms()));
   }
@@ -33,10 +30,6 @@ export class BehaviorGraphComponent implements OnInit{
     dataTable.addColumn({ type: 'date', id: 'Start' });
     dataTable.addColumn({ type: 'date', id: 'End' });
 
-
-
-    console.log(json);
-//console.log(this.behavior.getRoomBehavior());
     for(let i =0; i<json.length; i++){
       dataTable.addRows([[json[i].id.toString(),json[i].academy,json[i].color,new Date(json[i].startDate),new Date(json[i].endDate)]]);
     }

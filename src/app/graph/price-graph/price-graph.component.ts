@@ -1,55 +1,29 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {SeviceService} from "../sevice.service";
-import {Month} from "../month";
-import {Days} from "../days";
-import {TimeFiltersComponent} from "../../time-filters/time-filters.component";
-import {CsvFileReaderService} from "../../service/csv-file-reader.service";
-import {ScheduleEntry, SchemaService} from "../../service/schema.service";
-import {GetScheduleDataService} from "../../service/get-schedule-data.service";
-import {MapRoomsService, RoomMapEntry} from "../../service/map-rooms.service";
+import {Component, Input, OnInit} from '@angular/core';
 import {MapRoomEntry, RoomMapService} from "../../service/room-map.service";
-import * as http from "http";
 
 declare var google: any;
 
 @Component({
   selector: 'app-price-graph',
   templateUrl: './price-graph.component.html',
-  styleUrls: ['./price-graph.component.css']
+  styleUrls: ['./price-graph.component.css'],
+  providers : [RoomMapService]
 })
 export class PriceGraphComponent implements OnInit {
   @Input() value: any;
-  private listOfData: any[] = [];
-  private listOfFullData : any[] = [];
-  constructor( private mapRoom : RoomMapService) {
+  constructor(private mapRoom : RoomMapService) {
   }
 
   async ngOnInit() {
-   await google.charts.load('current', {'packages': ['corechart']});
-    //google.load('visualization', '1.0', {'packages':['corechart']});
-   // await google.charts.setOnLoadCallback(this.drawChart(await this.sched.getSoapData(new Date())));
-    await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.mapRooms()));
-    //console.log(await this.mapRoomsService.getDataEntryArray() + "k")
-    //TODO byt till rätt input till this.drawChart()
+   await google.charts.load('current', {packages: ['corechart']});
+   await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.mapRooms()));
   }
 
   async drawChart(json: MapRoomEntry[]) {
     let carry : any[] = [['id','totalHours','price','Academy','seats']];
-// First index in laptop code is ['ID','date','bookedTime','akademi']
-    // second index and come numbers and informations ['99123',Fri Jan 01 2021 00:00:00 GMT+0100 , 2 ,'atm']
-    let limit: number = 0
-
-    //this.listOfData.push(this.mapRoomsService)
-
-
     for (let i = 0; i < json.length; i++) {
-      //console.log("Inside Loop")
-      //if(json[i].price != 0 && json[i].seats != 0)
       carry.push([json[i].id.toString(), json[i].getTotalHours(),json[i].price,json[i].academy,json[i].seats]);
-      //console.log("roomEntry for rooms"+roomEntry[i].room);
     }
-    console.log(carry);
-    // console.log(carry);
 
     const options = {
       backgroundColor: 'white',
@@ -57,10 +31,10 @@ export class PriceGraphComponent implements OnInit {
       'width':1200,
       'height':1000,
       hAxis: {
-        title: 'pris',
+        title: 'Totala timmar',
         format: ''
       },
-      vAxis: {title: 'totala timmer'},
+      vAxis: {title: 'Pris'},
       bubble: {
         textStyle: {fontSize: 12},
         fontName: 'Times-Roman',
