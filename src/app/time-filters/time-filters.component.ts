@@ -1,4 +1,4 @@
-import {Component, Injectable} from '@angular/core';
+import {Component} from '@angular/core';
 import {MAT_RADIO_DEFAULT_OPTIONS} from "@angular/material/radio";
 import {GetScheduleDataService} from "../service/get-schedule-data.service";
 import {MiniHeaderComponent} from "../mini-header/mini-header.component";
@@ -9,7 +9,7 @@ import {MiniHeaderComponent} from "../mini-header/mini-header.component";
   styleUrls: ['./time-filters.component.css'],
   providers: [{
     provide: {MAT_RADIO_DEFAULT_OPTIONS,MiniHeaderComponent},
-    useValue: {color: 'warn'},
+    useValue: {color: 'default'},
   }]
 })
 @Injectable({
@@ -40,7 +40,7 @@ export class TimeFiltersComponent {
     if (this.startDate != undefined && this.numberOfDays != 0) {
       this.isHidden = false;
     await this.dataService.setDates(this.startDate, this.numberOfDays);
-    await this.loading();
+     await this.loading();
     } else {
       alert("Vänligen välj ett datum och välj sedan antalet dagar igen!")
     }
@@ -53,10 +53,10 @@ export class TimeFiltersComponent {
     window.location.reload();
   }
  async loading (){
-  //  let i : any;
-     setTimeout (() => {
+    setTimeout (() => {
       this.loader = false;
     },3000);
+    console.log("loding is finito")
   }
 
   getNumberOfWorkDays() {
