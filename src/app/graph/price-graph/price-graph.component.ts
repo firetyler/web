@@ -27,12 +27,7 @@ export class PriceGraphComponent implements OnInit {
 
     const options = {
       backgroundColor: 'white',
-      title: '',
-
-      hAxis: {
-        title: 'Totala timmar',
-        format: ''
-      },
+      hAxis: {title: 'Totala timmar'},
       vAxis: {title: 'Pris'},
       bubble: {
         textStyle: {fontSize: 12},
