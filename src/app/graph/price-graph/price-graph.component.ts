@@ -28,8 +28,7 @@ export class PriceGraphComponent implements OnInit {
     const options = {
       backgroundColor: 'white',
       title: '',
-      'width':1200,
-      'height':1000,
+
       hAxis: {
         title: 'Totala timmar',
         format: ''
