@@ -11,55 +11,36 @@ import {BehaviorService} from "./behavior.service";
 export class RoomMapService {
   listOfRooms: RoomEntry[] = [];
   listOfScheduleEntry: ScheduleEntry[] = [];
-  listWithDataBehavior: MapRoomEntry[] = [];
-  listWithDataCost : MapRoomEntry[] = [];
+  listWithData: MapRoomEntry[] = [];
 
-  constructor(private csvReader: CsvFileReaderService, private getScheduleData: GetScheduleDataService, private behavior: BehaviorService) {
-  }
+  constructor(private csvReader: CsvFileReaderService, private getScheduleData: GetScheduleDataService, private behavior: BehaviorService) {}
 
-  async mapRooms() {
-
+  async mapRooms(hasDate: Boolean) {
     this.listOfRooms = await this.csvReader.getRooms();
     this.listOfScheduleEntry = await this.getScheduleData.getScheduleArray();
     this.listOfScheduleEntry.forEach((entry) => {
-      let index: number = this.binarySearch(entry.room, entry.startDate, this.listWithDataBehavior);
+      let index: number;
+      if(hasDate) {
+        index = this.binarySearchWithDate(entry.room, entry.startDate, this.listWithData);
+      } else {
+        index = this.binarySearch(entry.room, this.listWithData)
+      }
       if (index < 0) {
         let temp = this.listOfRooms.find((room) => room.id == entry.room);
         if (temp != undefined) {
-          this.listWithDataBehavior.push(new MapRoomEntry(temp.id, entry.startDate, entry.endDate, temp.academy,
+          this.listWithData.push(new MapRoomEntry(temp.id, entry.startDate, entry.endDate, temp.academy,
             temp.seats, temp.price, entry))
-          this.listWithDataBehavior.sort((entryA,entryB) => entryA.id - entryB.id);
+          this.listWithData.sort((entryA, entryB) => entryA.id - entryB.id);
         }
       } else{
-        this.listWithDataBehavior[index].entry.push(entry);
+        this.listWithData[index].entry.push(entry);
       }
-
     });
-
-
-    /*   this.listOfScheduleEntry.forEach((entry) => {
-        let mapRoom = this.listWithData.filter((mapRoom) => mapRoom.id == entry.room);
-        if (mapRoom.length > 0) {
-          mapRoom[0].entry.push(entry);
-          roomExists = true;
-        }
-
-        if (!roomExists) {
-          let temp = this.listOfRooms.filter((room) => room.id == entry.room);
-          if (temp.length > 0) {
-            this.listWithData.push(new MapRoomEntry(temp[0].id,entry.course ,entry.startDate,entry.endDate, temp[0].academy, temp[0].seats, temp[0].price, entry))
-          }
-
-
-        }
-        roomExists = false;
-      });*/
-
-    this.listWithDataBehavior.forEach((entry) => entry.setColor(this.behavior.setColor(entry)))
-    return this.listWithDataBehavior;
+    this.listWithData.forEach((entry) => entry.setColor(this.behavior.setColor(entry)))
+    return this.listWithData;
   }
 
-  binarySearch(roomKey: number, dateKey: string, input: MapRoomEntry[]) {
+  binarySearchWithDate(roomKey: number, dateKey: string, input: MapRoomEntry[]) {
     if (input.length < 1) {
       return -1;
     }
@@ -83,7 +64,26 @@ export class RoomMapService {
     }
     return -1;
   }
-
+  binarySearch(roomKey: number, input: MapRoomEntry[]) {
+    if (input.length < 1) {
+      return -1;
+    }
+    let low = 0;
+    let high = input.length - 1;
+    while (low <= high) {
+      let mid = Math.floor((low + high) / 2);
+      if (input[mid].id == roomKey) {
+        return mid;
+      }
+      if (roomKey > input[mid].id) {
+        low = mid + 1;
+      }
+      if (roomKey < input[mid].id) {
+        high = mid - 1;
+      }
+    }
+    return -1;
+  }
 }
 
 export class MapRoomEntry {

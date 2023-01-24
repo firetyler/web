@@ -16,7 +16,7 @@ export class PriceGraphComponent implements OnInit {
 
   async ngOnInit() {
    await google.charts.load('current', {packages: ['corechart']});
-   await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.mapRooms()));
+   await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.mapRooms(false)));
   }
 
   async drawChart(json: MapRoomEntry[]) {

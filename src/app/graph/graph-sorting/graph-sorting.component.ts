@@ -20,7 +20,7 @@ export class GraphSortingComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.startArray = await this.mapRoom.mapRooms();
+    this.startArray = await this.mapRoom.mapRooms(true);
   }
 
   getUnsortedArray() {

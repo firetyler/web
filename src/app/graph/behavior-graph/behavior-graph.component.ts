@@ -17,7 +17,7 @@ export class BehaviorGraphComponent implements OnInit{
   }
   async ngOnInit() {
     await google.charts.load("current", {packages:["timeline"]});
-    await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.mapRooms()));
+    await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.mapRooms(true)));
   }
 
   async drawChart(json: MapRoomEntry[]){
@@ -31,7 +31,8 @@ export class BehaviorGraphComponent implements OnInit{
     dataTable.addColumn({ type: 'date', id: 'End' });
 
     for(let i =0; i<json.length; i++){
-      dataTable.addRows([[json[i].id.toString(),json[i].academy,json[i].color,new Date(json[i].startDate),new Date(json[i].endDate)]]);
+      let date = new Date(json[i].startDate)
+      dataTable.addRows([[json[i].id.toString(),json[i].academy,json[i].color,new Date(json[i].startDate),new Date(date.setDate(date.getDate() +1))]]);
     }
 
     const options = {
