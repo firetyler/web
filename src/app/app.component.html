@@ -1,14 +1,17 @@
 <app-header></app-header>
 <app-mini-header></app-mini-header>
+<app-graph-sorting class="ml-10"></app-graph-sorting>
 <div class="bottom-part">
-  <router-outlet></router-outlet>
-  <app-time-filters></app-time-filters>
-  <app-graph-sorting></app-graph-sorting>
-  <ng-container [ngSwitch]="componentName">
-    <app-price-graph *ngSwitchCase="'Användningskostnad'"></app-price-graph>
-    <app-behavior-graph *ngSwitchCase="'Bokningsbeteende'"></app-behavior-graph>
-  </ng-container>
-  <app-quan-data></app-quan-data>
+  <div class="d-flex flex-row bd-highlight mb-3">
+  <router-outlet class="align-items-start m-0 p-0 justify-content-start"></router-outlet>
+    <ng-container [ngSwitch]="componentName">
+      <app-start *ngSwitchDefault></app-start>
+      <app-price-graph *ngSwitchCase="'Användningskostnad'" class=" d-flex align-items-center justify-content-center"></app-price-graph>
+      <app-behavior-graph *ngSwitchCase="'Bokningsbeteende'" class=" d-flex align-items-center justify-content-center"></app-behavior-graph>
+    </ng-container>
+    <app-time-filters class="align-items-end justify-content-end"></app-time-filters>
+  </div>
+    <app-quan-data></app-quan-data>
   <app-footer></app-footer>
 </div>
 <app-testing></app-testing>

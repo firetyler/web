@@ -9,7 +9,6 @@ import {MapRoomEntry, RoomMapService} from "../../service/room-map.service";
 export class GraphSortingComponent implements OnInit {
   optionsList: string[] = ['Ingen sortering', 'Bokade timmar', 'Storlek', 'Bokningsbeteende', 'Bokningskostnad', 'Obokningskostnad'];
   sortOptions: string[] = ['Stigande', 'Fallande'];
-  calcOptions: string[] = ['Arbetstider', "Hela dygn"];
   startArray: MapRoomEntry[] = [];
   private isDecending: boolean;
   private isWorkDays: boolean;
@@ -141,11 +140,5 @@ export class GraphSortingComponent implements OnInit {
     }
   }
 
-  onCalcSelect(time: string) {
-    if (time === 'Arbetstider') {
-      this.isWorkDays = true;
-    } else if (time === "Hela dygn") {
-      this.isWorkDays = false;
-    }
-  }
+
 }

@@ -8,7 +8,7 @@ import {GetScheduleDataService} from "../service/get-schedule-data.service";
   styleUrls: ['./time-filters.component.css'],
   providers: [{
     provide: MAT_RADIO_DEFAULT_OPTIONS,
-    useValue: {color: 'primary'},
+    useValue: {color: 'warn'},
   }]
 
 })
@@ -19,9 +19,13 @@ export class TimeFiltersComponent {
   numberOfDays: number = 0;
   loader: boolean = true;
   list: any[] = ["7 dagar", "30 dagar"];
+  calcOptions: string[] = ["Arbetstider", "Hela dygn"];
   isHidden: boolean = true;
+  private isWorkDays: boolean;
 
-  constructor(private dataService: GetScheduleDataService) {}
+  constructor(private dataService: GetScheduleDataService) {
+    this.isWorkDays= true;
+  }
 
   onUpdate(dateObject: any) {
     this.startDate = dateObject.value;
@@ -63,6 +67,13 @@ export class TimeFiltersComponent {
       }
     } else {
       return 0;
+    }
+  }
+  onCalcSelect(time: string) {
+    if (time === 'Arbetstider') {
+      this.isWorkDays = true;
+    } else if (time === "Hela dygn") {
+      this.isWorkDays = false;
     }
   }
 }
