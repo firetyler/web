@@ -1,10 +1,15 @@
 import {Component, OnInit} from '@angular/core';
 import {MapRoomEntry, RoomMapService} from "../../service/room-map.service";
+import {MAT_RADIO_DEFAULT_OPTIONS} from "@angular/material/radio";
 
 @Component({
   selector: 'app-graph-sorting',
   templateUrl: './graph-sorting.component.html',
-  styleUrls: ['./graph-sorting.component.css']
+  styleUrls: ['./graph-sorting.component.css'],
+  providers: [{
+    provide: MAT_RADIO_DEFAULT_OPTIONS,
+    useValue: { color: 'default' },
+  }]
 })
 export class GraphSortingComponent implements OnInit {
   optionsList: string[] = ['Ingen sortering', 'Bokade timmar', 'Storlek', 'Bokningsbeteende', 'Bokningskostnad', 'Obokningskostnad'];

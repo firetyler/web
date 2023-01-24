@@ -12,10 +12,10 @@
   padding: 0px;
   margin: 0px;
 }
-
+.mat-radio-button{
+  border-color: white;
+}
 .item{
   color:white;
-  font-weight: bold;
-  font-family: "Helvetica Neue";
-  font-size: medium;
+  font-size: small;
 }
