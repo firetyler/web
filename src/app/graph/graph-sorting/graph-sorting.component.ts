@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {MapRoomEntry, RoomMapService} from "../../service/room-map.service";
 import {MAT_RADIO_DEFAULT_OPTIONS} from "@angular/material/radio";
+import {TimeFiltersComponent} from "../../time-filters/time-filters.component";
 
 @Component({
   selector: 'app-graph-sorting',
@@ -8,7 +9,7 @@ import {MAT_RADIO_DEFAULT_OPTIONS} from "@angular/material/radio";
   styleUrls: ['./graph-sorting.component.css'],
   providers: [{
     provide: MAT_RADIO_DEFAULT_OPTIONS,
-    useValue: { color: 'default' },
+    useValue: { color: 'warn' },
   }]
 })
 export class GraphSortingComponent implements OnInit {
@@ -24,7 +25,7 @@ export class GraphSortingComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.startArray = await this.mapRoom.mapRooms();
+    this.startArray = await this.mapRoom.mapRooms(true);
   }
 
   getUnsortedArray() {
@@ -32,6 +33,14 @@ export class GraphSortingComponent implements OnInit {
   }
 
   onSelect(option: string) {
+    /*let sortedArray: MapRoomEntry[] = [...this.startArray];
+    if(option === this.optionsList[0]){
+      return this.startArray;
+    }else if(option === this.optionsList[1]){
+      this.getSortedOnHours(sortedArray);
+      return sortedArray;
+    }
+    return sortedArray;*/
     let sortedArray: MapRoomEntry[] = [...this.startArray];
     if (option === 'Bokade timmar') {
       sortedArray.sort((entryOne,entryTwo) => {
@@ -137,6 +146,14 @@ export class GraphSortingComponent implements OnInit {
     }
   }
 
+ /* getSortedOnHours(input : MapRoomEntry[]){
+   let totalHours : number = 0;
+    if(!this.timePeriod.getIsWorkDays()){
+      input.sort((entryA, entryB) => entryA.getTotalHours() - entryB.getTotalHours())
+    }else{
+
+    }
+  }*/
   onChange(value: any) {
     if (value === 'Stigande') {
       this.isDecending = false;

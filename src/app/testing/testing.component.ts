@@ -21,8 +21,8 @@ export class TestingComponent implements OnInit {
         this.h.create();
         this.service3.getRoomBehavior();
         this.service3.create();*/
-    await this.service.setDates(new Date(2019, 1, 4), 7);
-    await this.h.mapRooms();
+    //await this.service.setDates(new Date(2019, 1, 4), 7);
+    //await this.h.mapRooms(true);
   }
 
 }

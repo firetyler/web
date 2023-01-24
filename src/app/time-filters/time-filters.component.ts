@@ -9,7 +9,7 @@ import {MiniHeaderComponent} from "../mini-header/mini-header.component";
   styleUrls: ['./time-filters.component.css'],
   providers: [{
     provide: {MAT_RADIO_DEFAULT_OPTIONS,MiniHeaderComponent},
-    useValue: {color: 'default'},
+    useValue: {color: 'warn'},
   }]
 })
 @Injectable({
@@ -22,10 +22,9 @@ export class TimeFiltersComponent {
   numberOfDays: number = 0;
   loader: boolean = true;
   list: any[] = ["7 dagar", "30 dagar"];
-  calcOptions: string[] = ["Arbetstider", "Hela dygn"];
+  calcOptions: string[] = ["08-17, Mån-Fre", "05-24, Mån-Sön"];
   isHidden: boolean = true;
   private isWorkDays: boolean;
-  test : number = 0;
 
   constructor(private dataService: GetScheduleDataService, private graphSelector : MiniHeaderComponent) {
     this.isWorkDays= true;
@@ -36,18 +35,16 @@ export class TimeFiltersComponent {
   }
 
  async onSelect(event: any) {
-
-      let numberOfDays = event.split(' ');
-      this.numberOfDays = parseInt(numberOfDays[0],10);
-      if (this.startDate != undefined && this.numberOfDays != 0) {
-        this.isHidden = false;
-        await this.dataService.setDates(this.startDate, this.numberOfDays);
-        await this.loading();
-      } else {
-
-        alert("Vänligen välj ett datum och välj sedan antalet dagar igen!")
-      }
-      }
+    let numberOfDays = event.split(' ');
+    this.numberOfDays = parseInt(numberOfDays[0],10);
+    if (this.startDate != undefined && this.numberOfDays != 0) {
+      this.isHidden = false;
+    await this.dataService.setDates(this.startDate, this.numberOfDays);
+     await this.loading();
+    } else {
+      alert("Vänligen välj ett datum och välj sedan antalet dagar igen!")
+    }
+  }
 
 
 
