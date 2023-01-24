@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Injectable} from '@angular/core';
 import {MAT_RADIO_DEFAULT_OPTIONS} from "@angular/material/radio";
 import {GetScheduleDataService} from "../service/get-schedule-data.service";
 import {MiniHeaderComponent} from "../mini-header/mini-header.component";
@@ -8,10 +8,12 @@ import {MiniHeaderComponent} from "../mini-header/mini-header.component";
   templateUrl: './time-filters.component.html',
   styleUrls: ['./time-filters.component.css'],
   providers: [{
-    provide: MAT_RADIO_DEFAULT_OPTIONS,
+    provide: {MAT_RADIO_DEFAULT_OPTIONS,MiniHeaderComponent},
     useValue: {color: 'warn'},
   }]
-
+})
+@Injectable({
+  providedIn: 'root'
 })
 export class TimeFiltersComponent {
   numbers: Array<number> = [];
@@ -24,7 +26,7 @@ export class TimeFiltersComponent {
   isHidden: boolean = true;
   private isWorkDays: boolean;
 
-  constructor(private dataService: GetScheduleDataService) {
+  constructor(private dataService: GetScheduleDataService, private graphSelector : MiniHeaderComponent) {
     this.isWorkDays= true;
   }
 
@@ -34,12 +36,11 @@ export class TimeFiltersComponent {
 
  async onSelect(event: any) {
     let numberOfDays = event.split(' ');
-    let book : any = 'Bokningsbeteende';
     this.numberOfDays = parseInt(numberOfDays[0],10);
     if (this.startDate != undefined && this.numberOfDays != 0) {
       this.isHidden = false;
     await this.dataService.setDates(this.startDate, this.numberOfDays);
-
+    await this.loading();
     } else {
       alert("Vänligen välj ett datum och välj sedan antalet dagar igen!")
     }
