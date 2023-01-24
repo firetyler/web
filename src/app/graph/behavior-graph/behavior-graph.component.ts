@@ -37,7 +37,6 @@ export class BehaviorGraphComponent implements OnInit{
 
     const options = {
       backgroundColor: 'white',
-
       timeline : {
         colorByRowLabel : false
       },

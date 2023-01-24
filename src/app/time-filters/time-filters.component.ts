@@ -8,7 +8,7 @@ import {GetScheduleDataService} from "../service/get-schedule-data.service";
   styleUrls: ['./time-filters.component.css'],
   providers: [{
     provide: MAT_RADIO_DEFAULT_OPTIONS,
-    useValue: {color: 'default'},
+    useValue: {color: 'warn'},
   }]
 
 })
@@ -19,7 +19,7 @@ export class TimeFiltersComponent {
   numberOfDays: number = 0;
   loader: boolean = true;
   list: any[] = ["7 dagar", "30 dagar"];
-  calcOptions: string[] = ["Arbetstider", "Hela dygn"];
+  calcOptions: string[] = ["08-17, Mån-Fre", "05-24, Mån-Sön"];
   isHidden: boolean = true;
   private isWorkDays: boolean;
 
@@ -53,22 +53,6 @@ export class TimeFiltersComponent {
     console.log("loding is finito")
   }
 
-  getNumberOfWorkDays() {
-    if (this.startDate != undefined) {
-      let startDay = this.startDate.getDay();
-      if ((startDay == 5 || startDay == 0) && this.numberOfDays == 30) {
-        return this.numberOfDays - 9;
-      } else if (startDay == 6 && this.numberOfDays == 30) {
-        return this.numberOfDays - 10;
-      } else if (this.numberOfDays == 30 && (startDay < 5 && startDay > 0)) {
-        return this.numberOfDays - 8;
-      } else {
-        return this.numberOfDays - 2;
-      }
-    } else {
-      return 0;
-    }
-  }
   onCalcSelect(time: string) {
     if (time === 'Arbetstider') {
       this.isWorkDays = true;
