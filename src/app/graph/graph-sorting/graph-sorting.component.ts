@@ -34,15 +34,7 @@ export class GraphSortingComponent implements OnInit {
   onSelect(option: string) {
     let sortedArray: MapRoomEntry[] = [...this.startArray];
     if (option === 'Bokade timmar') {
-      sortedArray.sort((entryOne,entryTwo) => {
-        if (entryOne.getTotalHours() < entryTwo.getTotalHours()) {
-          return -1;
-        } else if (entryOne.getTotalHours() > entryTwo.getTotalHours()){
-          return 1;
-        } else {
-          return 0;
-        }
-      });
+      sortedArray.sort((entryOne,entryTwo) => entryOne.getTotalHours() - entryTwo.getTotalHours());
       if(!this.isDecending) {
         sortedArray.reverse();
       }

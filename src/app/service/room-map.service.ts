@@ -110,7 +110,23 @@ export class MapRoomEntry {
   getTotalHours() {
     let hours = 0;
     this.entry.forEach((scheduleEntry) => {
-      hours += scheduleEntry.getTotalHours();
+      let startTime = parseInt(scheduleEntry.startTime.replace(":", ""));
+      let endTime = parseInt(scheduleEntry.endTime.replace(":", ""));
+      if ((startTime > 50000) && (endTime < 240000)) {
+        hours += scheduleEntry.getTotalHours();
+      } else if (startTime < 50000) {
+        const startTimeArray = [5, 0];
+        const endTimeArray = scheduleEntry.startTime.split(':');
+        let startMinutes = 60 * startTimeArray[0] + startTimeArray[1];
+        let endMinutes = 60 * parseInt(endTimeArray[0]) + parseInt(endTimeArray[1]);
+        hours += (endMinutes - startMinutes);
+      } else if (endTime > 240000) {
+        const startTimeArray = scheduleEntry.startTime.split(':');
+        const endTimeArray = [24, 0];
+        let startMinutes = 60 * parseInt(startTimeArray[0]) + parseInt(startTimeArray[1]);
+        let endMinutes = 60 * endTimeArray[0] + endTimeArray[1];
+        hours += (endMinutes - startMinutes) * 60;
+      }
     });
     return hours;
   }
@@ -118,22 +134,25 @@ export class MapRoomEntry {
   getTotalWorkHours() {
     let hours = 0;
     this.entry.forEach((scheduleEntry) => {
-      let startTime = parseInt(scheduleEntry.startTime.replace(":", ""));
-      let endTime = parseInt(scheduleEntry.endTime.replace(":", ""));
-      if ((startTime > 80000) && (endTime < 170000)) {
-        hours += scheduleEntry.getTotalHours();
-      } else if (startTime < 80000) {
-        const startTimeArray = [8, 0];
-        const endTimeArray = scheduleEntry.startTime.split(':');
-        let startMinutes = 60 * startTimeArray[0] + startTimeArray[1];
-        let endMinutes = 60 * parseInt(endTimeArray[0]) + parseInt(endTimeArray[1]);
-        hours += (endMinutes - startMinutes);
-      } else if (endTime > 170000) {
-        const startTimeArray = scheduleEntry.startTime.split(':');
-        const endTimeArray = [17, 0];
-        let startMinutes = 60 * parseInt(startTimeArray[0]) + parseInt(startTimeArray[1]);
-        let endMinutes = 60 * endTimeArray[0] + endTimeArray[1];
-        hours += (endMinutes - startMinutes) * 60;
+      let tempDate = new Date(scheduleEntry.startDate);
+      if (tempDate.getDay() > 0 && tempDate.getDay() < 6) {
+        let startTime = parseInt(scheduleEntry.startTime.replace(":", ""));
+        let endTime = parseInt(scheduleEntry.endTime.replace(":", ""));
+        if ((startTime > 80000) && (endTime < 170000)) {
+          hours += scheduleEntry.getTotalHours();
+        } else if (startTime < 80000) {
+          const startTimeArray = [8, 0];
+          const endTimeArray = scheduleEntry.startTime.split(':');
+          let startMinutes = 60 * startTimeArray[0] + startTimeArray[1];
+          let endMinutes = 60 * parseInt(endTimeArray[0]) + parseInt(endTimeArray[1]);
+          hours += (endMinutes - startMinutes);
+        } else if (endTime > 170000) {
+          const startTimeArray = scheduleEntry.startTime.split(':');
+          const endTimeArray = [17, 0];
+          let startMinutes = 60 * parseInt(startTimeArray[0]) + parseInt(startTimeArray[1]);
+          let endMinutes = 60 * endTimeArray[0] + endTimeArray[1];
+          hours += (endMinutes - startMinutes) * 60;
+        }
       }
     })
     return hours;
