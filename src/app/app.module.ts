@@ -33,13 +33,14 @@ import { LevelComponent } from './level/level.component';
 import { RoomComponent } from './room/room.component';
 import { TestingComponent } from './testing/testing.component';
 import { BehaviorGraphComponent } from './graph/behavior-graph/behavior-graph.component';
-//import {RouterModule} from "@angular/router";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatInputModule} from "@angular/material/input";
 import {MatIconModule} from "@angular/material/icon";
 import {MatCardModule} from "@angular/material/card";
 import { StartComponent } from './start/start.component';
 import { GraphSortingComponent } from './graph/graph-sorting/graph-sorting.component';
+import {RouterModule} from "@angular/router";
+import {NgxPrintModule} from "ngx-print";
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import { GraphSortingComponent } from './graph/graph-sorting/graph-sorting.compo
     DialogWindowComponent,
     DialogWindowOverViewComponentComponent,
     FooterComponent,
+    TimeFiltersComponent,
     PriceGraphComponent,
     CostComponent,
     QuanDataComponent,
@@ -87,19 +89,12 @@ import { GraphSortingComponent } from './graph/graph-sorting/graph-sorting.compo
     AppRoutingModule,
     MatBottomSheetModule,
     MatNativeDateModule,
-   // RouterModule.forRoot([
-   //   {path: 'footer', component: FooterComponent},
-   //   {path: 'header', component: HeaderComponent},
-   //   {path: 'mini-header', component: MiniHeaderComponent},
-   //   {path: 'quanData-head', component: BookedComponent},
-   //   {path: 'quanData-cost', component: CostComponent},
-   //   {path: 'quan-data', component: QuanDataComponent},
-   //   {path: 'quan-unbooked', component: UnbookedComponent}
-   // ]),
     MatDatepickerModule,
     MatInputModule,
     MatIconModule,
-    MatCardModule
+    MatCardModule,
+    NgxPrintModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

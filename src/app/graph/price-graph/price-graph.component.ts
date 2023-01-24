@@ -54,6 +54,4 @@ export class PriceGraphComponent implements OnInit {
     chart.draw(data, options);
 
   }
-
-
 }
