@@ -11,12 +11,6 @@ export class AppComponent {
   title = 'web';
   componentName: any;
 
-/**async getA(){
-    await this.service.setDates(new Date(2019, 1, 4), 7);
-    await this.h.mapRooms();
-  }
- **/
-
   onKey(componentName: string) {
     this.componentName = componentName;
   }

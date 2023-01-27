@@ -7,10 +7,10 @@ import {MapRoomEntry, RoomMapService} from "./room-map.service";
 
 export class BehaviorService {
   date: any;
-  bookings: MapRoomEntry[] = [];
   color: any;
 
-  constructor() {}
+  constructor() {
+  }
 
   setColor(booking: MapRoomEntry) {
     let hasBadBehavior = false;
@@ -34,8 +34,7 @@ export class BehaviorService {
         }
       }
     }
-// TODO Byt ut loop mot olivers service
-      totalTime += booking.getTotalHours();
+    totalTime += booking.getTotalHours();
     if (totalTime > 7 && !hasBadBehavior) {
       return this.color = '#0000ff';
     } else if (booking.entry.length == 2 && hasBadBehavior) {
@@ -46,11 +45,12 @@ export class BehaviorService {
       return this.color = '#ffff00';
     }
   }
-/*
-  getColor() {
-    console.log("hej från getColor");
-    return this.setColor(this.bookings);
-  }*/
+
+  /*
+    getColor() {
+      console.log("hej från getColor");
+      return this.setColor(this.bookings);
+    }*/
 
   getMilitaryTime(time: string): number {
     const militaryTime = time.replace(':', '');

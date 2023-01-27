@@ -39,7 +39,6 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatCardModule} from "@angular/material/card";
 import { StartComponent } from './start/start.component';
 import { GraphSortingComponent } from './graph/graph-sorting/graph-sorting.component';
-import {RouterModule} from "@angular/router";
 import {NgxPrintModule} from "ngx-print";
 
 @NgModule({
