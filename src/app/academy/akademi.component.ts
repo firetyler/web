@@ -5,6 +5,9 @@ import { Component } from '@angular/core';
   templateUrl: './akademi.component.html',
   styleUrls: ['./akademi.component.css']
 })
+/**
+ * Component to enable the router to choose the correct version of the filter/search function
+ */
 export class AkademiComponent {
 
 }

@@ -5,12 +5,16 @@ import axios from "axios";
 @Injectable({
   providedIn: 'root'
 })
-
-
+/**
+ * Reads a CSV file and creates a array with RoomEntry objects
+ */
 export class CsvFileReaderService {
   private roomArray: RoomEntry[] = [];
   constructor() { }
 
+  /**
+   *
+   */
   async getRooms() {
     let data = "";
     const axi = axios.create();
