@@ -1,5 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Injectable, Input, OnInit} from '@angular/core';
 import {MapRoomEntry, RoomMapService} from "../../service/room-map.service";
+import {SearchBarComponent, SearchRoomEntry} from "../../filter-bar/component/search-bar/search-bar.component";
+
 
 declare var google: any;
 
@@ -9,22 +11,44 @@ declare var google: any;
   styleUrls: ['./price-graph.component.css'],
   providers : [RoomMapService]
 })
+@Injectable({
+  providedIn: 'root'
+})
 export class PriceGraphComponent implements OnInit {
   @Input() value: any;
-  constructor(private mapRoom : RoomMapService) {
+  private search: any;
+
+
+  constructor(private mapRoom: RoomMapService, search: SearchBarComponent) {
+  this.search = search;
   }
 
   async ngOnInit() {
-   await google.charts.load('current', {packages: ['corechart']});
-   await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.mapRooms(false)));
+    await google.charts.load('current', {packages: ['corechart']});
+    await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.mapRooms(false)
+    , await this.search.getPdataset()));
   }
 
-  async drawChart(json: MapRoomEntry[]) {
-    let carry : any[] = [['id','totalHours','price','Academy','seats']];
-    for (let i = 0; i < json.length; i++) {
-      carry.push([json[i].id.toString(), json[i].getTotalHours(),json[i].price,json[i].academy,json[i].seats]);
-    }
+  async drawChart(json: MapRoomEntry[], room:SearchRoomEntry[]) {
 
+
+
+    let carry: any[] = [[{type: 'string', role: 'id'}, {type: 'number', role: 'totalHours'}, {
+      type: 'number',
+      role: 'price'
+    }, {type: 'string', role: 'Academy'}, {type: 'number', role: 'seats'}]];
+    for (let i = 0; i < json.length; i++) {
+
+        for(let j = 0; j < room.length ; j++){
+          console.log(room[j].room);
+      // console.log(this.search)
+      //if(this.search[j] == json[i].id){
+      carry.push([json[i].id.toString(), json[i].getTotalHours(), json[i].price, json[i].academy, json[i].seats]);
+  //    this.ngOnInit()
+       }
+    //}
+
+}
     const options = {
       backgroundColor: 'white',
       hAxis: {title: 'Totala timmar'},

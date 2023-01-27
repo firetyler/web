@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {CsvFileReaderService} from '../../../service/csv-file-reader.service'
 import {Location} from '@angular/common';
+import {ScheduleEntry} from "../../../service/schema.service";
 
 
 //https://mdbootstrap.com/docs/b4/angular/forms/search/
@@ -10,15 +11,24 @@ import {Location} from '@angular/common';
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.css']
 })
+@Injectable({
+  providedIn: 'root'
+})
+
 export class SearchBarComponent implements OnInit {
   constructor(private roomService: CsvFileReaderService, private location: Location) {
   }
 
+
   show = false
   elementClicked = 'Click any of the list item below'
   searchText: any;
-  dataset: any = [];
-  pDataset: any = [];
+  dataset: any[] = [];
+  //pDataset: any[] = [];
+  pDataset: any[]=[];
+  i:number = 0;
+
+
 
   ngOnInit() {
     if (this.location.path() == '/academy') {
@@ -30,6 +40,7 @@ export class SearchBarComponent implements OnInit {
     } else if (this.location.path() == '/level') {
       this.separateLevelFromArrayLevel();
     }
+
   }
 
   async separateRoomsFromArrayAcademy() {
@@ -71,14 +82,50 @@ export class SearchBarComponent implements OnInit {
   }
 
   onClick(e: any) {
+    e.preventDefault()
     this.elementClicked = 'Senast vald: ' + e.target.innerHTML;
     if (!this.pDataset.includes(e.target.innerHTML)) {
-      this.pDataset.push(e.target.innerHTML)
+     //console.log(e.target.innerHTML)
+     // this.pDataset[this.i] = e.target.innerHTML
+    // this.i++
+      //let data =  document.getElementById("dataColor").innerHTML;
+      let name  = e.target.innerHTML
+      this.pDataset.push(new SearchRoomEntry(name));
+      //console.log(name)
+      console.log(this.pDataset);
     }
   }
 
 
   onClickRemove(i: number) {
     this.pDataset.splice(i, 1);
+    console.log(this.pDataset);
+  }
+
+   async getPdataset(){
+  console.log(this.pDataset);
+
+    return this.pDataset;
+  }
+}
+export class SearchEntry {
+  room: number;
+  academy: string;
+  floor: number;
+  house: number;
+
+  constructor(room: number, academy: string, floor: number, house: number) {
+    this.room = room;
+    this.academy = academy;
+    this.floor = floor;
+    this.house = house;
+  }
+}
+
+export class SearchRoomEntry {
+  room: number;
+
+  constructor(room: number) {
+    this.room = room;
   }
 }
