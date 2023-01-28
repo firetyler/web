@@ -6,10 +6,9 @@
 
 <div id="outsideDiv" class="overflow-auto scroll">
 
-  <div id="dataBox"  *ngFor="let data of dataset | filter: searchText" (click)="onClick($event)" [innerHTML]="data" class="beforeClick" >
-  <p id="dataColor" >{{data}}</p>
+  <div id="dataBox"  *ngFor="let data of dataset | filter: searchText" (click)="onClick($event)" class="beforeClick" >
+  <p id="dataColor" > {{data}}</p>
   </div>
-
 </div>
 
 

@@ -9,28 +9,26 @@ declare var google: any;
   selector: 'app-price-graph',
   templateUrl: './price-graph.component.html',
   styleUrls: ['./price-graph.component.css'],
-  providers : [RoomMapService]
+  providers : [RoomMapService,SearchBarComponent]
 })
 @Injectable({
   providedIn: 'root'
 })
 export class PriceGraphComponent implements OnInit {
   @Input() value: any;
-  private search: any;
 
+  constructor(private mapRoom: RoomMapService,private mapSearch: SearchBarComponent) {
 
-  constructor(private mapRoom: RoomMapService, search: SearchBarComponent) {
-  this.search = search;
   }
 
   async ngOnInit() {
     await google.charts.load('current', {packages: ['corechart']});
     await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.mapRooms(false)
-    , await this.search.getPdataset()));
+    ,await this.mapSearch.getPdataset()));
   }
 
-  async drawChart(json: MapRoomEntry[], room:SearchRoomEntry[]) {
-
+  async drawChart(json: MapRoomEntry[], room:any[]) {
+    console.log(room[0])
 
 
     let carry: any[] = [[{type: 'string', role: 'id'}, {type: 'number', role: 'totalHours'}, {
@@ -39,13 +37,13 @@ export class PriceGraphComponent implements OnInit {
     }, {type: 'string', role: 'Academy'}, {type: 'number', role: 'seats'}]];
     for (let i = 0; i < json.length; i++) {
 
-        for(let j = 0; j < room.length ; j++){
-          console.log(room[j].room);
+       // for(let j = 0; j < room.length ; j++){
+       //   console.log(room[j].room);
       // console.log(this.search)
       //if(this.search[j] == json[i].id){
       carry.push([json[i].id.toString(), json[i].getTotalHours(), json[i].price, json[i].academy, json[i].seats]);
   //    this.ngOnInit()
-       }
+      // }
     //}
 
 }

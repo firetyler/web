@@ -26,7 +26,7 @@ export class SearchBarComponent implements OnInit {
   dataset: any[] = [];
   //pDataset: any[] = [];
   pDataset: any[]=[];
-  i:number = 0;
+
 
 
 
@@ -82,43 +82,36 @@ export class SearchBarComponent implements OnInit {
   }
 
   onClick(e: any) {
+    // other options are e.target.innerText , e.target.className , or casting (e.target as HTMLInputElement).innerHTML
+    let temp: any[]=[];
     e.preventDefault()
     this.elementClicked = 'Senast vald: ' + e.target.innerHTML;
-    if (!this.pDataset.includes(e.target.innerHTML)) {
+    if (!this.pDataset.includes((e.target as HTMLInputElement).innerHTML)) {
      //console.log(e.target.innerHTML)
      // this.pDataset[this.i] = e.target.innerHTML
     // this.i++
       //let data =  document.getElementById("dataColor").innerHTML;
-      let name  = e.target.innerHTML
-      this.pDataset.push(new SearchRoomEntry(name));
+      let name  = (e.target as HTMLInputElement).innerHTML
+      temp.push(name)
+     // localStorage.setItem('room', temp.join(""));
+      this.pDataset.push(temp[0]);
+      
       //console.log(name)
-      console.log(this.pDataset);
+      //console.log(this.pDataset);
+      this.getPdataset()
     }
   }
 
+ 
 
   onClickRemove(i: number) {
     this.pDataset.splice(i, 1);
     console.log(this.pDataset);
   }
 
-   async getPdataset(){
+ async getPdataset(){
   console.log(this.pDataset);
-
     return this.pDataset;
-  }
-}
-export class SearchEntry {
-  room: number;
-  academy: string;
-  floor: number;
-  house: number;
-
-  constructor(room: number, academy: string, floor: number, house: number) {
-    this.room = room;
-    this.academy = academy;
-    this.floor = floor;
-    this.house = house;
   }
 }
 
@@ -129,3 +122,29 @@ export class SearchRoomEntry {
     this.room = room;
   }
 }
+
+
+export class SearchAcademyEntry {
+   academy: string;
+
+  constructor(academy: string) {
+    this.academy = academy;
+  }
+}
+
+export class SearchFloorEntry {
+    floor: number;
+
+  constructor(floor: number) {
+    this.floor = floor;
+  }
+}
+
+export class SearchHouseEntry {
+  house: number;
+
+constructor(house: number) {
+  this.house = house;
+}
+}
+
