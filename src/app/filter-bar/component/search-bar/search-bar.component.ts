@@ -1,7 +1,8 @@
-import {Component, Injectable, OnInit} from '@angular/core';
+import {Component, Injectable, OnChanges, OnInit} from '@angular/core';
 import {CsvFileReaderService} from '../../../service/csv-file-reader.service'
 import {Location} from '@angular/common';
 import {ScheduleEntry} from "../../../service/schema.service";
+import { MapRoomEntry, RoomMapService } from 'src/app/service/room-map.service';
 
 
 //https://mdbootstrap.com/docs/b4/angular/forms/search/
@@ -15,8 +16,8 @@ import {ScheduleEntry} from "../../../service/schema.service";
   providedIn: 'root'
 })
 
-export class SearchBarComponent implements OnInit {
-  constructor(private roomService: CsvFileReaderService, private location: Location) {
+export class SearchBarComponent implements OnChanges {
+  constructor(private mapRoom: RoomMapService, private location: Location) {
   }
 
 
@@ -30,74 +31,61 @@ export class SearchBarComponent implements OnInit {
 
 
 
-  ngOnInit() {
+  async ngOnChanges() {
     if (this.location.path() == '/academy') {
-      this.separateRoomsFromArrayAcademy();
+      this.separateRoomsFromArrayAcademy(await this.mapRoom.mapRooms(false));
     } else if (this.location.path() == '/room') {
-      this.separateRoomsFromArrayRoom();
+      this.separateRoomsFromArrayRoom(await this.mapRoom.mapRooms(false));
     } else if (this.location.path() == '/house') {
-      this.separateHousesFromArrayHouse();
+      this.separateHousesFromArrayHouse(await this.mapRoom.mapRooms(false));
     } else if (this.location.path() == '/level') {
-      this.separateLevelFromArrayLevel();
+      this.separateLevelFromArrayLevel(await this.mapRoom.mapRooms(false));
     }
 
   }
 
-  async separateRoomsFromArrayAcademy() {
-    let data = await this.roomService.getRooms();
-    for (let i = 0; i < data.length; i++) {
-      if (!this.dataset.includes(data[i].academy)) {
-        this.dataset.push(data[i].academy.toString())
+
+
+  async separateRoomsFromArrayAcademy(json: MapRoomEntry[]) {
+    
+    for (let i = 0; i < json.length; i++) {
+      if (!this.dataset.includes(json[i].academy)) {
+        this.dataset.push(json[i].academy.toString())
       }
     }
   }
 
-  async separateRoomsFromArrayRoom() {
-    let data = await this.roomService.getRooms();
-    for (let i = 0; i < data.length; i++) {
-      if (!this.dataset.includes(data[i].id)) {
-        this.dataset.push(data[i].id.toString())
+  async separateRoomsFromArrayRoom(json: MapRoomEntry[]) {
+    for (let i = 0; i < json.length; i++) {
+      if (!this.dataset.includes(json[i].id)) {
+        this.dataset.push(json[i].id.toString())
       }
     }
   }
 
-  async separateHousesFromArrayHouse() {
-    let data = await this.roomService.getRooms();
-    for (let i = 0; i < data.length; i++) {
-      let tempId = data[i].id.toString().substring(0,2);
+  async separateHousesFromArrayHouse(json: MapRoomEntry[]) {
+    for (let i = 0; i < json.length; i++) {
+      let tempId = json[i].id.toString().substring(0,2);
       if (!this.dataset.includes(tempId)) {
         this.dataset.push(tempId);
       }
     }
   }
 
-  async separateLevelFromArrayLevel() {
-    let data = await this.roomService.getRooms();
-    for (let i = 0; i < data.length; i++) {
-      let tempId = data[i].id.toString().substring(0,2) + ':' + data[i].id.toString().substring(2,3);
+  async separateLevelFromArrayLevel(json: MapRoomEntry[]) {
+    for (let i = 0; i < json.length; i++) {
+      let tempId = json[i].id.toString().substring(0,2) + ':' + json[i].id.toString().substring(2,3);
       if (!this.dataset.includes(tempId)) {
         this.dataset.push(tempId);
       }
     }
   }
 
-  onClick(e: any) {
+ async onClick(e: any) {
     // other options are e.target.innerText , e.target.className , or casting (e.target as HTMLInputElement).innerHTML
-    let temp: any[]=[];
-    e.preventDefault()
-    this.elementClicked = 'Senast vald: ' + e.target.innerHTML;
     if (!this.pDataset.includes((e.target as HTMLInputElement).innerHTML)) {
-     //console.log(e.target.innerHTML)
-     // this.pDataset[this.i] = e.target.innerHTML
-    // this.i++
-      //let data =  document.getElementById("dataColor").innerHTML;
-      let name  = (e.target as HTMLInputElement).innerHTML
-      temp.push(name)
-     // localStorage.setItem('room', temp.join(""));
-      this.pDataset.push(temp[0]);
-      
-      //console.log(name)
-      //console.log(this.pDataset);
+      this.elementClicked = 'Senast vald: ' + ((e.target as HTMLInputElement).innerHTML);
+      this.pDataset.push(new SearchRoomEntry((e.target.innerHTML)));
       this.getPdataset()
     }
   }
@@ -110,7 +98,7 @@ export class SearchBarComponent implements OnInit {
   }
 
  async getPdataset(){
-  console.log(this.pDataset);
+  console.log(this.pDataset[0].room);
     return this.pDataset;
   }
 }

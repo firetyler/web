@@ -23,12 +23,10 @@ export class PriceGraphComponent implements OnInit {
 
   async ngOnInit() {
     await google.charts.load('current', {packages: ['corechart']});
-    await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.mapRooms(false)
-    ,await this.mapSearch.getPdataset()));
+    await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.mapRooms(false),await this.mapSearch.getPdataset()));
   }
 
-  async drawChart(json: MapRoomEntry[], room:any[]) {
-    console.log(room[0])
+  async drawChart(json: MapRoomEntry[], json2: SearchRoomEntry[]) {
 
 
     let carry: any[] = [[{type: 'string', role: 'id'}, {type: 'number', role: 'totalHours'}, {
