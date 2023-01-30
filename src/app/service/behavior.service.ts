@@ -17,6 +17,9 @@ export class BehaviorService {
     let totalTime = 0;
     let beforeLunch;
     let afterLunch;
+    if(booking.entry.length == 0){
+      return this.color = '#ffffff';
+    }
     for (let i = 0; i < booking.entry.length; i++) {
       let startTime = this.getMilitaryTime(booking.entry[i].startTime);
       let endTime = this.getMilitaryTime(booking.entry[i].endTime);

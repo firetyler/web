@@ -29,14 +29,22 @@ export class RoomMapService {
         let temp = this.listOfRooms.find((room) => room.id == entry.room);
         if (temp != undefined) {
           this.listWithData.push(new MapRoomEntry(temp.id, entry.startDate, entry.endDate, temp.academy,
-            temp.seats, temp.price, entry))
+            temp.seats, temp.price));
+          this.listWithData[this.listWithData.length-1].entry.push(entry);
           this.listWithData.sort((entryA, entryB) => entryA.id - entryB.id);
         }
       } else{
         this.listWithData[index].entry.push(entry);
       }
     });
-    this.listWithData.forEach((entry) => entry.setColor(this.behavior.setColor(entry)))
+    this.listOfRooms.forEach((room) => {
+      let temp = this.listWithData.find((roomEntry) => room.id == roomEntry.id);
+      if (temp == undefined) {
+        this.listWithData.push(new MapRoomEntry(room.id,"","",room.academy,room.seats,room.price))
+      }
+    });
+    this.listWithData.sort((entryA, entryB) => entryA.id - entryB.id);
+    this.listWithData.forEach((entry) => entry.setColor(this.behavior.setColor(entry)));
     return this.listWithData;
   }
 
@@ -96,7 +104,7 @@ export class MapRoomEntry {
   price: number;
   entry: ScheduleEntry[] = [];
 
-  constructor(id: number, startDate: string, endDate: string, academy: string, seats: number, price: number, entry: ScheduleEntry) {
+  constructor(id: number, startDate: string, endDate: string, academy: string, seats: number, price: number) {
     this.id = id;
     this.startDate = startDate;
     this.endDate = endDate;
@@ -104,7 +112,7 @@ export class MapRoomEntry {
     this.seats = seats;
     this.price = price;
     this.color = '#ffffff';
-    this.entry.push(entry);
+
   }
 
   getTotalHours() {
@@ -120,13 +128,7 @@ export class MapRoomEntry {
         let startMinutes = (60 * startTimeArray[0]) + startTimeArray[1];
         let endMinutes = (60 * parseInt(endTimeArray[0])) + parseInt(endTimeArray[1]);
         hours += (endMinutes - startMinutes)/60;
-      } /*else if (endTime > 240000) {
-        const startTimeArray = scheduleEntry.startTime.split(':');
-        const endTimeArray = [24, 0];
-        let startMinutes = 60 * parseInt(startTimeArray[0]) + parseInt(startTimeArray[1]);
-        let endMinutes = 60 * endTimeArray[0] + endTimeArray[1];
-        hours += (endMinutes - startMinutes) * 60;
-      }*/
+      }
     });
     return hours;
   }
