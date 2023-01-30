@@ -13,8 +13,6 @@ import {GetScheduleDataService} from "../service/get-schedule-data.service";
 
 })
 export class TimeFiltersComponent {
-  numbers: Array<number> = [];
-  lists: Array<number>[] = [];
   startDate: Date | undefined;
   numberOfDays: number = 0;
   loader: boolean = true;
@@ -24,20 +22,20 @@ export class TimeFiltersComponent {
   private isWorkDays: boolean;
 
   constructor(private dataService: GetScheduleDataService) {
-    this.isWorkDays= true;
+    this.isWorkDays = true;
   }
 
   onUpdate(dateObject: any) {
     this.startDate = dateObject.value;
   }
 
- async onSelect(event: any) {
+  async onSelect(event: any) {
     let numberOfDays = event.split(' ');
-    this.numberOfDays = parseInt(numberOfDays[0],10);
+    this.numberOfDays = parseInt(numberOfDays[0], 10);
     if (this.startDate != undefined && this.numberOfDays != 0) {
       this.isHidden = false;
-    await this.dataService.setDates(this.startDate, this.numberOfDays);
-     await this.loading();
+      await this.dataService.setDates(this.startDate, this.numberOfDays);
+      await this.loading();
     } else {
       alert("Vänligen välj ett datum och välj sedan antalet dagar igen!")
     }
@@ -46,10 +44,11 @@ export class TimeFiltersComponent {
   getNumberOfDays() {
     return this.numberOfDays;
   }
- async loading (){
-    setTimeout (() => {
+
+  async loading() {
+    setTimeout(() => {
       this.loader = false;
-    },3000);
+    }, 3000);
     console.log("loding is finito")
   }
 

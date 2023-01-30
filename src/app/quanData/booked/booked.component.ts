@@ -9,14 +9,7 @@ import {BehaviorGraphComponent} from "../../graph/behavior-graph/behavior-graph.
   styleUrls: ['./booked.component.css']
 })
 export class BookedComponent {
-  constructor(private mapRoomEntry : BehaviorGraphComponent) {
+  constructor() {
   }
-  private main(){
-    let day;
-    let hours;
-    this.mapRoomEntry.getInputArray().forEach((RoomMapEntry) =>{
-      hours = RoomMapEntry.getTotalWorkHours();
-      day = RoomMapEntry.getTotalWorkDays()
-    })
-  }
+
 }
