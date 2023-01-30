@@ -61,8 +61,8 @@ export class BehaviorService {
 
   /**
    * Parses a string to military time
-   * @param time
-   * @returns number
+   * @param time, as a string
+   * @returns number, the time in military style
    */
   getMilitaryTime(time: string): number {
     const militaryTime = time.replace(':', '');

@@ -13,7 +13,8 @@ export class CsvFileReaderService {
   constructor() { }
 
   /**
-   *
+   * Reads the CSV file and creates an object for each room
+   * @returns roomArray, an array of all the rooms
    */
   async getRooms() {
     let data = "";
@@ -34,11 +35,13 @@ export class CsvFileReaderService {
         parseInt(row[2],10),
         parseInt(row[3],10)));
     }
-  //  console.log(this.roomArray);
     return this.roomArray;
   }
 }
 
+/**
+ * A room object with the following properties: id (name of the room), academy, seats and price.
+ */
 export class RoomEntry {
   id: number;
   academy: string;

@@ -38,17 +38,14 @@ export class TimeFiltersComponent {
     let numberOfDays = event.split(' ');
     this.numberOfDays = parseInt(numberOfDays[0],10);
     if (this.startDate != undefined && this.numberOfDays != 0) {
-      this.loader=true;
+      this.loader = true;
       this.isHidden = false;
-    await this.dataService.setDates(this.startDate, this.numberOfDays);
+    await this.dataService.fillArrayByTimePeriod(this.startDate, this.numberOfDays);
      await this.loading();
     } else {
       alert("Vänligen välj ett datum och välj sedan antalet dagar igen!")
     }
   }
-
-
-
 
   getNumberOfDays() {
     return this.numberOfDays;
