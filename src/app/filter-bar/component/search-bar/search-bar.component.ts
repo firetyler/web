@@ -17,8 +17,8 @@ export class SearchBarComponent implements OnInit {
   show = false
   elementClicked = 'Click any of the list item below'
   searchText: any;
-  dataset: any = [];
-  pDataset: any = [];
+  dataset: any[] = [];
+  pDataset: any[] = [];
 
   ngOnInit() {
     if (this.location.path() == '/academy') {
@@ -48,6 +48,7 @@ export class SearchBarComponent implements OnInit {
         this.dataset.push(data[i].id.toString())
       }
     }
+
   }
 
   async separateHousesFromArrayHouse() {
@@ -75,10 +76,22 @@ export class SearchBarComponent implements OnInit {
     if (!this.pDataset.includes(e.target.innerHTML)) {
       this.pDataset.push(e.target.innerHTML)
     }
+    this.getSet(this.pDataset)
+    console.log("dataSet :");
+    //console.log(this.pDataset);
+    this.geDataSet()
+    //console.log(this.geDataSet());
   }
-
-
+  getSet(p : any[]){
+    this.pDataset = p;
+  }
   onClickRemove(i: number) {
     this.pDataset.splice(i, 1);
+  }
+  geDataSet(){
+    let temp = [this.pDataset];
+
+    console.log(temp);
+    return temp;
   }
 }

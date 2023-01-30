@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Injectable, Input, OnInit} from '@angular/core';
 import {MapRoomEntry, RoomMapService} from "../../service/room-map.service";
 
 declare var google: any;
@@ -10,10 +10,13 @@ declare var google: any;
   providers : [RoomMapService]
 
 })
+@Injectable({
+  providedIn: 'root'
+})
 export class BehaviorGraphComponent implements OnInit{
   @Input() value : any;
 
-  //private inputArray : MapRoomEntry[] = [];
+  private inputArray : MapRoomEntry[] = [];
 
   constructor(private mapRoom : RoomMapService) {
   }
@@ -23,7 +26,7 @@ export class BehaviorGraphComponent implements OnInit{
   }
 
   async drawChart(json: MapRoomEntry[]){
-   // this.inputArray = [...json];
+    this.inputArray = [...json];
 
     let chart = new google.visualization.Timeline(document.getElementById('behavior_graph'));
     let dataTable = new google.visualization.DataTable();
@@ -49,8 +52,8 @@ export class BehaviorGraphComponent implements OnInit{
     chart.draw(dataTable,options);
   }
 
-  /*getInputArray(){
+  getInputArray(){
     return this.inputArray;
-  }*/
+  }
 
 }
