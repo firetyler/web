@@ -21,11 +21,17 @@ export class BehaviorGraphComponent implements OnInit{
   constructor(private mapRoom : RoomMapService) {
   }
   async ngOnInit() {
-    await google.charts.load("current", {packages:["timeline"]});
-    await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.mapRooms(true)));
+
   }
 
-  async drawChart(json: MapRoomEntry[]){
+  async onclickBehavGraph(array : any[]){
+    await google.charts.load("current", {packages:["timeline"]});
+    await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.mapRooms(true),array));
+
+
+  }
+
+  async drawChart(json: MapRoomEntry[],array: any[]){
     this.inputArray = [...json];
 
     let chart = new google.visualization.Timeline(document.getElementById('behavior_graph'));
@@ -36,10 +42,17 @@ export class BehaviorGraphComponent implements OnInit{
     dataTable.addColumn({ type: 'date', id: 'Start' });
     dataTable.addColumn({ type: 'date', id: 'End' });
 
-    for(let i =0; i<json.length; i++){
-      let date = new Date(json[i].startDate)
-      dataTable.addRows([[json[i].id.toString(),json[i].academy,json[i].color,new Date(json[i].startDate),new Date(date.setDate(date.getDate() +1))]]);
+    for(let i =0; i<json.length; i++) {
+      for (let j = 0; j < array.length; j++) {
+       let level = json[i].id.toString().substring(0, 2) + ':' + json[i].id.toString().substring(2, 3);
+        let house = json[i].id.toString().substring(0, 2);
+        if (json[i].academy == array[j] || json[i].id == array[j]|| level == array[j] || house == array[j]) {
+          let date = new Date(json[i].startDate)
+          dataTable.addRows([[json[i].id.toString(), json[i].academy, json[i].color, new Date(json[i].startDate), new Date(date.setDate(date.getDate() + 1))]]);
+        }
+      }
     }
+
 
     const options = {
       backgroundColor: 'white',

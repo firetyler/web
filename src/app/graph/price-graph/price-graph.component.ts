@@ -36,8 +36,11 @@ export class PriceGraphComponent implements OnInit {
       if(json[i].academy == array[j]|| json[i].id == array[j] || level == array[j] || house == array[j] ){
         carry.push([json[i].id.toString(), json[i].getTotalHours(),json[i].price,json[i].academy,json[i].seats]);
       }
-
     }
+      if(array.length == 0){
+        console.log("second else if")
+        carry.push([json[i].id.toString(), json[i].getTotalHours(),json[i].price,json[i].academy,json[i].seats]);
+      }
     }
 
     const options = {

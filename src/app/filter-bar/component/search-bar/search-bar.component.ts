@@ -3,6 +3,8 @@ import {CsvFileReaderService} from '../../../service/csv-file-reader.service'
 import {Location} from '@angular/common';
 import {PriceGraphComponent} from "../../../graph/price-graph/price-graph.component";
 import {MapRoomEntry, RoomMapService} from "../../../service/room-map.service";
+import {BehaviorGraphComponent} from "../../../graph/behavior-graph/behavior-graph.component";
+import {empty} from "rxjs";
 
 
 //https://mdbootstrap.com/docs/b4/angular/forms/search/
@@ -15,7 +17,7 @@ import {MapRoomEntry, RoomMapService} from "../../../service/room-map.service";
 })
 export class SearchBarComponent implements OnInit {
   constructor(private roomService: CsvFileReaderService, private location: Location
-              , private price:PriceGraphComponent,private mapRoom : RoomMapService ) {
+              , private price:PriceGraphComponent,private mapRoom : RoomMapService, private behav:BehaviorGraphComponent ) {
   }
 
   show = false
@@ -99,17 +101,20 @@ export class SearchBarComponent implements OnInit {
     return
   }
   async getForSort(json: MapRoomEntry[]){
-    let data = await this.roomService.getRooms();
-
     for(let i =0; i < json.length; i ++){
       for(let j =0; j< this.pDataset.length; j++){
         let level = json[i].id.toString().substring(0,2) + ':' + json[i].id.toString().substring(2,3);
         let house = json[i].id.toString().substring(0,2);
         if(json[i].academy == this.pDataset[j] || json[i].id == this.pDataset[j]
           || level == this.pDataset[j] || house == this.pDataset[j]){
+          return await this.price.onclickPriceGraph(this.pDataset);
+          return await this.behav.onclickBehavGraph(this.pDataset);
 
-            return this.price.onclickPriceGraph(this.pDataset);
+
         }
+      }
+      if(this.pDataset.length == 0 ){
+        return await this.price.onclickPriceGraph(this.pDataset);
       }
     }
   }
