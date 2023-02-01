@@ -61,7 +61,7 @@ export class PriceGraphComponent implements OnInit {
       explorer: {
         axis: 'horizontal',
         keepInBounds: true,
-        maxZoomIn: 4.0
+        maxZoomIn: 12.0
       }
     };
     let data = google.visualization.arrayToDataTable(carry);

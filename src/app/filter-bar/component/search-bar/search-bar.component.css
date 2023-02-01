@@ -4,6 +4,9 @@
 .scroll{
 
 }
+#outsideDiv{
+  max-height: 500px;
+}
 #dataColor{
   padding: 3px;
   margin: 3px;
