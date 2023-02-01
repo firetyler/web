@@ -5,6 +5,7 @@ import {PriceGraphComponent} from "../../../graph/price-graph/price-graph.compon
 import {MapRoomEntry, RoomMapService} from "../../../service/room-map.service";
 import {BehaviorGraphComponent} from "../../../graph/behavior-graph/behavior-graph.component";
 import {empty} from "rxjs";
+import {MiniHeaderComponent} from "../../../mini-header/mini-header.component";
 
 
 //https://mdbootstrap.com/docs/b4/angular/forms/search/
@@ -17,7 +18,9 @@ import {empty} from "rxjs";
 })
 export class SearchBarComponent implements OnInit {
   constructor(private roomService: CsvFileReaderService, private location: Location
-              , private price:PriceGraphComponent,private mapRoom : RoomMapService, private behav:BehaviorGraphComponent ) {
+              , private price:PriceGraphComponent,private mapRoom : RoomMapService,
+              private behav:BehaviorGraphComponent,
+              private mini:MiniHeaderComponent) {
   }
 
   show = false
