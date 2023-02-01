@@ -1,4 +1,4 @@
-import {Component, Injectable} from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {MAT_RADIO_DEFAULT_OPTIONS} from "@angular/material/radio";
 import {AppComponent} from "../app.component";
 
@@ -14,11 +14,38 @@ import {AppComponent} from "../app.component";
 @Injectable({
   providedIn: 'root'
 })
-export class MiniHeaderComponent {
+export class MiniHeaderComponent implements OnInit {
   selection: any[] = ["Bokningsbeteende", "Användningskostnad"];
+  test:miniHeaderEntry[]=[];
   constructor(private main: AppComponent) { }
 
-  onSelect(alt: any) {
-    this.main.onKey(alt);
+  async ngOnInit() {
   }
+  onSelect(alt: any) {
+ this.main.onKey(alt);
+
+    if(alt == 'Bokningsbeteende'){
+    return  this.test?.push(new miniHeaderEntry("Bokningsbeteende"))
+
+    }else {
+      return  this.test?.push(new miniHeaderEntry("Användningskostnad"))
+
+    }
+
+  }
+
+  async getSelection(){
+  return this.test
+  }
+
+
+
+}
+
+export class miniHeaderEntry {
+  miniHeader:any
+  constructor(miniHeader: any) {
+    this.miniHeader = miniHeader;
+  }
+
 }

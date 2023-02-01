@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Injectable, OnInit} from '@angular/core';
 import {CsvFileReaderService} from '../../../service/csv-file-reader.service'
 import {Location} from '@angular/common';
 import {PriceGraphComponent} from "../../../graph/price-graph/price-graph.component";
 import {MapRoomEntry, RoomMapService} from "../../../service/room-map.service";
 import {BehaviorGraphComponent} from "../../../graph/behavior-graph/behavior-graph.component";
 import {empty} from "rxjs";
-import {MiniHeaderComponent} from "../../../mini-header/mini-header.component";
+import {MiniHeaderComponent, miniHeaderEntry} from "../../../mini-header/mini-header.component";
 
 
 //https://mdbootstrap.com/docs/b4/angular/forms/search/
@@ -15,6 +15,9 @@ import {MiniHeaderComponent} from "../../../mini-header/mini-header.component";
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.css'],
   providers:[]
+})
+@Injectable({
+  providedIn: 'root'
 })
 export class SearchBarComponent implements OnInit {
   constructor(private roomService: CsvFileReaderService, private location: Location
@@ -100,10 +103,12 @@ export class SearchBarComponent implements OnInit {
     return temp;
   }
   async submitFunction(){
-   await this.getForSort( await this.mapRoom.mapRooms(false));
-    return
+   await this.getForSort( await this.mapRoom.mapRooms(false),await this.mini.getSelection());
   }
-  async getForSort(json: MapRoomEntry[]){
+  async getForSort(json: MapRoomEntry[],alt:miniHeaderEntry[]){
+
+   console.log(alt[0]?.miniHeader)
+
     for(let i =0; i < json.length; i ++){
       for(let j =0; j< this.pDataset.length; j++){
         let level = json[i].id.toString().substring(0,2) + ':' + json[i].id.toString().substring(2,3);
@@ -111,9 +116,7 @@ export class SearchBarComponent implements OnInit {
         if(json[i].academy == this.pDataset[j] || json[i].id == this.pDataset[j]
           || level == this.pDataset[j] || house == this.pDataset[j]){
           return await this.price.onclickPriceGraph(this.pDataset);
-          return await this.behav.onclickBehavGraph(this.pDataset);
-
-
+         // return await this.behav.onclickBehavGraph(this.pDataset);
         }
       }
       if(this.pDataset.length == 0 ){
@@ -121,4 +124,25 @@ export class SearchBarComponent implements OnInit {
       }
     }
   }
+  binarySearch(roomKey: number, input: MapRoomEntry[]) {
+    if (input.length < 1) {
+      return -1;
+    }
+    let low = 0;
+    let high = input.length - 1;
+    while (low <= high) {
+      let mid = Math.floor((low + high) / 2);
+      if (input[mid].id == roomKey) {
+        return mid;
+      }
+      if (roomKey > input[mid].id) {
+        low = mid + 1;
+      }
+      if (roomKey < input[mid].id) {
+        high = mid - 1;
+      }
+    }
+    return -1;
+  }
+
 }
