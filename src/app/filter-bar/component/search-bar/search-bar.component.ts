@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {CsvFileReaderService} from '../../../service/csv-file-reader.service'
 import {Location} from '@angular/common';
+import {PriceGraphComponent} from "../../../graph/price-graph/price-graph.component";
+import {MapRoomEntry, RoomMapService} from "../../../service/room-map.service";
 
 
 //https://mdbootstrap.com/docs/b4/angular/forms/search/
@@ -8,10 +10,12 @@ import {Location} from '@angular/common';
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
-  styleUrls: ['./search-bar.component.css']
+  styleUrls: ['./search-bar.component.css'],
+  providers:[]
 })
 export class SearchBarComponent implements OnInit {
-  constructor(private roomService: CsvFileReaderService, private location: Location) {
+  constructor(private roomService: CsvFileReaderService, private location: Location
+              , private price:PriceGraphComponent,private mapRoom : RoomMapService ) {
   }
 
   show = false
@@ -71,27 +75,42 @@ export class SearchBarComponent implements OnInit {
     }
   }
 
-  onClick(e: any) {
+    async onClick(e: any) {
     this.elementClicked = 'Senast vald: ' + e.target.innerHTML;
     if (!this.pDataset.includes(e.target.innerHTML)) {
       this.pDataset.push(e.target.innerHTML)
     }
-    this.getSet(this.pDataset)
-    console.log("dataSet :");
-    //console.log(this.pDataset);
-    this.geDataSet()
-    //console.log(this.geDataSet());
+    await this.getSet(this.pDataset)
+   await this.geDataSet()
+
   }
-  getSet(p : any[]){
+  async getSet(p : any[]){
     this.pDataset = p;
   }
   onClickRemove(i: number) {
     this.pDataset.splice(i, 1);
   }
-  geDataSet(){
+  async geDataSet(){
     let temp = [this.pDataset];
-
-    console.log(temp);
     return temp;
+  }
+  async submitFunction(){
+   await this.getForSort( await this.mapRoom.mapRooms(false));
+    return
+  }
+  async getForSort(json: MapRoomEntry[]){
+    let data = await this.roomService.getRooms();
+
+    for(let i =0; i < json.length; i ++){
+      for(let j =0; j< this.pDataset.length; j++){
+        let level = json[i].id.toString().substring(0,2) + ':' + json[i].id.toString().substring(2,3);
+        let house = json[i].id.toString().substring(0,2);
+        if(json[i].academy == this.pDataset[j] || json[i].id == this.pDataset[j]
+          || level == this.pDataset[j] || house == this.pDataset[j]){
+
+            return this.price.onclickPriceGraph(this.pDataset);
+        }
+      }
+    }
   }
 }
