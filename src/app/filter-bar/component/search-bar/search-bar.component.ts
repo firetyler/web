@@ -14,7 +14,7 @@ import {MiniHeaderComponent} from "../../../mini-header/mini-header.component";
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
   styleUrls: ['./search-bar.component.css'],
-  providers:[]
+  providers: []
 })
 @Injectable({
   providedIn: 'root'
@@ -22,8 +22,8 @@ import {MiniHeaderComponent} from "../../../mini-header/mini-header.component";
 export class SearchBarComponent implements OnInit {
 
   constructor(private roomService: CsvFileReaderService, private location: Location
-              , private price:PriceGraphComponent,private mapRoom : RoomMapService,
-              private behav:BehaviorGraphComponent,private mini:MiniHeaderComponent) {
+    , private price: PriceGraphComponent, private mapRoom: RoomMapService,
+              private behav: BehaviorGraphComponent, private mini: MiniHeaderComponent) {
   }
 
   show = false
@@ -31,6 +31,7 @@ export class SearchBarComponent implements OnInit {
   searchText: any;
   dataset: any[] = [];
   pDataset: any[] = [];
+  newData: any[] = [];
 
 
   ngOnInit() {
@@ -67,7 +68,7 @@ export class SearchBarComponent implements OnInit {
   async separateHousesFromArrayHouse() {
     let data = await this.roomService.getRooms();
     for (let i = 0; i < data.length; i++) {
-      let tempId = data[i].id.toString().substring(0,2);
+      let tempId = data[i].id.toString().substring(0, 2);
       if (!this.dataset.includes(tempId)) {
         this.dataset.push(tempId);
       }
@@ -77,74 +78,99 @@ export class SearchBarComponent implements OnInit {
   async separateLevelFromArrayLevel() {
     let data = await this.roomService.getRooms();
     for (let i = 0; i < data.length; i++) {
-      let tempId = data[i].id.toString().substring(0,2) + ':' + data[i].id.toString().substring(2,3);
+      let tempId = data[i].id.toString().substring(0, 2) + ':' + data[i].id.toString().substring(2, 3);
       if (!this.dataset.includes(tempId)) {
         this.dataset.push(tempId);
       }
     }
   }
 
-    async onClick(e: any) {
+  async onClick(e: any) {
     this.elementClicked = 'Senast vald: ' + e.target.innerHTML;
     if (!this.pDataset.includes(e.target.innerHTML)) {
       this.pDataset.push(e.target.innerHTML)
     }
     await this.getSet(this.pDataset)
-   await this.geDataSet()
+    await this.geDataSet()
 
   }
-  async getSet(p : any[]){
+
+  async getSet(p: any[]) {
     this.pDataset = p;
   }
+
   onClickRemove(i: number) {
     this.pDataset.splice(i, 1);
   }
-  async geDataSet(){
+
+  async geDataSet() {
     let temp = [this.pDataset];
     return temp;
   }
-  async submitFunction(){
-   await this.getForSort( await this.mapRoom.mapRooms(false));
+
+  async submitFunction() {
+    await this.getForSort(await this.mapRoom.mapRooms(false));
   }
 
-  async getForSort(json: MapRoomEntry[]){
+  async getForSort(json: MapRoomEntry[]) {
 
 
+    //console.log(await this.mini.getSelectionAnvändningskostnad());
+   // if (await this.mini.getGraphType() == 'Användningskostnad') {
+      for (let i = 0; i < json.length; i++) {
+        for (let j = 0; j < this.pDataset.length; j++) {
+          let level = json[i].id.toString().substring(0, 2) + ':' + json[i].id.toString().substring(2, 3);
+          let house = json[i].id.toString().substring(0, 2);
+          if (json[i].academy == this.pDataset[j] || json[i].id == this.pDataset[j]
+            || level == this.pDataset[j] || house == this.pDataset[j]) {
+            return await this.price.onclickPriceGraph(this.pDataset);
+            // return await this.behav.onclickBehavGraph(this.pDataset);
+          }
+        }
+        if (this.pDataset.length == 0) {
+          return await this.price.onclickPriceGraph(this.pDataset);
+        }
+      }
 
-   //console.log(await this.mini.getSelectionAnvändningskostnad());
-if(await this.mini.getGraphType()== 'Användningskostnad'){
-  for(let i =0; i < json.length; i ++){
-    for(let j =0; j< this.pDataset.length; j++){
-      let level = json[i].id.toString().substring(0,2) + ':' + json[i].id.toString().substring(2,3);
-      let house = json[i].id.toString().substring(0,2);
-      if(json[i].academy == this.pDataset[j] || json[i].id == this.pDataset[j]
-        || level == this.pDataset[j] || house == this.pDataset[j]){
-        return await this.price.onclickPriceGraph(this.pDataset);
-       // return await this.behav.onclickBehavGraph(this.pDataset);
+
+   // } else {
+    /* for (let i = 0; i < json.length; i++) {
+       for (let j = 0; j < this.pDataset.length; j++) {
+         let level = json[i].id.toString().substring(0, 2) + ':' + json[i].id.toString().substring(2, 3);
+         let house = json[i].id.toString().substring(0, 2);
+         if (json[i].academy == this.pDataset[j] || json[i].id == this.pDataset[j]
+           || level == this.pDataset[j] || house == this.pDataset[j]) {
+           //return await this.price.onclickPriceGraph(this.pDataset);
+           return await this.behav.onclickBehavGraph(this.pDataset);
+         }
+       }
+       if (this.pDataset.length == 0) {
+         return await this.behav.onclickBehavGraph(this.pDataset);
+       }
+     }
+   }*/
+  }
+
+  binarySearch(roomKey: number, input: MapRoomEntry[]) {
+    if (input.length < 1) {
+      return -1;
+    }
+    let low = 0;
+    let high = input.length - 1;
+    while (low <= high) {
+      let mid = Math.floor((low + high) / 2);
+      if (input[mid].id == roomKey) {
+        return mid;
+      }
+      if (roomKey > input[mid].id) {
+        low = mid + 1;
+      }
+      if (roomKey < input[mid].id) {
+        high = mid - 1;
       }
     }
-    if(this.pDataset.length == 0 ){
-      return await this.price.onclickPriceGraph(this.pDataset);
-    }
+    return -1;
   }
-
-}else if(await this.mini.getGraphType() == 'Bokningsbeteende'){
-  for(let i =0; i < json.length; i ++){
-    for(let j =0; j< this.pDataset.length; j++){
-      let level = json[i].id.toString().substring(0,2) + ':' + json[i].id.toString().substring(2,3);
-      let house = json[i].id.toString().substring(0,2);
-      if(json[i].academy == this.pDataset[j] || json[i].id == this.pDataset[j]
-        || level == this.pDataset[j] || house == this.pDataset[j]){
-        //return await this.price.onclickPriceGraph(this.pDataset);
-        return await this.behav.onclickBehavGraph(this.pDataset);
-      }
-    }
-    if(this.pDataset.length == 0 ){
-      return await this.behav.onclickBehavGraph(this.pDataset);
-    }
-  }
-}
-}
 }
 
 
