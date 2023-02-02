@@ -160,22 +160,6 @@ export class MapRoomEntry {
     return hours;
   }
 
-  getTotalWorkDays(){
-    let days : number = 0;
-    let lastDate : Date;
-    this.entry.sort((entryA, entryB) => parseInt(entryA.startDate) - parseInt(entryB.startDate));
-    this.entry.forEach((scheduleEntry) => {
-      let currDate = new Date(scheduleEntry.startDate);
-      if (currDate.getDay() > 0 && currDate.getDay() < 6 && currDate != lastDate) {
-        lastDate = currDate;
-        days++;
-      }
-
-
-    })
-    return days;
-  }
-
   setColor(inputColor: string) {
     this.color = inputColor;
   }
