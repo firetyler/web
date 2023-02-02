@@ -1,4 +1,4 @@
-import {Component, Injectable, OnInit} from '@angular/core';
+import {Component, Injectable, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {MAT_RADIO_DEFAULT_OPTIONS} from "@angular/material/radio";
 import {AppComponent} from "../app.component";
 
@@ -14,32 +14,35 @@ import {AppComponent} from "../app.component";
 @Injectable({
   providedIn: 'root'
 })
-export class MiniHeaderComponent implements OnInit {
+export class MiniHeaderComponent implements OnChanges {
+  
   selection: any[] = ["Bokningsbeteende", "Användningskostnad"];
-  test:miniHeaderEntry[]=[];
+  test:any ;
   constructor(private main: AppComponent) { }
-
-  async ngOnInit() {
+  
+  ngOnChanges(changes: SimpleChanges): void {
+    this.onSelect(changes);
   }
-  onSelect(alt: any) {
- this.main.onKey(alt);
-
-    if(alt == 'Bokningsbeteende'){
-    return  this.test?.push(new miniHeaderEntry("Bokningsbeteende"))
-
-    }else {
-      return  this.test?.push(new miniHeaderEntry("Användningskostnad"))
-
-    }
-
+  onSelect(alt: any){
+    this.main.onKey(alt);
+    return this.test = alt;
   }
 
-  async getSelection(){
-  return this.test
+  async getSelectionBokningsbeteende(){ 
+  return  "Bokningsbeteende"
   }
 
+  async getSelectionAnvändningskostnad(){
+    return "Användningskostnad"
+  }
 
-
+  triggerMethod(){
+    if(this.test == 'Bokningsbeteende'){
+      return  this.getSelectionBokningsbeteende()
+      }else{
+        return  this.getSelectionAnvändningskostnad()
+      }
+  }
 }
 
 export class miniHeaderEntry {

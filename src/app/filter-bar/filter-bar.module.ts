@@ -3,20 +3,21 @@ import { CommonModule } from '@angular/common';
 import { SearchBarComponent } from './component/search-bar/search-bar.component';
 import { FilterPipe } from './component/search-bar/filter.pipe';
 import {FormsModule} from "@angular/forms";
+import { MiniHeaderComponent } from '../mini-header/mini-header.component';
 
 
 
 @NgModule({
   declarations: [
     SearchBarComponent,
-    FilterPipe
+    FilterPipe,
   ],
   exports: [
     SearchBarComponent
   ],
     imports: [
         CommonModule,
-        FormsModule
+        FormsModule,
     ]
 })
 export class FilterBarModule { }

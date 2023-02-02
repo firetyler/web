@@ -1,6 +1,7 @@
 import {Component, Injectable, Input, OnInit} from '@angular/core';
 import {MapRoomEntry, RoomMapService} from "../../service/room-map.service";
 import {SearchBarComponent} from "../../filter-bar/component/search-bar/search-bar.component";
+import { MiniHeaderComponent } from 'src/app/mini-header/mini-header.component';
 
 declare var google: any;
 @Injectable({
@@ -26,6 +27,7 @@ export class PriceGraphComponent implements OnInit {
   }
 
   async drawChart(json: MapRoomEntry[],array: any[]) {
+
     let carry : any[] = [[{type:'string',role:'id'},{type:'number',role:'totalHours'}
       ,{type:'number',role:'price'},{type:'string',role:'Academy'}
       ,{type:'number',role:'seats'}]];
