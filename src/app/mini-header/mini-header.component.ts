@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Injectable} from '@angular/core';
 import {MAT_RADIO_DEFAULT_OPTIONS} from "@angular/material/radio";
 import {AppComponent} from "../app.component";
 
@@ -11,7 +11,9 @@ import {AppComponent} from "../app.component";
     useValue: { color: 'warn' },
   }]
 })
-
+@Injectable({
+  providedIn: 'root'
+})
 export class MiniHeaderComponent {
   selection: any[] = ["Bokningsbeteende", "Användningskostnad"];
   constructor(private main: AppComponent) { }

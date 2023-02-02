@@ -4,7 +4,9 @@ import {MapRoomEntry, RoomMapService} from "./room-map.service";
 @Injectable({
   providedIn: 'root'
 })
-
+/**
+ * Service for calculating the color for the behavior graph.
+ */
 export class BehaviorService {
   date: any;
   color: any;
@@ -12,6 +14,16 @@ export class BehaviorService {
   constructor() {
   }
 
+  /**
+   * Sets the color of each MapRoomEntry. One color is set for each day a room is used depending on how much the room is
+   * used and if there is a bad booking behavior that specific day.
+   * The bad behavior is calculated if the same course use one room before and after lunch and have a total booking time
+   * less than or equal to four hours.
+   *
+   * @param booking, is one rooms bookings and properties for one day
+   * @returns color, the color corresponding to the booking behavior. Blue for a minimum of 7 hours, Yellow for less than
+   * 7 hours, Red for only bad behavior that day and orange if the day has a bad behavior but has other bookings
+   */
   setColor(booking: MapRoomEntry) {
     let hasBadBehavior = false;
     let totalTime = 0;
@@ -55,28 +67,15 @@ export class BehaviorService {
       return this.setColor(this.bookings);
     }*/
 
+  /**
+   * Parses a string to military time
+   * @param time, as a string
+   * @returns number, the time in military style
+   */
   getMilitaryTime(time: string): number {
     const militaryTime = time.replace(':', '');
     return parseInt(militaryTime);
   }
-
-  /* setDate(bookings: ScheduleEntry[]) {
-     this.date = bookings[0].startDate;
-     for (let i = 0; i < bookings.length; i++) {
-       if (bookings[i].startDate !== bookings[i].endDate) {
-         this.dateError = true;
-       } else if (this.date !== bookings[i].startDate) {
-         this.dateError = true;
-       }
-     }
-     if (this.dateError) {
-       this.date = new Date(0, 0, 0);
-     } else {
-       let split = bookings[0].startDate.split("-");
-       this.date = new Date(parseInt(split[0]), parseInt(split[1]), parseInt(split[2]));
-     }
-
-   }*/
 }
 
 
