@@ -13,7 +13,7 @@ import { MiniHeaderComponent } from '../mini-header/mini-header.component';
     FilterPipe,
   ],
   exports: [
-    SearchBarComponent
+    SearchBarComponent,
   ],
     imports: [
         CommonModule,

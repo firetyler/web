@@ -1,6 +1,8 @@
 <div class="miniHeader" >
+
   <img id="line" src="../../assets/ThinLine.png">
 <div id="innerBox">
-  <mat-radio-button *ngFor="let alt of selection" (click)="onSelect(alt)"> <div class="item">{{alt}}</div> </mat-radio-button>
+  <button type="button" class="btn yellow mx-3" style="color: yellow" (click)="getSelectionBookningDescriptions()"> betende</button>
+  <button type="button" class="btn yellow mx-3"style="color: yellow" (click)="getSelectionPriceUsage()">pris</button>
 </div>
 </div>

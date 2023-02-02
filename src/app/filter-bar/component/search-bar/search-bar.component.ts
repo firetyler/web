@@ -5,7 +5,7 @@ import {PriceGraphComponent} from "../../../graph/price-graph/price-graph.compon
 import {MapRoomEntry, RoomMapService} from "../../../service/room-map.service";
 import {BehaviorGraphComponent} from "../../../graph/behavior-graph/behavior-graph.component";
 import {empty} from "rxjs";
-import {MiniHeaderComponent, miniHeaderEntry} from "../../../mini-header/mini-header.component";
+import {MiniHeaderComponent} from "../../../mini-header/mini-header.component";
 
 
 //https://mdbootstrap.com/docs/b4/angular/forms/search/
@@ -31,6 +31,7 @@ export class SearchBarComponent implements OnInit {
   searchText: any;
   dataset: any[] = [];
   pDataset: any[] = [];
+
 
   ngOnInit() {
     if (this.location.path() == '/academy') {
@@ -105,11 +106,13 @@ export class SearchBarComponent implements OnInit {
   async submitFunction(){
    await this.getForSort( await this.mapRoom.mapRooms(false));
   }
+
   async getForSort(json: MapRoomEntry[]){
 
-   console.log(await this.mini.triggerMethod());
+
+
    //console.log(await this.mini.getSelectionAnvändningskostnad());
-if(await this.mini.triggerMethod()== 'Användningskostnad'){
+if(await this.mini.getGraphType()== 'Användningskostnad'){
   for(let i =0; i < json.length; i ++){
     for(let j =0; j< this.pDataset.length; j++){
       let level = json[i].id.toString().substring(0,2) + ':' + json[i].id.toString().substring(2,3);
@@ -124,8 +127,8 @@ if(await this.mini.triggerMethod()== 'Användningskostnad'){
       return await this.price.onclickPriceGraph(this.pDataset);
     }
   }
-  
-}else{
+
+}else if(await this.mini.getGraphType() == 'Bokningsbeteende'){
   for(let i =0; i < json.length; i ++){
     for(let j =0; j< this.pDataset.length; j++){
       let level = json[i].id.toString().substring(0,2) + ':' + json[i].id.toString().substring(2,3);
@@ -143,7 +146,7 @@ if(await this.mini.triggerMethod()== 'Användningskostnad'){
 }
 }
 }
-   
- 
+
+
 
 

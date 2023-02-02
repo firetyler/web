@@ -8,47 +8,46 @@ import {AppComponent} from "../app.component";
   styleUrls: ['./mini-header.component.css'],
   providers: [{
     provide: MAT_RADIO_DEFAULT_OPTIONS,
-    useValue: { color: 'warn' },
+    useValue: {color: 'warn'},
   }]
 })
 @Injectable({
   providedIn: 'root'
 })
 export class MiniHeaderComponent implements OnChanges {
-  
+
   selection: any[] = ["Bokningsbeteende", "Användningskostnad"];
-  test:any ;
-  constructor(private main: AppComponent) { }
-  
+  test: any[] = [];
+  graphType: string = "";
+
+  constructor(private main: AppComponent) {
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
-    this.onSelect(changes);
-  }
-  onSelect(alt: any){
-    this.main.onKey(alt);
-    return this.test = alt;
   }
 
-  async getSelectionBokningsbeteende(){ 
-  return  "Bokningsbeteende"
+  /*onSelect(e:any){
+    this.main.onKey(e.target.innerHTML);
+    if (!this.test.includes(e.target.innerHTML)) {
+      this.test.push(e.target.innerHTML)
+    }
+  }*/
+
+  async getSelectionBookningDescriptions() {
+    this.graphType = "Bokningsbeteende";
+    this.main.onKey(this.graphType)
+    return this.graphType
   }
 
-  async getSelectionAnvändningskostnad(){
-    return "Användningskostnad"
+  async getSelectionPriceUsage() {
+    this.graphType = "Användningskostnad";
+    this.main.onKey(this.graphType)
+    return this.graphType;
+
   }
 
-  triggerMethod(){
-    if(this.test == 'Bokningsbeteende'){
-      return  this.getSelectionBokningsbeteende()
-      }else{
-        return  this.getSelectionAnvändningskostnad()
-      }
+  async getGraphType() {
+    return this.graphType
   }
 }
 
-export class miniHeaderEntry {
-  miniHeader:any
-  constructor(miniHeader: any) {
-    this.miniHeader = miniHeader;
-  }
-
-}
