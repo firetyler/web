@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {BehaviorGraphComponent} from "../graph/behavior-graph/behavior-graph.component";
 import {RoomEntry} from "./csv-file-reader.service";
 import {RoomMapEntry} from "./map-rooms.service";
+import {RoomMapService} from "./room-map.service";
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,11 @@ export class QuanDataCalcService {
   getBookedWorkHoursPercentage(startDate : string , timePeriod : number){
     let tempArray: any[] = this.getTotalWorkHoursAndDays(startDate, timePeriod);
     let percentage : number = (this.getBookedWorkHours() / tempArray[1]) * 100;
-    return percentage + '%';
+    return percentage ;
   }
   getBookedHoursPercentage(days : number){
     let percentage : number = (this.getBookedHours() / this.getTotalHour(days)) * 100;
-    return percentage + '%';
+    return percentage ;
   }
   getBookedWorkDays(){
     let totalDays : number = this.getBookedWorkHours()/(8*this.getChoosenRooms());
