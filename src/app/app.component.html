@@ -7,9 +7,9 @@
     <ng-container [ngSwitch]="componentName">
       <app-start *ngSwitchDefault></app-start>
       <app-price-graph *ngSwitchCase="'Användningskostnad'"
-                       class=" d-flex align-items-center justify-content-center flex-fill"></app-price-graph>
+                       class="d-flex  justify-content-center flex-fill align-top "></app-price-graph>
       <app-behavior-graph *ngSwitchCase="'Bokningsbeteende'"
-                          class=" d-flex align-items-center justify-content-center flex-fill"></app-behavior-graph>
+                          class="d-flex  justify-content-center flex-fill align-top graph_height"></app-behavior-graph>
     </ng-container>
     <app-time-filters class="align-items-end justify-content-end"></app-time-filters>
   </div>
