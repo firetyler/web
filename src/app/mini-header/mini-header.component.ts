@@ -33,21 +33,30 @@ export class MiniHeaderComponent implements OnChanges {
     }
   }*/
 
-  async getSelectionBookningDescriptions() {
-    this.graphType = "Bokningsbeteende";
-    this.main.onKey(this.graphType)
-    return this.graphType
+  async onSelect(alt: string) {
+    this.main.onKey(alt);
   }
 
-  async getSelectionPriceUsage() {
+  async getGraph(){
+    console.log(this.main.getKey());
+    return this.main.getKey();
+  }
+/*async setSelectionBookingDescriptions() {
+    this.graphType = "Bokningsbeteende";
+    this.main.onKey(this.graphType)
+    console.log("B")
+  }
+
+  async setSelectionPriceUsage() {
     this.graphType = "Användningskostnad";
     this.main.onKey(this.graphType)
-    return this.graphType;
+    console.log("A")
 
   }
 
   async getGraphType() {
+    console.log(this.graphType)
     return this.graphType
-  }
+  }*/
 }
 

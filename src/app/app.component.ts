@@ -14,4 +14,8 @@ export class AppComponent {
   onKey(componentName: string) {
     this.componentName = componentName;
   }
+
+  getKey(){
+    return this.componentName;
+  }
 }

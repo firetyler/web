@@ -114,9 +114,8 @@ export class SearchBarComponent implements OnInit {
 
   async getForSort(json: MapRoomEntry[]) {
 
-
-    //console.log(await this.mini.getSelectionAnvändningskostnad());
-   // if (await this.mini.getGraphType() == 'Användningskostnad') {
+    console.log(await this.mini.getGraph());
+    if (await this.mini.getGraph() == 'Användningskostnad') {
       for (let i = 0; i < json.length; i++) {
         for (let j = 0; j < this.pDataset.length; j++) {
           let level = json[i].id.toString().substring(0, 2) + ':' + json[i].id.toString().substring(2, 3);
@@ -133,8 +132,8 @@ export class SearchBarComponent implements OnInit {
       }
 
 
-   // } else {
-    /* for (let i = 0; i < json.length; i++) {
+    } else if (await this.mini.getGraph() == 'Bokningsbeteende'){
+     for (let i = 0; i < json.length; i++) {
        for (let j = 0; j < this.pDataset.length; j++) {
          let level = json[i].id.toString().substring(0, 2) + ':' + json[i].id.toString().substring(2, 3);
          let house = json[i].id.toString().substring(0, 2);
@@ -148,7 +147,7 @@ export class SearchBarComponent implements OnInit {
          return await this.behav.onclickBehavGraph(this.pDataset);
        }
      }
-   }*/
+   }
   }
 
   binarySearch(roomKey: number, input: MapRoomEntry[]) {

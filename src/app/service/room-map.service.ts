@@ -37,12 +37,12 @@ export class RoomMapService {
         this.listWithData[index].entry.push(entry);
       }
     });
-    this.listOfRooms.forEach((room) => {
+/*    this.listOfRooms.forEach((room) => {
       let temp = this.listWithData.find((roomEntry) => room.id == roomEntry.id);
       if (temp == undefined) {
         this.listWithData.push(new MapRoomEntry(room.id,"","",room.academy,room.seats,room.price))
       }
-    });
+    });*/
     this.listWithData.sort((entryA, entryB) => entryA.id - entryB.id);
     this.listWithData.forEach((entry) => entry.setColor(this.behavior.setColor(entry)));
     return this.listWithData;
