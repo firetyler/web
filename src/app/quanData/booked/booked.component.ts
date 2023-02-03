@@ -24,7 +24,9 @@ export class BookedComponent implements OnInit {
   }
 
   getProcNumber(dateFilter: number) {
-
+    console.log("HEEEEEJ");
+    console.log(dateFilter);
+  console.log(this.calc.getBookedHoursPercentage(dateFilter))
     return this.calc.getBookedHoursPercentage(dateFilter);
   }
 

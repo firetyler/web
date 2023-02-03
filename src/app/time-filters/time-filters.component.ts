@@ -38,12 +38,13 @@ export class TimeFiltersComponent {
   }
 
   changeDateFilter(dateFilter: number) {
-    this.filterService.changeDateFilter(dateFilter);
+    this.filterService.changeDate(dateFilter);
   }
 
   async onSelect(event: any) {
     let numberOfDays = event.split(' ');
     this.numberOfDays = parseInt(numberOfDays[0], 10);
+    console.log("On Select: " + this.numberOfDays);
     if (this.startDate != undefined && this.numberOfDays != 0) {
       this.loader = true;
       this.isHidden = false;
@@ -56,6 +57,7 @@ export class TimeFiltersComponent {
   }
 
   getNumberOfDays() {
+    console.log("getNumberOfDays(): "+ this.numberOfDays);
     return this.numberOfDays;
   }
 
@@ -67,23 +69,6 @@ export class TimeFiltersComponent {
     setTimeout(() => {
       this.loader = false;
     }, 3000);
-  }
-
-  getNumberOfWorkDays() {
-    if (this.startDate != undefined) {
-      let startDay = this.startDate.getDay();
-      if ((startDay == 5 || startDay == 0) && this.numberOfDays == 30) {
-        return this.numberOfDays - 9;
-      } else if (startDay == 6 && this.numberOfDays == 30) {
-        return this.numberOfDays - 10;
-      } else if (this.numberOfDays == 30 && (startDay < 5 && startDay > 0)) {
-        return this.numberOfDays - 8;
-      } else {
-        return this.numberOfDays - 2;
-      }
-    } else {
-      return 0;
-    }
   }
 
   onCalcSelect(time: string) {

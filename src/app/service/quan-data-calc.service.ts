@@ -3,20 +3,20 @@ import {BehaviorGraphComponent} from "../graph/behavior-graph/behavior-graph.com
 import {RoomEntry} from "./csv-file-reader.service";
 import {RoomMapEntry} from "./map-rooms.service";
 import {RoomMapService} from "./room-map.service";
+import {QuanDataUpdateService} from "../quanData/quan-data/quan-data-update.service";
 @Injectable({
   providedIn: 'root'
 })
 export class QuanDataCalcService {
 
-  constructor(private rooms : BehaviorGraphComponent) { }
+  constructor(private rooms : BehaviorGraphComponent, private filterService: QuanDataUpdateService) { }
   getBookedWorkHoursPercentage(startDate : string , timePeriod : number){
     let tempArray: any[] = this.getTotalWorkHoursAndDays(startDate, timePeriod);
     let percentage : number = (this.getBookedWorkHours() / tempArray[1]) * 100;
     return percentage ;
   }
   getBookedHoursPercentage(days : number){
-    console.log("bokade timmar" + this.getBookedHours());
-    console.log("totala timmar" + this.getTotalHour(days));
+    console.log("Totala boakde timmar " + this.getBookedHours() + "totala timmar " + this.getTotalHour(days));
     let percentage : number = (this.getBookedHours() / this.getTotalHour(days)) * 100;
     return percentage ;
   }
@@ -49,9 +49,11 @@ export class QuanDataCalcService {
 
   private getBookedHours(){
     let hours : number = 0;
-    this.rooms.getInputArray().forEach((roomMapEntry) =>{
+    console.log(this.rooms.getInputArray());
+    this.filterService.entryArray.forEach((roomMapEntry) =>{
       hours += roomMapEntry.getTotalHours();
     })
+    console.log("Timmar i booked Hours: " + hours);
     return hours;
   }
 
@@ -83,5 +85,6 @@ export class QuanDataCalcService {
   }
   private getTotalHour(days: number){
     return (19*days);
+    //TODO hantera antalet rum
   }
 }

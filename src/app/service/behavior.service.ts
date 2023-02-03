@@ -35,13 +35,12 @@ export class BehaviorService {
     for (let i = 0; i < booking.entry.length; i++) {
       let startTime = this.getMilitaryTime(booking.entry[i].startTime);
       let endTime = this.getMilitaryTime(booking.entry[i].endTime);
-      if (endTime > 114500 && endTime < 121500) {
+      if (endTime > 1145 && endTime < 1215) {
         beforeLunch = booking.entry[i];
-      } else if (startTime > 124500 && startTime < 133000) {
+      } else if (startTime > 1245 && startTime < 1330) {
         afterLunch = booking.entry[i];
       }
     }
-
     if (beforeLunch != undefined && afterLunch != undefined) {
       if (beforeLunch.course === afterLunch.course) {
         if (beforeLunch.getTotalHours() + afterLunch.getTotalHours() <= 4) {
@@ -60,12 +59,6 @@ export class BehaviorService {
       return this.color = '#ffff00';
     }
   }
-
-  /*
-    getColor() {
-      console.log("hej från getColor");
-      return this.setColor(this.bookings);
-    }*/
 
   /**
    * Parses a string to military time

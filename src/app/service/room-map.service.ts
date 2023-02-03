@@ -43,7 +43,7 @@ export class RoomMapService {
     this.listOfRooms.forEach((room) => {
       let temp = this.listWithData.find((roomEntry) => room.id == roomEntry.id);
       if (temp == undefined) {
-        this.listRoomsUnbooked.push(room);
+        this.listRoomsUnbooked.push(room.id);
       }
     });
     this.listWithData.sort((entryA, entryB) => entryA.id - entryB.id);
@@ -121,16 +121,13 @@ export class MapRoomEntry {
   getTotalHours() {
     let hours = 0;
     this.entry.forEach((scheduleEntry) => {
-      let startTime = parseInt(scheduleEntry.startTime.replace(":", ""));
-      let endTime = parseInt(scheduleEntry.endTime.replace(":", ""));
-      if ((startTime > 50000) && (endTime < 240000)) {
-        hours += scheduleEntry.getTotalHours();
-      } else if (startTime < 50000) {
-        const startTimeArray = [5, 0];
-        const endTimeArray = scheduleEntry.startTime.split(':');
-        let startMinutes = (60 * startTimeArray[0]) + startTimeArray[1];
-        let endMinutes = (60 * parseInt(endTimeArray[0])) + parseInt(endTimeArray[1]);
-        hours += (endMinutes - startMinutes)/60;
+      let tempDate = new Date(scheduleEntry.startDate);
+      if (tempDate.getDay() > 0 && tempDate.getDay() < 6) {
+        let startTime = new Date("1970-01-01 " + scheduleEntry.startTime).getTime();
+        let endTime = new Date("1970-01-01 " + scheduleEntry.endTime).getTime();
+        let startCutoff = new Date("1970-01-01 05:00").getTime();
+        let endCutoff = new Date("1970-01-01 23:59").getTime();
+        hours += this.calculateHours(startTime, endTime, startCutoff, endCutoff);
       }
     });
     return hours;
@@ -141,26 +138,26 @@ export class MapRoomEntry {
     this.entry.forEach((scheduleEntry) => {
       let tempDate = new Date(scheduleEntry.startDate);
       if (tempDate.getDay() > 0 && tempDate.getDay() < 6) {
-        let startTime = parseInt(scheduleEntry.startTime.replace(":", ""));
-        let endTime = parseInt(scheduleEntry.endTime.replace(":", ""));
-        if ((startTime > 80000) && (endTime < 170000)) {
-          hours += scheduleEntry.getTotalHours();
-        } else if (startTime < 80000) {
-          const startTimeArray = [8, 0];
-          const endTimeArray = scheduleEntry.startTime.split(':');
-          let startMinutes = (60 * startTimeArray[0]) + startTimeArray[1];
-          let endMinutes = (60 * parseInt(endTimeArray[0])) + parseInt(endTimeArray[1]);
-          hours += (endMinutes - startMinutes) / 60;
-        } else if (endTime > 170000) {
-          const startTimeArray = scheduleEntry.startTime.split(':');
-          const endTimeArray = [17, 0];
-          let startMinutes = (60 * parseInt(startTimeArray[0])) + parseInt(startTimeArray[1]);
-          let endMinutes = (60 * endTimeArray[0]) + endTimeArray[1];
-          hours += (endMinutes - startMinutes)/60;
-        }
+        let startTime = new Date("1970-01-01 " + scheduleEntry.startTime).getTime();
+        let endTime = new Date("1970-01-01 " + scheduleEntry.endTime).getTime();
+        let startCutoff = new Date("1970-01-01 08:00").getTime();
+        let endCutoff = new Date("1970-01-01 17:00").getTime();
+        hours += this.calculateHours(startTime, endTime, startCutoff, endCutoff);
       }
-    })
+    });
     return hours;
+  }
+
+  private calculateHours(startTime : number, endTime : number, startCutoff : number, endCutoff : number ){
+    let tempHours : number = 0;
+    if (startTime >= startCutoff && endTime <= endCutoff) {
+      tempHours += (endTime - startTime) / (60 * 60 * 1000);
+    } else if (startTime < startCutoff) {
+      tempHours += (endTime - startCutoff) / (60 * 60 * 1000);
+    } else if (endTime > endCutoff) {
+      tempHours += (endCutoff - startTime) / (60 * 60 * 1000);
+    }
+    return tempHours;
   }
 
   setColor(inputColor: string) {
