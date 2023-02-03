@@ -3,9 +3,12 @@
 <app-graph-sorting class="ml-10"></app-graph-sorting>
 <div class="bottom-part d-flex flex-column min-vh-95">
   <div class="d-flex flex-row bd-highlight mb-3">
-    <router-outlet class="align-items-start m-0 p-0 justify-content-start"></router-outlet>
+    <router-outlet class="align-items-start m-0 p-0 justify-content-start">
+    </router-outlet>
     <ng-container [ngSwitch]="componentName">
       <app-start *ngSwitchDefault></app-start>
+      <app-documentations *ngSwitchCase="'documentations'"></app-documentations>
+      <app-about *ngSwitchCase="'about'"></app-about>
       <app-behavior-graph *ngSwitchCase="'Bokningsbeteende'"
                           class=" d-flex align-items-center justify-content-center flex-fill"></app-behavior-graph>
       <app-price-graph *ngSwitchCase="'Användningskostnad'"
@@ -17,8 +20,10 @@
 </div>
 <div class="mt-auto">
   <app-quan-data></app-quan-data>
-  <app-footer></app-footer>
+  <app-footer>
+  </app-footer>
 </div>
 <app-testing></app-testing>
+
 
 

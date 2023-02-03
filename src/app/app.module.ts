@@ -41,6 +41,8 @@ import { StartComponent } from './start/start.component';
 import { GraphSortingComponent } from './graph/graph-sorting/graph-sorting.component';
 import {NgxPrintModule} from "ngx-print";
 import { SearchBarComponent } from './filter-bar/component/search-bar/search-bar.component';
+import { DocumentationsComponent } from './footer/documentations/documentations.component';
+import { AboutComponent } from './footer/about/about.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +70,8 @@ import { SearchBarComponent } from './filter-bar/component/search-bar/search-bar
     PriceGraphComponent,
     GraphSortingComponent,
     StartComponent,
+    DocumentationsComponent,
+    AboutComponent,
   ],
   exports: [
     SearchBarComponent,
