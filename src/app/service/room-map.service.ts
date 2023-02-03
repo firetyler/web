@@ -12,8 +12,10 @@ export class RoomMapService {
   listOfRooms: RoomEntry[] = [];
   listOfScheduleEntry: ScheduleEntry[] = [];
   listWithData: MapRoomEntry[] = [];
+  listRoomsUnbooked: any[] = [];
 
-  constructor(private csvReader: CsvFileReaderService, private getScheduleData: GetScheduleDataService, private behavior: BehaviorService) {}
+  constructor(private csvReader: CsvFileReaderService, private getScheduleData: GetScheduleDataService,
+              private behavior: BehaviorService) {}
 
   async mapRooms(hasDate: Boolean) {
     this.listOfRooms = await this.csvReader.getRooms();
@@ -37,10 +39,11 @@ export class RoomMapService {
         this.listWithData[index].entry.push(entry);
       }
     });
+    this.listRoomsUnbooked = [];
     this.listOfRooms.forEach((room) => {
       let temp = this.listWithData.find((roomEntry) => room.id == roomEntry.id);
       if (temp == undefined) {
-        this.listWithData.push(new MapRoomEntry(room.id,"","",room.academy,room.seats,room.price))
+        this.listRoomsUnbooked.push(room);
       }
     });
     this.listWithData.sort((entryA, entryB) => entryA.id - entryB.id);

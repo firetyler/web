@@ -18,6 +18,7 @@ export class CsvFileReaderService {
    */
   async getRooms() {
     let data = "";
+    this.roomArray = [];
     const axi = axios.create();
     await axi.get('assets/rooms.csv', {responseType: 'text'})
       .then(

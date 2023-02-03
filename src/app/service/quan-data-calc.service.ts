@@ -3,7 +3,6 @@ import {BehaviorGraphComponent} from "../graph/behavior-graph/behavior-graph.com
 import {RoomEntry} from "./csv-file-reader.service";
 import {RoomMapEntry} from "./map-rooms.service";
 import {RoomMapService} from "./room-map.service";
-
 @Injectable({
   providedIn: 'root'
 })
@@ -16,6 +15,8 @@ export class QuanDataCalcService {
     return percentage ;
   }
   getBookedHoursPercentage(days : number){
+    console.log("bokade timmar" + this.getBookedHours());
+    console.log("totala timmar" + this.getTotalHour(days));
     let percentage : number = (this.getBookedHours() / this.getTotalHour(days)) * 100;
     return percentage ;
   }

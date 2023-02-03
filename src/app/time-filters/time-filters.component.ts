@@ -2,13 +2,16 @@ import {Component, Injectable} from '@angular/core';
 import {MAT_RADIO_DEFAULT_OPTIONS} from "@angular/material/radio";
 import {GetScheduleDataService} from "../service/get-schedule-data.service";
 import {MiniHeaderComponent} from "../mini-header/mini-header.component";
+import {Subject} from "rxjs";
+import {BookedComponent} from "../quanData/booked/booked.component";
+import {QuanDataUpdateService} from "../quanData/quan-data/quan-data-update.service";
 
 @Component({
   selector: 'app-time-filters',
   templateUrl: './time-filters.component.html',
   styleUrls: ['./time-filters.component.css'],
   providers: [{
-    provide: {MAT_RADIO_DEFAULT_OPTIONS,MiniHeaderComponent},
+    provide: {MAT_RADIO_DEFAULT_OPTIONS, MiniHeaderComponent},
     useValue: {color: 'warn'},
   }]
 })
@@ -17,7 +20,6 @@ import {MiniHeaderComponent} from "../mini-header/mini-header.component";
 })
 export class TimeFiltersComponent {
   numbers: Array<number> = [];
-  lists: Array<number>[] = [];
   startDate: Date | undefined;
   numberOfDays: number = 0;
   loader: boolean = true;
@@ -26,12 +28,17 @@ export class TimeFiltersComponent {
   isHidden: boolean = true;
   private isWorkDays: boolean;
 
-  constructor(private dataService: GetScheduleDataService) {
+  constructor(private dataService: GetScheduleDataService, private filterService: QuanDataUpdateService) {
     this.isWorkDays = true;
+
   }
 
   onUpdate(dateObject: any) {
     this.startDate = dateObject.value;
+  }
+
+  changeDateFilter(dateFilter: number) {
+    this.filterService.changeDateFilter(dateFilter);
   }
 
   async onSelect(event: any) {
@@ -40,23 +47,26 @@ export class TimeFiltersComponent {
     if (this.startDate != undefined && this.numberOfDays != 0) {
       this.loader = true;
       this.isHidden = false;
-    await this.dataService.fillArrayByTimePeriod(this.startDate, this.numberOfDays);
-     await this.loading();
+      await this.dataService.fillArrayByTimePeriod(this.startDate, this.numberOfDays);
+      await this.loading();
     } else {
       alert("Vänligen välj ett datum och välj sedan antalet dagar igen!")
     }
+    this.changeDateFilter(this.numberOfDays);
   }
 
   getNumberOfDays() {
     return this.numberOfDays;
   }
-  async refresh(){
+
+  async refresh() {
     window.location.reload();
   }
- async loading (){
-    setTimeout (() => {
+
+  async loading() {
+    setTimeout(() => {
       this.loader = false;
-    },3000);
+    }, 3000);
   }
 
   getNumberOfWorkDays() {
@@ -75,6 +85,7 @@ export class TimeFiltersComponent {
       return 0;
     }
   }
+
   onCalcSelect(time: string) {
     if (time === 'Arbetstider') {
       this.isWorkDays = true;
