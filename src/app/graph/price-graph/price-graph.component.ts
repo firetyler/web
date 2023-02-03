@@ -17,7 +17,7 @@ export class PriceGraphComponent implements OnInit {
   @Input() value: any;
   constructor(private mapRoom : RoomMapService) {
   }
-
+//Hello
   async ngOnInit() {
 
   }
