@@ -23,13 +23,14 @@ export class BehaviorGraphComponent implements OnInit{
   async ngOnInit() {
 
   }
-
   async onclickBehavGraph(array : any[]){
     await google.charts.load("current", {packages:["timeline"]});
     await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.mapRooms(true),array));
 
 
   }
+
+
 
   async drawChart(json: MapRoomEntry[],array: any[]){
     //this.inputArray = [...json];
@@ -57,7 +58,6 @@ export class BehaviorGraphComponent implements OnInit{
 
     }
 
-
     const options = {
       backgroundColor: 'white',
       timeline : {
@@ -68,9 +68,9 @@ export class BehaviorGraphComponent implements OnInit{
 
     chart.draw(dataTable,options);
   }
-/**
+
   getInputArray(){
     return this.inputArray;
   }
-**/
+
 }

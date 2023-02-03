@@ -1,4 +1,4 @@
-<div>
+<div class="hoger">
   <div>
 <mat-form-field appearance="fill">
         <mat-label>Välj ett datum</mat-label>
@@ -21,11 +21,13 @@ Välj en period: <br>
     <div [hidden]="isHidden">
     <!--Loader Div Starts-->
     <div class="spinner-grow text-primary" style="width: 1rem; height: 1rem;" role="status" *ngIf="loader">
+      <br>
+      Vänligen vänta
     </div>
 
     <!--Loader Div Ends-->
     <div class="container-fluid bg-image" *ngIf="!loader">
-      <h1>Data är laddad</h1>
+      <h3 class="text-primary">Vänligen välj graf</h3>
     </div>
     </div>
   </div>

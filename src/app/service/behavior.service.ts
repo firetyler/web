@@ -9,10 +9,10 @@ import {MapRoomEntry, RoomMapService} from "./room-map.service";
  */
 export class BehaviorService {
   date: any;
-  bookings: MapRoomEntry[] = [];
   color: any;
 
-  constructor() {}
+  constructor() {
+  }
 
   /**
    * Sets the color of each MapRoomEntry. One color is set for each day a room is used depending on how much the room is
@@ -29,6 +29,9 @@ export class BehaviorService {
     let totalTime = 0;
     let beforeLunch;
     let afterLunch;
+    if(booking.entry.length == 0){
+      return this.color = '#ffffff';
+    }
     for (let i = 0; i < booking.entry.length; i++) {
       let startTime = this.getMilitaryTime(booking.entry[i].startTime);
       let endTime = this.getMilitaryTime(booking.entry[i].endTime);
@@ -46,8 +49,7 @@ export class BehaviorService {
         }
       }
     }
-// TODO Byt ut loop mot olivers service
-      totalTime += booking.getTotalHours();
+    totalTime += booking.getTotalHours();
     if (totalTime > 7 && !hasBadBehavior) {
       return this.color = '#0000ff';
     } else if (booking.entry.length == 2 && hasBadBehavior) {
@@ -58,6 +60,12 @@ export class BehaviorService {
       return this.color = '#ffff00';
     }
   }
+
+  /*
+    getColor() {
+      console.log("hej från getColor");
+      return this.setColor(this.bookings);
+    }*/
 
   /**
    * Parses a string to military time

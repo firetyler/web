@@ -26,17 +26,17 @@ export class TimeFiltersComponent {
   isHidden: boolean = true;
   private isWorkDays: boolean;
 
-  constructor(private dataService: GetScheduleDataService, private graphSelector : MiniHeaderComponent) {
-    this.isWorkDays= true;
+  constructor(private dataService: GetScheduleDataService) {
+    this.isWorkDays = true;
   }
 
   onUpdate(dateObject: any) {
     this.startDate = dateObject.value;
   }
 
- async onSelect(event: any) {
+  async onSelect(event: any) {
     let numberOfDays = event.split(' ');
-    this.numberOfDays = parseInt(numberOfDays[0],10);
+    this.numberOfDays = parseInt(numberOfDays[0], 10);
     if (this.startDate != undefined && this.numberOfDays != 0) {
       this.loader = true;
       this.isHidden = false;
