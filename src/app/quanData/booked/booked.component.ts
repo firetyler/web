@@ -1,9 +1,7 @@
-import {Component, OnChanges, OnInit} from '@angular/core';
-import {RoomMapService} from "../../service/room-map.service";
-import {RoomMapEntry} from "../../service/map-rooms.service";
-import {BehaviorGraphComponent} from "../../graph/behavior-graph/behavior-graph.component";
+import {Component, Injectable, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {QuanDataCalcService} from "../../service/quan-data-calc.service";
 import {TimeFiltersComponent} from "../../time-filters/time-filters.component";
+import {QuanDataUpdateService} from "../quan-data/quan-data-update.service";
 
 @Component({
   selector: 'app-booked',
@@ -11,20 +9,23 @@ import {TimeFiltersComponent} from "../../time-filters/time-filters.component";
   styleUrls: ['./booked.component.css'],
   providers : [QuanDataCalcService]
 })
-export class BookedComponent implements OnChanges {
+
+@Injectable({
+  providedIn: 'root'
+})
+export class BookedComponent implements OnInit {
   procNumber: number = 0;
-  constructor(private calc : QuanDataCalcService, private time : TimeFiltersComponent) {
+  constructor(private calc : QuanDataCalcService, private time : TimeFiltersComponent, private filterService: QuanDataUpdateService) {}
+
+  ngOnInit(): void {
+    this.filterService.currentDateFilter.subscribe(dateFilter => {
+      this.procNumber = this.getProcNumber(dateFilter);
+    });
   }
 
-  ngOnChanges(): void {
-    console.log("the fuckkkkk")
-    this.setProcNumber();
+  getProcNumber(dateFilter: number) {
 
-  }
-  setProcNumber() {
-    console.log("the fuck")
-    console.log(this.time.getNumberOfDays());
-    this.procNumber = this.calc.getBookedHoursPercentage(this.time.getNumberOfDays());
+    return this.calc.getBookedHoursPercentage(dateFilter);
   }
 
 

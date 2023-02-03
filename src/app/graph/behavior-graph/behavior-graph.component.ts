@@ -9,10 +9,10 @@ declare var google: any;
   styleUrls: ['./behavior-graph.component.css'],
   providers : [RoomMapService]
 
-})
-@Injectable({
+})@Injectable({
   providedIn: 'root'
 })
+
 export class BehaviorGraphComponent implements OnInit{
   @Input() value : any;
 
@@ -67,10 +67,16 @@ export class BehaviorGraphComponent implements OnInit{
     };
 
     chart.draw(dataTable,options);
+    this.setUnbookedRooms();
+    this.inputArray = [...json];
   }
 
   getInputArray(){
+    console.log(this.inputArray);
     return this.inputArray;
+  }
+  setUnbookedRooms() {
+    this.unbooked = this.mapRoom.listRoomsUnbooked;
   }
 
 }
