@@ -15,6 +15,7 @@ declare var google: any;
 
 export class BehaviorGraphComponent implements OnInit{
   @Input() value : any;
+  unbooked: number[] = [];
 
   private inputArray : MapRoomEntry[] = [];
 
@@ -37,23 +38,27 @@ export class BehaviorGraphComponent implements OnInit{
 
     let chart = new google.visualization.Timeline(document.getElementById('behavior_graph'));
     let dataTable = new google.visualization.DataTable();
-    dataTable.addColumn({ type: 'string', id: 'Room' });
+    dataTable.addColumn({ type: 'string', id: 'id' });
     dataTable.addColumn({type : 'string' , id : 'academy'})
     dataTable.addColumn({ type: 'string', id: 'style', role: 'style' });
     dataTable.addColumn({ type: 'date', id: 'Start' });
     dataTable.addColumn({ type: 'date', id: 'End' });
 
-    for(let i =0; i<= json.length; i++) {
+    for(let i =0; i< json.length; i++) {
       for (let j = 0; j <= array.length; j++) {
        let level = json[i].id.toString().substring(0, 2) + ':' + json[i].id.toString().substring(2, 3);
         let house = json[i].id.toString().substring(0, 2);
         if (json[i].academy == array[j] || json[i].id == array[j]|| level == array[j] || house == array[j]) {
-          let date = new Date(json[i].startDate)
-          dataTable.addRows([[json[i].id.toString(), json[i].academy, json[i].color, new Date(json[i].startDate), new Date(date.setDate(date.getDate() + 1))]]);
-        }else {
+          if(json[i].id == 11123){
+            console.log(json[i].id.toString(), json[i].academy, json[i].color)
+          }
           let date = new Date(json[i].startDate)
           dataTable.addRows([[json[i].id.toString(), json[i].academy, json[i].color, new Date(json[i].startDate), new Date(date.setDate(date.getDate() + 1))]]);
         }
+      }
+      if(array.length == 0){
+        let date = new Date(json[i].startDate)
+        dataTable.addRows([[json[i].id.toString(), json[i].academy, json[i].color, new Date(json[i].startDate), new Date(date.setDate(date.getDate() + 1))]]);
       }
 
     }

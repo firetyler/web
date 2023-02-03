@@ -38,7 +38,7 @@ export class MiniHeaderComponent implements OnChanges {
   }
 
   async getGraph(){
-    console.log(this.main.getKey());
+ //   console.log(this.main.getKey());
     return this.main.getKey();
   }
 /*async setSelectionBookingDescriptions() {
