@@ -48,7 +48,7 @@ export class BehaviorService {
         }
       }
     }
-    totalTime += booking.getTotalHours();
+    totalTime += booking.getTotalWorkHours();
     if (totalTime > 7 && !hasBadBehavior) {
       return this.color = '#0000ff';
     } else if (booking.entry.length == 2 && hasBadBehavior) {

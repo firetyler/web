@@ -18,6 +18,7 @@ export class RoomMapService {
               private behavior: BehaviorService) {}
 
   async mapRooms(hasDate: Boolean) {
+    this.listWithData = [];
     this.listOfRooms = await this.csvReader.getRooms();
     this.listOfScheduleEntry = await this.getScheduleData.getScheduleArray();
     this.listOfScheduleEntry.forEach((entry) => {

@@ -2,8 +2,6 @@ import {Component, Injectable} from '@angular/core';
 import {MAT_RADIO_DEFAULT_OPTIONS} from "@angular/material/radio";
 import {GetScheduleDataService} from "../service/get-schedule-data.service";
 import {MiniHeaderComponent} from "../mini-header/mini-header.component";
-import {Subject} from "rxjs";
-import {BookedComponent} from "../quanData/booked/booked.component";
 import {QuanDataUpdateService} from "../quanData/quan-data/quan-data-update.service";
 
 @Component({
@@ -29,22 +27,25 @@ export class TimeFiltersComponent {
   private isWorkDays: boolean;
 
   constructor(private dataService: GetScheduleDataService, private filterService: QuanDataUpdateService) {
-    this.isWorkDays = true;
-
+    this.isWorkDays = false;
   }
 
   onUpdate(dateObject: any) {
     this.startDate = dateObject.value;
+    this.filterService.setDate(this.startDate);
   }
 
   changeDateFilter(dateFilter: number) {
     this.filterService.changeDate(dateFilter);
   }
+  changeWorkDayFilter() {
+    this.filterService.changeIsWorkDay(this.isWorkDays);
+    this.filterService.changeIsWorkDayFilter(this.isWorkDays);
+  }
 
   async onSelect(event: any) {
     let numberOfDays = event.split(' ');
     this.numberOfDays = parseInt(numberOfDays[0], 10);
-    console.log("On Select: " + this.numberOfDays);
     if (this.startDate != undefined && this.numberOfDays != 0) {
       this.loader = true;
       this.isHidden = false;
@@ -56,15 +57,6 @@ export class TimeFiltersComponent {
     this.changeDateFilter(this.numberOfDays);
   }
 
-  getNumberOfDays() {
-    console.log("getNumberOfDays(): "+ this.numberOfDays);
-    return this.numberOfDays;
-  }
-
-  async refresh() {
-    window.location.reload();
-  }
-
   async loading() {
     setTimeout(() => {
       this.loader = false;
@@ -72,10 +64,11 @@ export class TimeFiltersComponent {
   }
 
   onCalcSelect(time: string) {
-    if (time === 'Arbetstider') {
+    if (time === '08-17, Mån-Fre') {
       this.isWorkDays = true;
-    } else if (time === "Hela dygn") {
+    } else if (time === "05-24, Mån-Sön") {
       this.isWorkDays = false;
     }
+    this.changeWorkDayFilter()
   }
 }

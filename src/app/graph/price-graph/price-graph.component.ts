@@ -17,7 +17,6 @@ export class PriceGraphComponent implements OnInit {
   @Input() value: any;
   constructor(private mapRoom : RoomMapService) {
   }
-//Hello
   async ngOnInit() {
 
   }
@@ -36,19 +35,18 @@ export class PriceGraphComponent implements OnInit {
         let level = json[i].id.toString().substring(0,2) + ':' + json[i].id.toString().substring(2,3);
         let house = json[i].id.toString().substring(0,2);
       if(json[i].academy == array[j]|| json[i].id == array[j] || level == array[j] || house == array[j] ){
-        carry.push([json[i].id.toString(), json[i].getTotalHours(),json[i].price,json[i].academy,json[i].seats]);
+        carry.push([json[i].id.toString(), json[i].getTotalHours(),json[i].price*json[i].getTotalHours(),json[i].academy,json[i].seats]);
       }
     }
       if(array.length == 0){
-        console.log("second else if")
-        carry.push([json[i].id.toString(), json[i].getTotalHours(),json[i].price,json[i].academy,json[i].seats]);
+        carry.push([json[i].id.toString(), json[i].getTotalHours(),json[i].price*json[i].getTotalHours(),json[i].academy,json[i].seats]);
       }
     }
 
     const options = {
       backgroundColor: 'white',
-      hAxis: {title: 'Totala timmar'},
-      vAxis: {title: 'Pris'},
+      hAxis: {title: 'Totala bokade timmar'},
+      vAxis: {title: 'Totalt boknings pris'},
       bubble: {
         textStyle: {fontSize: 12},
         fontName: 'Times-Roman',

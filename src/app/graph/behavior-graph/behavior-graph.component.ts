@@ -24,15 +24,11 @@ export class BehaviorGraphComponent implements OnInit {
   constructor(private mapRoom: RoomMapService, private filterService: QuanDataUpdateService, private time: TimeFiltersComponent) {
   }
 
-  async ngOnInit() {
-
-  }
+  async ngOnInit() {}
 
   async onclickBehavGraph(array: any[]) {
     await google.charts.load("current", {packages: ["timeline"]});
     await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.mapRooms(true), array));
-
-
   }
 
   changeDateFilter(dateFilter: number) {
@@ -41,9 +37,7 @@ export class BehaviorGraphComponent implements OnInit {
 
   async drawChart(json: MapRoomEntry[], array: any[]) {
     this.filterService.setArray([...json]);
-
-    console.log(this)
-
+    this.inputArray = [...json];
     let chart = new google.visualization.Timeline(document.getElementById('behavior_graph'));
     let dataTable = new google.visualization.DataTable();
     dataTable.addColumn({type: 'string', id: 'id'});
@@ -52,42 +46,28 @@ export class BehaviorGraphComponent implements OnInit {
     dataTable.addColumn({type: 'date', id: 'Start'});
     dataTable.addColumn({type: 'date', id: 'End'});
     for (let i = 0; i < json.length; i++) {
-      let date = new Date(json[i].startDate)
-      dataTable.addRows([[json[i].id.toString(), json[i].academy, 'color:' + json[i].color, new Date(json[i].startDate), new Date(date.setDate(date.getDate() + 1))]]);
-
-      for (let i = 0; i < json.length; i++) {
-        for (let j = 0; j <= array.length; j++) {
-          let level = json[i].id.toString().substring(0, 2) + ':' + json[i].id.toString().substring(2, 3);
-          let house = json[i].id.toString().substring(0, 2);
-          if (json[i].academy == array[j] || json[i].id == array[j] || level == array[j] || house == array[j]) {
-            if (json[i].id == 11123) {
-              console.log(json[i].id.toString(), json[i].academy, json[i].color)
-            }
-            let date = new Date(json[i].startDate)
-            dataTable.addRows([[json[i].id.toString(), json[i].academy, json[i].color, new Date(json[i].startDate), new Date(date.setDate(date.getDate() + 1))]]);
-          }
-        }
-        if (array.length == 0) {
+      for (let j = 0; j <= array.length; j++) {
+        let level = json[i].id.toString().substring(0, 2) + ':' + json[i].id.toString().substring(2, 3);
+        let house = json[i].id.toString().substring(0, 2);
+        if (json[i].academy == array[j] || json[i].id == array[j] || level == array[j] || house == array[j]) {
           let date = new Date(json[i].startDate)
           dataTable.addRows([[json[i].id.toString(), json[i].academy, json[i].color, new Date(json[i].startDate), new Date(date.setDate(date.getDate() + 1))]]);
         }
-
       }
-
-      const options = {
-        backgroundColor: 'white',
-        timeline: {
-          colorByRowLabel: false,
-        },
-
-      };
-
-      chart.draw(dataTable, options);
-      this.setUnbookedRooms();
-      console.log("Beteende grafen : " + this.filterService.numberOfDays)
-      this.changeDateFilter(this.filterService.numberOfDays);
-
+      if (array.length == 0) {
+        let date = new Date(json[i].startDate)
+        dataTable.addRows([[json[i].id.toString(), json[i].academy, json[i].color, new Date(json[i].startDate), new Date(date.setDate(date.getDate() + 1))]]);
+      }
     }
+    const options = {
+      backgroundColor: 'white',
+      timeline: {
+        colorByRowLabel: false,
+      },
+    };
+    chart.draw(dataTable, options);
+    this.setUnbookedRooms();
+    this.changeDateFilter(this.filterService.numberOfDays);
   }
 
   getInputArray() {
