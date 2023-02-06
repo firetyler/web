@@ -1,10 +1,12 @@
 
+
+<button type="button" class="btn yellow mx-3" (click)="submitFunction()">Load Graph</button>
 <div class="md-form" (focusin)="show = true" (focusout)="show = false">
   <input type="search" [(ngModel)]="searchText" placeholder="Sök" >
 </div>
 
 
-<div id="outsideDiv" class="overflow-auto scroll">
+<div  id="outsideDiv" class="overflow-auto scroll">
 
   <div id="dataBox" *ngFor="let data of dataset | filter: searchText" (click)="onClick($event)" class="beforeClick" >
   <p id="dataColor" >{{data}}</p>

@@ -1,6 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Injectable, Input, OnInit} from '@angular/core';
 import {CsvFileReaderService} from '../../../service/csv-file-reader.service'
 import {Location} from '@angular/common';
+import {PriceGraphComponent} from "../../../graph/price-graph/price-graph.component";
+import {MapRoomEntry, RoomMapService} from "../../../service/room-map.service";
+import {BehaviorGraphComponent} from "../../../graph/behavior-graph/behavior-graph.component";
+import {empty} from "rxjs";
+import {MiniHeaderComponent} from "../../../mini-header/mini-header.component";
 
 
 //https://mdbootstrap.com/docs/b4/angular/forms/search/
@@ -8,20 +13,26 @@ import {Location} from '@angular/common';
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
-  styleUrls: ['./search-bar.component.css']
+  styleUrls: ['./search-bar.component.css'],
+  providers: []
 })
-/**
- * Search component for enable the user choose the rooms to be shown in the graphs
- */
+@Injectable({
+  providedIn: 'root'
+})
 export class SearchBarComponent implements OnInit {
-  constructor(private roomService: CsvFileReaderService, private location: Location) {
+
+  constructor(private roomService: CsvFileReaderService, private location: Location
+    , private price: PriceGraphComponent, private mapRoom: RoomMapService,
+              private behav: BehaviorGraphComponent, private mini: MiniHeaderComponent) {
   }
 
   show = false
   elementClicked = 'Click any of the list item below'
   searchText: any;
-  dataset: any = [];
-  pDataset: any = [];
+  dataset: any[] = [];
+  pDataset: any[] = [];
+  newData: any[] = [];
+
 
   ngOnInit() {
     if (this.location.path() == '/academy') {
@@ -35,9 +46,6 @@ export class SearchBarComponent implements OnInit {
     }
   }
 
-  /**
-   * Gets the different academies available from the CSV file and puts them in the list
-   */
   async separateRoomsFromArrayAcademy() {
     let data = await this.roomService.getRooms();
     for (let i = 0; i < data.length; i++) {
@@ -47,9 +55,6 @@ export class SearchBarComponent implements OnInit {
     }
   }
 
-  /**
-   * Puts all the rooms in to the list
-   */
   async separateRoomsFromArrayRoom() {
     let data = await this.roomService.getRooms();
     for (let i = 0; i < data.length; i++) {
@@ -57,52 +62,116 @@ export class SearchBarComponent implements OnInit {
         this.dataset.push(data[i].id.toString())
       }
     }
+
   }
 
-  /**
-   * Puts all the different houses in to the list
-   * Based on the first two numbers in the room ID
-   */
   async separateHousesFromArrayHouse() {
     let data = await this.roomService.getRooms();
     for (let i = 0; i < data.length; i++) {
-      let tempId = data[i].id.toString().substring(0,2);
+      let tempId = data[i].id.toString().substring(0, 2);
       if (!this.dataset.includes(tempId)) {
         this.dataset.push(tempId);
       }
     }
   }
 
-  /**
-   * Puts all the different levels of each house in to the list
-   * Based on the first two numbers on the room ID to get each house and the third number to get the level
-   */
   async separateLevelFromArrayLevel() {
     let data = await this.roomService.getRooms();
     for (let i = 0; i < data.length; i++) {
-      let tempId = data[i].id.toString().substring(0,2) + ':' + data[i].id.toString().substring(2,3);
+      let tempId = data[i].id.toString().substring(0, 2) + ':' + data[i].id.toString().substring(2, 3);
       if (!this.dataset.includes(tempId)) {
         this.dataset.push(tempId);
       }
     }
   }
 
-  /**
-   * Called when an item in the search list and puts the item in to the selected list
-   * @param e, the item clicked in the search list
-   */
-  onClick(e: any) {
+  async onClick(e: any) {
     this.elementClicked = 'Senast vald: ' + e.target.innerHTML;
     if (!this.pDataset.includes(e.target.innerHTML)) {
       this.pDataset.push(e.target.innerHTML)
     }
+    await this.getSet(this.pDataset)
+    await this.geDataSet()
+
   }
 
-  /**
-   * Removes an item from the list
-   * @param i, the index of the item to be removed
-   */
+  async getSet(p: any[]) {
+    this.pDataset = p;
+  }
+
   onClickRemove(i: number) {
     this.pDataset.splice(i, 1);
   }
+
+  async geDataSet() {
+    let temp = [this.pDataset];
+    return temp;
+  }
+
+  async submitFunction() {
+    await this.getForSort(await this.mapRoom.mapRooms(false));
+  }
+
+  async getForSort(json: MapRoomEntry[]) {
+
+    console.log(await this.mini.getGraph());
+    if (await this.mini.getGraph() == 'Användningskostnad') {
+      for (let i = 0; i < json.length; i++) {
+        for (let j = 0; j < this.pDataset.length; j++) {
+          let level = json[i].id.toString().substring(0, 2) + ':' + json[i].id.toString().substring(2, 3);
+          let house = json[i].id.toString().substring(0, 2);
+          if (json[i].academy == this.pDataset[j] || json[i].id == this.pDataset[j]
+            || level == this.pDataset[j] || house == this.pDataset[j]) {
+            return await this.price.onclickPriceGraph(this.pDataset);
+            // return await this.behav.onclickBehavGraph(this.pDataset);
+          }
+        }
+        if (this.pDataset.length == 0) {
+          return await this.price.onclickPriceGraph(this.pDataset);
+        }
+      }
+
+
+    } else if (await this.mini.getGraph() == 'Bokningsbeteende'){
+     for (let i = 0; i < json.length; i++) {
+       for (let j = 0; j < this.pDataset.length; j++) {
+         let level = json[i].id.toString().substring(0, 2) + ':' + json[i].id.toString().substring(2, 3);
+         let house = json[i].id.toString().substring(0, 2);
+         if (json[i].academy == this.pDataset[j] || json[i].id == this.pDataset[j]
+           || level == this.pDataset[j] || house == this.pDataset[j]) {
+           //return await this.price.onclickPriceGraph(this.pDataset);
+           return await this.behav.onclickBehavGraph(this.pDataset);
+         }
+       }
+       if (this.pDataset.length == 0) {
+         return await this.behav.onclickBehavGraph(this.pDataset);
+       }
+     }
+   }
+  }
+
+  binarySearch(roomKey: number, input: MapRoomEntry[]) {
+    if (input.length < 1) {
+      return -1;
+    }
+    let low = 0;
+    let high = input.length - 1;
+    while (low <= high) {
+      let mid = Math.floor((low + high) / 2);
+      if (input[mid].id == roomKey) {
+        return mid;
+      }
+      if (roomKey > input[mid].id) {
+        low = mid + 1;
+      }
+      if (roomKey < input[mid].id) {
+        high = mid - 1;
+      }
+    }
+    return -1;
+  }
 }
+
+
+
+

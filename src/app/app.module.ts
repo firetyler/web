@@ -40,6 +40,7 @@ import {MatCardModule} from "@angular/material/card";
 import { StartComponent } from './start/start.component';
 import { GraphSortingComponent } from './graph/graph-sorting/graph-sorting.component';
 import {NgxPrintModule} from "ngx-print";
+import { SearchBarComponent } from './filter-bar/component/search-bar/search-bar.component';
 
 @NgModule({
   declarations: [
@@ -68,6 +69,11 @@ import {NgxPrintModule} from "ngx-print";
     GraphSortingComponent,
     StartComponent,
   ],
+  exports: [
+    SearchBarComponent,
+    MiniHeaderComponent
+  ]
+  ,
   imports: [
     BrowserModule,
     ReactiveFormsModule,
@@ -93,7 +99,7 @@ import {NgxPrintModule} from "ngx-print";
     MatIconModule,
     MatCardModule,
     NgxPrintModule,
-    MatButtonModule
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

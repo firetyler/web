@@ -1,28 +1,48 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Injectable, Input, OnInit} from '@angular/core';
 import {MapRoomEntry, RoomMapService} from "../../service/room-map.service";
+import {SearchBarComponent} from "../../filter-bar/component/search-bar/search-bar.component";
+import { MiniHeaderComponent } from 'src/app/mini-header/mini-header.component';
 
 declare var google: any;
-
+@Injectable({
+  providedIn: 'root'
+})
 @Component({
   selector: 'app-price-graph',
   templateUrl: './price-graph.component.html',
   styleUrls: ['./price-graph.component.css'],
-  providers : [RoomMapService]
+  providers : [RoomMapService,SearchBarComponent]
 })
 export class PriceGraphComponent implements OnInit {
   @Input() value: any;
   constructor(private mapRoom : RoomMapService) {
   }
-
+//Hello
   async ngOnInit() {
-   await google.charts.load('current', {packages: ['corechart']});
-   await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.mapRooms(false)));
+
+  }
+  async onclickPriceGraph(array : any[]){
+    await google.charts.load('current', {packages: ['corechart']});
+    await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.mapRooms(false),array));
   }
 
-  async drawChart(json: MapRoomEntry[]) {
-    let carry : any[] = [['id','totalHours','price','Academy','seats']];
+  async drawChart(json: MapRoomEntry[],array: any[]) {
+
+    let carry : any[] = [[{type:'string',role:'id'},{type:'number',role:'totalHours'}
+      ,{type:'number',role:'price'},{type:'string',role:'Academy'}
+      ,{type:'number',role:'seats'}]];
     for (let i = 0; i < json.length; i++) {
-      carry.push([json[i].id.toString(), json[i].getTotalHours(),json[i].price,json[i].academy,json[i].seats]);
+      for(let j = 0; j<array.length; j++){
+        let level = json[i].id.toString().substring(0,2) + ':' + json[i].id.toString().substring(2,3);
+        let house = json[i].id.toString().substring(0,2);
+      if(json[i].academy == array[j]|| json[i].id == array[j] || level == array[j] || house == array[j] ){
+        carry.push([json[i].id.toString(), json[i].getTotalHours(),json[i].price,json[i].academy,json[i].seats]);
+      }
+    }
+      if(array.length == 0){
+        console.log("second else if")
+        carry.push([json[i].id.toString(), json[i].getTotalHours(),json[i].price,json[i].academy,json[i].seats]);
+      }
     }
 
     const options = {
