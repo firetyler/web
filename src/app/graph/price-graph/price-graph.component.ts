@@ -2,6 +2,7 @@ import {Component, Injectable, Input, OnInit} from '@angular/core';
 import {MapRoomEntry, RoomMapService} from "../../service/room-map.service";
 import {SearchBarComponent} from "../../filter-bar/component/search-bar/search-bar.component";
 import { MiniHeaderComponent } from 'src/app/mini-header/mini-header.component';
+import {PriceServiceService} from "../price-service.service";
 
 declare var google: any;
 @Injectable({
@@ -15,7 +16,7 @@ declare var google: any;
 })
 export class PriceGraphComponent implements OnInit {
   @Input() value: any;
-  constructor(private mapRoom : RoomMapService) {
+  constructor(private mapRoom : RoomMapService,private grapgService : PriceServiceService) {
   }
 //Hello
   async ngOnInit() {
@@ -28,23 +29,11 @@ export class PriceGraphComponent implements OnInit {
 
   async drawChart(json: MapRoomEntry[],array: any[]) {
 
-    let carry : any[] = [[{type:'string',role:'id'},{type:'number',role:'totalHours'}
-      ,{type:'number',role:'price'},{type:'string',role:'Academy'}
-      ,{type:'number',role:'seats'}]];
-    for (let i = 0; i < json.length; i++) {
-      for(let j = 0; j<array.length; j++){
-        let level = json[i].id.toString().substring(0,2) + ':' + json[i].id.toString().substring(2,3);
-        let house = json[i].id.toString().substring(0,2);
-      if(json[i].academy == array[j]|| json[i].id == array[j] || level == array[j] || house == array[j] ){
-        carry.push([json[i].id.toString(), json[i].getTotalHours(),json[i].price,json[i].academy,json[i].seats]);
-      }
-    }
-      if(array.length == 0){
-        console.log("second else if")
-        carry.push([json[i].id.toString(), json[i].getTotalHours(),json[i].price,json[i].academy,json[i].seats]);
-      }
-    }
+    let carry: any[] = [[{type: 'string', role: 'id'}, {type: 'number', role: 'totalHours'}
+      , {type: 'number', role: 'price'}, {type: 'string', role: 'Academy'}
+      , {type: 'number', role: 'seats'}]];
 
+    carry.push(this.grapgService.grafFilter(json,array));
     const options = {
       backgroundColor: 'white',
       hAxis: {title: 'Totala timmar'},

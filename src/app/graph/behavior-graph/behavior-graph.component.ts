@@ -49,9 +49,6 @@ export class BehaviorGraphComponent implements OnInit{
        let level = json[i].id.toString().substring(0, 2) + ':' + json[i].id.toString().substring(2, 3);
         let house = json[i].id.toString().substring(0, 2);
         if (json[i].academy == array[j] || json[i].id == array[j]|| level == array[j] || house == array[j]) {
-          if(json[i].id == 11123){
-            console.log(json[i].id.toString(), json[i].academy, json[i].color)
-          }
           let date = new Date(json[i].startDate)
           dataTable.addRows([[json[i].id.toString(), json[i].academy, json[i].color, new Date(json[i].startDate), new Date(date.setDate(date.getDate() + 1))]]);
         }
