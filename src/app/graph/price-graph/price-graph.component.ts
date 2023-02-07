@@ -2,7 +2,8 @@ import {Component, Injectable, Input, OnInit} from '@angular/core';
 import {MapRoomEntry, RoomMapService} from "../../service/room-map.service";
 import {SearchBarComponent} from "../../filter-bar/component/search-bar/search-bar.component";
 import { MiniHeaderComponent } from 'src/app/mini-header/mini-header.component';
-import {PriceServiceService} from "../price-service.service";
+import {RoomFilterService} from "../room-filter.service";
+import {QuanDataUpdateService} from "../../quanData/quan-data/quan-data-update.service";
 
 declare var google: any;
 @Injectable({
@@ -14,44 +15,30 @@ declare var google: any;
   styleUrls: ['./price-graph.component.css'],
   providers : [RoomMapService,SearchBarComponent]
 })
-export class PriceGraphComponent implements OnInit {
+export class PriceGraphComponent {
   @Input() value: any;
-
   graphFiler : any[] = [];
-  constructor(private mapRoom : RoomMapService,private grapgService : PriceServiceService) {
-  }
-  async ngOnInit() {
-
+  constructor(private mapRoom : RoomMapService, private graphService : RoomFilterService, private filterService: QuanDataUpdateService) {
   }
   async onclickPriceGraph(array : any[]){
     await google.charts.load('current', {packages: ['corechart']});
     await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.mapRooms(false),array));
   }
 
+  changeDateFilter(dateFilter: number) {
+    this.filterService.changeDateFilter(dateFilter);
+  }
+
   async drawChart(json: MapRoomEntry[],array: any[]) {
-    this.graphFiler = await this.grapgService.graphFilter(json,array);
+    this.graphFiler = await this.graphService.graphFilter(json,array);
+    this.filterService.setArray([...this.graphFiler]);
     let carry : any[] = [[{type:'string',role:'id'},{type:'number',role:'totalHours'}
       ,{type:'number',role:'price'},{type:'string',role:'Academy'}
       ,{type:'number',role:'seats'}]];
-
     for (let i =0; i < this.graphFiler.length; i++){
       carry.push([this.graphFiler[i].id, this.graphFiler[i].getTotalHours()
-        ,this.graphFiler[i].price,this.graphFiler[i].academy,this.graphFiler[i].seats]);
-
+        ,this.graphFiler[i].price*this.graphFiler[i].getTotalHours(),this.graphFiler[i].academy,this.graphFiler[i].seats]);
     }
-
-   /* for (let i = 0; i < json.length; i++) {
-      for(let j = 0; j<array.length; j++){
-        let level = json[i].id.toString().substring(0,2) + ':' + json[i].id.toString().substring(2,3);
-        let house = json[i].id.toString().substring(0,2);
-        if(json[i].academy == array[j]|| json[i].id == array[j] || level == array[j] || house == array[j] ){
-          carry.push([json[i].id.toString(), json[i].getTotalHours(),json[i].price,json[i].academy,json[i].seats]);
-        }
-      }
-      if(array.length == 0){
-        carry.push([json[i].id.toString(), json[i].getTotalHours(),json[i].price,json[i].academy,json[i].seats]);
-      }
-    }*/
     const options = {
       backgroundColor: 'white',
       hAxis: {title: 'Totala bokade timmar'},
@@ -73,13 +60,12 @@ export class PriceGraphComponent implements OnInit {
       explorer: {
         axis: 'horizontal',
         keepInBounds: true,
-        maxZoomIn: 12.0
+        maxZoomIn: 16.0
       }
     };
-
     let data = google.visualization.arrayToDataTable(carry);
     const chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
     chart.draw(data, options);
-
+    this.changeDateFilter(this.filterService.numberOfDays);
   }
 }

@@ -123,15 +123,12 @@ export class SearchBarComponent implements OnInit {
           if (json[i].academy == this.pDataset[j] || json[i].id == this.pDataset[j]
             || level == this.pDataset[j] || house == this.pDataset[j]) {
             return await this.price.onclickPriceGraph(this.pDataset);
-            // return await this.behav.onclickBehavGraph(this.pDataset);
           }
         }
         if (this.pDataset.length == 0) {
           return await this.price.onclickPriceGraph(this.pDataset);
         }
       }
-
-
     } else if (await this.mini.getGraph() == 'Bokningsbeteende'){
      for (let i = 0; i < json.length; i++) {
        for (let j = 0; j < this.pDataset.length; j++) {
@@ -139,7 +136,6 @@ export class SearchBarComponent implements OnInit {
          let house = json[i].id.toString().substring(0, 2);
          if (json[i].academy == this.pDataset[j] || json[i].id == this.pDataset[j]
            || level == this.pDataset[j] || house == this.pDataset[j]) {
-           //return await this.price.onclickPriceGraph(this.pDataset);
            return await this.behav.onclickBehavGraph(this.pDataset);
          }
        }
@@ -148,27 +144,6 @@ export class SearchBarComponent implements OnInit {
        }
      }
    }
-  }
-
-  binarySearch(roomKey: number, input: MapRoomEntry[]) {
-    if (input.length < 1) {
-      return -1;
-    }
-    let low = 0;
-    let high = input.length - 1;
-    while (low <= high) {
-      let mid = Math.floor((low + high) / 2);
-      if (input[mid].id == roomKey) {
-        return mid;
-      }
-      if (roomKey > input[mid].id) {
-        low = mid + 1;
-      }
-      if (roomKey < input[mid].id) {
-        high = mid - 1;
-      }
-    }
-    return -1;
   }
 }
 

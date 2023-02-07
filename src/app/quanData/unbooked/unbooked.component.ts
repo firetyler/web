@@ -40,10 +40,16 @@ export class UnbookedComponent implements OnInit{
   }
 
   getProcNumber(dateFilter: number) {
+    if (this.calc.getBookedHoursPercentage(dateFilter) == 0) {
+      return 0;
+    }
     return Math.round(100-this.calc.getBookedHoursPercentage(dateFilter))
   }
 
   getProcWorkNumber(dateFilter: number) {
+    if(this.calc.getBookedWorkHoursPercentage(this.filterService.startDate,dateFilter) == 0) {
+      return 0;
+    }
     return Math.round(100-this.calc.getBookedWorkHoursPercentage(this.filterService.startDate,dateFilter))
   }
 }

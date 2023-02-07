@@ -14,8 +14,6 @@ import { MiniHeaderComponent } from './mini-header/mini-header.component';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import {MatButtonModule} from "@angular/material/button";
 import {HeaderComponent} from "./header/header.component";
-import { DialogWindowOverViewComponentComponent } from './dialog-window-over-view-component/dialog-window-over-view-component.component';
-import {DialogWindowComponent} from "./dialog-window/dialog-window.component";
 import { FooterComponent } from './footer/footer.component';
 import { PriceGraphComponent } from './graph/price-graph/price-graph.component';
 import {TimeFiltersComponent} from './time-filters/time-filters.component'
@@ -47,8 +45,6 @@ import { SearchBarComponent } from './filter-bar/component/search-bar/search-bar
     AppComponent,
     MiniHeaderComponent,
     HeaderComponent,
-    DialogWindowComponent,
-    DialogWindowOverViewComponentComponent,
     FooterComponent,
     TimeFiltersComponent,
     PriceGraphComponent,
