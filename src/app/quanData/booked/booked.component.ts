@@ -25,7 +25,7 @@ export class BookedComponent implements OnInit {
     this.filterService.currentWorkDaysFilter.subscribe(isWorkDay => {
       this.isWorkDay = isWorkDay;
       this.updateNumbers();
-    })
+    });
     this.filterService.currentDateFilter.subscribe(dateFilter => {
       this.dateFilter = dateFilter;
       this.updateNumbers();

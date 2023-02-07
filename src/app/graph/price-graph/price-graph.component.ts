@@ -46,7 +46,7 @@ export class PriceGraphComponent implements OnInit {
     const options = {
       backgroundColor: 'white',
       hAxis: {title: 'Totala bokade timmar'},
-      vAxis: {title: 'Totalt boknings pris'},
+      vAxis: {title: 'Totalt bokningspris'},
       bubble: {
         textStyle: {fontSize: 12},
         fontName: 'Times-Roman',
