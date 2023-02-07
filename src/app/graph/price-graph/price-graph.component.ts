@@ -2,6 +2,7 @@ import {Component, Injectable, Input, OnInit} from '@angular/core';
 import {MapRoomEntry, RoomMapService} from "../../service/room-map.service";
 import {SearchBarComponent} from "../../filter-bar/component/search-bar/search-bar.component";
 import { MiniHeaderComponent } from 'src/app/mini-header/mini-header.component';
+import {PriceServiceService} from "../price-service.service";
 
 declare var google: any;
 @Injectable({
@@ -15,7 +16,9 @@ declare var google: any;
 })
 export class PriceGraphComponent implements OnInit {
   @Input() value: any;
-  constructor(private mapRoom : RoomMapService) {
+
+  graphFiler : any[] = [];
+  constructor(private mapRoom : RoomMapService,private grapgService : PriceServiceService) {
   }
   async ngOnInit() {
 
@@ -26,23 +29,29 @@ export class PriceGraphComponent implements OnInit {
   }
 
   async drawChart(json: MapRoomEntry[],array: any[]) {
-
+    this.graphFiler = await this.grapgService.graphFilter(json,array);
     let carry : any[] = [[{type:'string',role:'id'},{type:'number',role:'totalHours'}
       ,{type:'number',role:'price'},{type:'string',role:'Academy'}
       ,{type:'number',role:'seats'}]];
-    for (let i = 0; i < json.length; i++) {
+
+    for (let i =0; i < this.graphFiler.length; i++){
+      carry.push([this.graphFiler[i].id, this.graphFiler[i].getTotalHours()
+        ,this.graphFiler[i].price,this.graphFiler[i].academy,this.graphFiler[i].seats]);
+
+    }
+
+   /* for (let i = 0; i < json.length; i++) {
       for(let j = 0; j<array.length; j++){
         let level = json[i].id.toString().substring(0,2) + ':' + json[i].id.toString().substring(2,3);
         let house = json[i].id.toString().substring(0,2);
-      if(json[i].academy == array[j]|| json[i].id == array[j] || level == array[j] || house == array[j] ){
-        carry.push([json[i].id.toString(), json[i].getTotalHours(),json[i].price*json[i].getTotalHours(),json[i].academy,json[i].seats]);
+        if(json[i].academy == array[j]|| json[i].id == array[j] || level == array[j] || house == array[j] ){
+          carry.push([json[i].id.toString(), json[i].getTotalHours(),json[i].price,json[i].academy,json[i].seats]);
+        }
       }
-    }
       if(array.length == 0){
-        carry.push([json[i].id.toString(), json[i].getTotalHours(),json[i].price*json[i].getTotalHours(),json[i].academy,json[i].seats]);
+        carry.push([json[i].id.toString(), json[i].getTotalHours(),json[i].price,json[i].academy,json[i].seats]);
       }
-    }
-
+    }*/
     const options = {
       backgroundColor: 'white',
       hAxis: {title: 'Totala bokade timmar'},
@@ -67,6 +76,7 @@ export class PriceGraphComponent implements OnInit {
         maxZoomIn: 12.0
       }
     };
+
     let data = google.visualization.arrayToDataTable(carry);
     const chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
     chart.draw(data, options);
