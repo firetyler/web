@@ -39,6 +39,8 @@ import { StartComponent } from './start/start.component';
 import { GraphSortingComponent } from './graph/graph-sorting/graph-sorting.component';
 import {NgxPrintModule} from "ngx-print";
 import { SearchBarComponent } from './filter-bar/component/search-bar/search-bar.component';
+import {FilterSwitchService} from "./service/filter-switch.service";
+
 
 @NgModule({
   declarations: [
@@ -97,7 +99,7 @@ import { SearchBarComponent } from './filter-bar/component/search-bar/search-bar
     NgxPrintModule,
     MatButtonModule,
   ],
-  providers: [],
+  providers: [FilterSwitchService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
