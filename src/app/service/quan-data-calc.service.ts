@@ -71,8 +71,8 @@ export class QuanDataCalcService {
    * @returns amountOfRooms
    */
   private getChosenRooms() {
-    let amountOfRooms: number = 0;
-    var roomArray: any[] = [];
+    let amountOfRooms: number;
+    let roomArray: any[] = [];
     this.filterService.entryArray.forEach((roomMapEntry) => {
       if (!roomArray.includes(roomMapEntry.id)) {
         roomArray.push(roomMapEntry.id);

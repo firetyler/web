@@ -21,8 +21,10 @@ export class RoomMapService {
 
   /**
    * Gets the list of all the rooms available and all the schedule entries collected from KronoX.
-   * Then it creates an object for the room with the
+   * Then it creates an object for the room and puts in all the schedule entries in that room.
+   * If hasDate is true it will create an object for each room and each day.
    * @param hasDate if the object needs to be seperated by start date or not
+   * @returns listWithData
    */
   async mapRooms(hasDate: Boolean) {
     this.listWithData = [];
@@ -59,6 +61,13 @@ export class RoomMapService {
     return this.listWithData;
   }
 
+  /**
+   * Uses binary search to check if the object with the room number and startDate exists in the list
+   * of mapped objects
+   * @param roomKey room number
+   * @param dateKey start date of the entry
+   * @param input the list of mapped objects
+   */
   binarySearchWithDate(roomKey: number, dateKey: string, input: MapRoomEntry[]) {
     if (input.length < 1) {
       return -1;
@@ -83,6 +92,12 @@ export class RoomMapService {
     }
     return -1;
   }
+
+  /**
+   * Uses binary search to check if the object with the room number exists in the list of mapped objects
+   * @param roomKey room number
+   * @param input the list of mapped objects
+   */
   binarySearch(roomKey: number, input: MapRoomEntry[]) {
     if (input.length < 1) {
       return -1;
@@ -105,6 +120,9 @@ export class RoomMapService {
   }
 }
 
+/**
+ * The class for the mapped objects
+ */
 export class MapRoomEntry {
   id: number;
   startDate: string;
@@ -126,6 +144,10 @@ export class MapRoomEntry {
 
   }
 
+  /**
+   * Calculates the total hours booked for the room between 05:00 and 24:00 every day
+   * @returns hours
+   */
   getTotalHours() {
     let hours = 0;
     this.entry.forEach((scheduleEntry) => {
@@ -141,6 +163,10 @@ export class MapRoomEntry {
     return hours;
   }
 
+  /**
+   * Calculates the total hours booked for the room between 08:00-12:00 and 13:00-17:00 Monday to Friday
+   * @returns hours
+   */
   getTotalWorkHours() {
     let hours = 0;
     this.entry.forEach((scheduleEntry) => {
@@ -156,6 +182,15 @@ export class MapRoomEntry {
     return hours;
   }
 
+  /**
+   * Calculates the differens between the start and end time
+   * @param startTime the start time for the schedule entry
+   * @param endTime the end time for the schedule entry
+   * @param startCutoff the earliest time allowed depending on work hours or open hours
+   * @param endCutoff the latest time allowed depending on work hours or open hours
+   * @private
+   * @returns tempHours
+   */
   private calculateHours(startTime : number, endTime : number, startCutoff : number, endCutoff : number ){
     let tempHours : number = 0;
     if (startTime >= startCutoff && endTime <= endCutoff) {
@@ -168,6 +203,10 @@ export class MapRoomEntry {
     return tempHours;
   }
 
+  /**
+   * Sets the color for the room depending on booking behavior
+   * @param inputColor
+   */
   setColor(inputColor: string) {
     this.color = inputColor;
   }
