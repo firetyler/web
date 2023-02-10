@@ -4,10 +4,12 @@ import {GetScheduleDataService} from "./get-schedule-data.service";
 import {ScheduleEntry} from "./schema.service";
 import {BehaviorService} from "./behavior.service";
 
-
 @Injectable({
   providedIn: 'root'
 })
+/**
+ * A service to map the rooms to the scheduleEntries from KronoX
+ */
 export class RoomMapService {
   listOfRooms: RoomEntry[] = [];
   listOfScheduleEntry: ScheduleEntry[] = [];
@@ -17,6 +19,11 @@ export class RoomMapService {
   constructor(private csvReader: CsvFileReaderService, private getScheduleData: GetScheduleDataService,
               private behavior: BehaviorService) {}
 
+  /**
+   * Gets the list of all the rooms available and all the schedule entries collected from KronoX.
+   * Then it creates an object for the room with the
+   * @param hasDate if the object needs to be seperated by start date or not
+   */
   async mapRooms(hasDate: Boolean) {
     this.listWithData = [];
     this.listOfRooms = await this.csvReader.getRooms();
