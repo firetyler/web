@@ -9,7 +9,9 @@
     Skriv ut
   </button>
   <div class="unbooked-rooms">
-      <li>Obokade rum: {{unbooked.length}}</li>
-      <li *ngFor="let item of unbooked">{{item}}</li>
+    <p >Obokade rum nummer: {{tempArray.length}}</p>
+    <div *ngFor="let item of tempArray; let i = index"  >
+      <p>{{item}}</p>
+    </div>
   </div>
 </div>

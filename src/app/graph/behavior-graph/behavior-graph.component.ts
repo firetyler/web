@@ -1,4 +1,4 @@
-import {Component, Injectable, Input, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, DoCheck, Injectable, Input, OnChanges, OnInit} from '@angular/core';
 import {MapRoomEntry, RoomMapService} from "../../service/room-map.service";
 import {QuanDataUpdateService} from "../../quanData/quan-data/quan-data-update.service";
 import {TimeFiltersComponent} from "../../time-filters/time-filters.component";
@@ -16,18 +16,29 @@ declare var google: any;
   providedIn: 'root'
 })
 
-export class BehaviorGraphComponent {
+
+
+export class BehaviorGraphComponent implements DoCheck {
+
+
   @Input() value: any;
-  unbooked: number[] = [];
+  unbooked: any[] = [];
   graphFiler: any[] = [];
+  hidden: boolean = false;
+   tempArray : number[] =[];
+  private changeDetected: boolean =false;
 
 
   constructor(private mapRoom: RoomMapService, private grapgService: RoomFilterService, private filterService: QuanDataUpdateService) {
   }
 
+
+
   async onclickBehavGraph(array: any[]) {
     await google.charts.load("current", {packages: ["timeline"]});
     await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.mapRooms(true), array));
+    await this.setUnbookedRooms()
+    await this.ngDoCheck()
   }
 
   changeDateFilter(dateFilter: number) {
@@ -58,12 +69,24 @@ export class BehaviorGraphComponent {
       },
     };
     chart.draw(dataTable, options);
-    this.setUnbookedRooms();
     this.changeDateFilter(this.filterService.numberOfDays);
   }
 
-  setUnbookedRooms() {
-    this.unbooked = this.mapRoom.listRoomsUnbooked;
+  async setUnbookedRooms() {
+
+ for(let i = 0; i<this.mapRoom.listRoomsUnbooked.length;i++){
+   this.tempArray.push(this.mapRoom.listRoomsUnbooked[i])
+ }
+    console.log(this.tempArray)
+    return this.tempArray;
   }
+
+ async ngDoCheck() {
+    if(this.tempArray.length > 0){
+      this.changeDetected = true;
+    }
+
+  }
+
 
 }

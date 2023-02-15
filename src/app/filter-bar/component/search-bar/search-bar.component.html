@@ -1,8 +1,9 @@
 
 
-<button type="button" class="btn yellow mx-3" (click)="submitFunction()">Load Graph</button>
+
 <div class="md-form" (focusin)="show = true" (focusout)="show = false">
-  <input type="search" [(ngModel)]="searchText" placeholder="Sök" >
+  <button type="button" class="btn yellow w-100 " (click)="submitFunction()">Load Graph</button>
+  <input type="search" class="w-100" [(ngModel)]="searchText" placeholder="Sök" >
 </div>
 
 

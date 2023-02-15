@@ -52,6 +52,7 @@ export class RoomMapService {
     this.listRoomsUnbooked = [];
     this.listOfRooms.forEach((room) => {
       let temp = this.listWithData.find((roomEntry) => room.id == roomEntry.id);
+      //console.log(room.id)
       if (temp == undefined) {
         this.listRoomsUnbooked.push(room.id);
       }

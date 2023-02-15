@@ -4,6 +4,7 @@ import { SearchBarComponent } from './component/search-bar/search-bar.component'
 import { FilterPipe } from './component/search-bar/filter.pipe';
 import {FormsModule} from "@angular/forms";
 import { MiniHeaderComponent } from '../mini-header/mini-header.component';
+import {MatButtonModule} from "@angular/material/button";
 
 
 
@@ -18,6 +19,7 @@ import { MiniHeaderComponent } from '../mini-header/mini-header.component';
     imports: [
         CommonModule,
         FormsModule,
+        MatButtonModule,
     ]
 })
 export class FilterBarModule { }

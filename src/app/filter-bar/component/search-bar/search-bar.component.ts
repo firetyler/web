@@ -114,7 +114,7 @@ export class SearchBarComponent implements OnInit {
 
   async getForSort(json: MapRoomEntry[]) {
 
-    console.log(await this.mini.getGraph());
+
     if (await this.mini.getGraph() == 'Användningskostnad') {
       for (let i = 0; i < json.length; i++) {
         for (let j = 0; j < this.pDataset.length; j++) {
