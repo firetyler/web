@@ -132,4 +132,11 @@ export class ScheduleEntry {
     this.endDate = dateAndTime[0];
     this.endTime = dateAndTime[1];
   }
+  getTotalHours(): number {
+    const startTimeArray = this.startTime.split(':');
+    const endTimeArray = this.endTime.split(':');
+    let startMinutes = 60 * parseInt(startTimeArray[0]) + parseInt(startTimeArray[1]);
+    let endMinutes = 60 * parseInt(endTimeArray[0]) + parseInt(endTimeArray[1]);
+    return (endMinutes - startMinutes)/60;
+  }
 }
