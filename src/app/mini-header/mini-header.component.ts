@@ -1,6 +1,7 @@
 import {Component, Injectable, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {MAT_RADIO_DEFAULT_OPTIONS} from "@angular/material/radio";
 import {AppComponent} from "../app.component";
+import {MainComponent} from "../main/main.component";
 
 @Component({
   selector: 'app-mini-header',
@@ -16,7 +17,7 @@ import {AppComponent} from "../app.component";
 })
 export class MiniHeaderComponent {
 
-  constructor(private main: AppComponent) {
+  constructor(private main: MainComponent) {
   }
 
   async onSelect(alt: string) {

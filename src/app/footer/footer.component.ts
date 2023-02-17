@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {AppComponent} from "../app.component";
+import {MainComponent} from "../main/main.component";
 
 @Component({
   selector: 'app-footer',
@@ -7,7 +7,7 @@ import {AppComponent} from "../app.component";
   styleUrls: ['./footer.component.css']
 })
 export class FooterComponent {
-  constructor(private main: AppComponent) {
+  constructor(private main: MainComponent) {
   }
   onSelect(alt: string){
     this.main.onKey(alt);
