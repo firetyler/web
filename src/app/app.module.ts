@@ -43,6 +43,7 @@ import {FilterSwitchService} from "./service/filter-switch.service";
 
 import { DocumentationsComponent } from './footer/documentations/documentations.component';
 import { AboutComponent } from './footer/about/about.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { AboutComponent } from './footer/about/about.component';
     StartComponent,
     DocumentationsComponent,
     AboutComponent,
+    LoginComponent,
   ],
   exports: [
     SearchBarComponent,

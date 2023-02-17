@@ -10,9 +10,9 @@
       <app-room *ngSwitchCase="'room'"></app-room>
     </ng-container>
     <ng-container [ngSwitch]="componentName">
-      <app-start *ngSwitchDefault></app-start>
-      <app-documentations *ngSwitchCase="'documentations'"></app-documentations>
-      <app-about *ngSwitchCase="'about'"></app-about>
+      <app-start *ngSwitchDefault class="info"></app-start>
+      <app-documentations *ngSwitchCase="'documentation'" class="info"></app-documentations>
+      <app-about *ngSwitchCase="'about'" class="info"></app-about>
       <app-behavior-graph *ngSwitchCase="'Bokningsbeteende'"
                           class=" d-flex align-items-center justify-content-center flex-fill"></app-behavior-graph>
       <app-price-graph *ngSwitchCase="'Användningskostnad'"
