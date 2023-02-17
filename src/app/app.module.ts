@@ -41,6 +41,8 @@ import {NgxPrintModule} from "ngx-print";
 import { SearchBarComponent } from './filter-bar/component/search-bar/search-bar.component';
 import {FilterSwitchService} from "./service/filter-switch.service";
 
+import { DocumentationsComponent } from './footer/documentations/documentations.component';
+import { AboutComponent } from './footer/about/about.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +68,8 @@ import {FilterSwitchService} from "./service/filter-switch.service";
     PriceGraphComponent,
     GraphSortingComponent,
     StartComponent,
+    DocumentationsComponent,
+    AboutComponent,
   ],
   exports: [
     SearchBarComponent,

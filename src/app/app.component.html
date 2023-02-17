@@ -11,6 +11,8 @@
     </ng-container>
     <ng-container [ngSwitch]="componentName">
       <app-start *ngSwitchDefault></app-start>
+      <app-documentations *ngSwitchCase="'documentations'"></app-documentations>
+      <app-about *ngSwitchCase="'about'"></app-about>
       <app-behavior-graph *ngSwitchCase="'Bokningsbeteende'"
                           class=" d-flex align-items-center justify-content-center flex-fill"></app-behavior-graph>
       <app-price-graph *ngSwitchCase="'Användningskostnad'"
