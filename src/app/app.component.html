@@ -2,9 +2,13 @@
 <app-mini-header></app-mini-header>
 <app-graph-sorting class="ml-10"></app-graph-sorting>
 <div class="bottom-part d-flex flex-column min-vh-95">
-  <ng-container [ngSwitch]="filterSwitchService.selectedComponent" >
   <div class="d-flex flex-row bd-highlight mb-3">
-    <router-outlet class="align-items-start m-0 p-0 justify-content-start"></router-outlet>
+    <ng-container [ngSwitch]="filterSwitch.selectedComponent" class="align-items-start m-0 p-0 justify-content-start" >
+      <app-akademi *ngSwitchCase="'academy'"></app-akademi>
+      <app-hus *ngSwitchCase="'house'"></app-hus>
+      <app-level *ngSwitchCase="'floor'"></app-level>
+      <app-room *ngSwitchCase="'room'"></app-room>
+    </ng-container>
     <ng-container [ngSwitch]="componentName">
       <app-start *ngSwitchDefault></app-start>
       <app-behavior-graph *ngSwitchCase="'Bokningsbeteende'"

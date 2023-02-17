@@ -4,6 +4,6 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class FilterSwitchService {
-  selectedComponent : string = "";
+  selectedComponent : string = "academy";
   constructor() { }
 }

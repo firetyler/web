@@ -14,18 +14,10 @@ import {AppComponent} from "../app.component";
 @Injectable({
   providedIn: 'root'
 })
-export class MiniHeaderComponent implements OnChanges {
-
-  selection: any[] = ["Bokningsbeteende", "Användningskostnad"];
-  test: any[] = [];
-  graphType: string = "";
+export class MiniHeaderComponent {
 
   constructor(private main: AppComponent) {
   }
-
-  ngOnChanges(changes: SimpleChanges): void {
-  }
-
 
   async onSelect(alt: string) {
     this.main.onKey(alt);

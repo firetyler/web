@@ -13,6 +13,9 @@ export class AppComponent {
   title = 'web';
   componentName: any;
 
+  constructor(public filterSwitch : FilterSwitchService) {
+  }
+
 
   onKey(componentName: string) {
     this.componentName = componentName;
