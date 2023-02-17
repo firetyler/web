@@ -32,7 +32,7 @@ export class QuanDataUpdateService {
   setDate(startDate: Date|undefined) {
     this.startDate = startDate;
   }
-  setArray(array:MapRoomEntry[]) {
+  setArray(array: MapRoomEntry[]) {
     this.entryArray = [];
     this.entryArray = array;
   }
