@@ -4,8 +4,8 @@ import {Location} from '@angular/common';
 import {PriceGraphComponent} from "../../../graph/price-graph/price-graph.component";
 import {MapRoomEntry, RoomMapService} from "../../../service/room-map.service";
 import {BehaviorGraphComponent} from "../../../graph/behavior-graph/behavior-graph.component";
-import {empty} from "rxjs";
 import {MiniHeaderComponent} from "../../../mini-header/mini-header.component";
+import {QuanDataUpdateService} from "../../../quanData/quan-data/quan-data-update.service";
 
 
 //https://mdbootstrap.com/docs/b4/angular/forms/search/
@@ -21,9 +21,10 @@ import {MiniHeaderComponent} from "../../../mini-header/mini-header.component";
 })
 export class SearchBarComponent implements OnInit {
 
-  constructor(private roomService: CsvFileReaderService, private location: Location
-    , private price: PriceGraphComponent, private mapRoom: RoomMapService,
-              private behav: BehaviorGraphComponent, private mini: MiniHeaderComponent) {
+  constructor(private roomService: CsvFileReaderService, private location: Location,
+              private price: PriceGraphComponent, private mapRoom: RoomMapService,
+              private behav: BehaviorGraphComponent, private mini: MiniHeaderComponent,
+              private service: QuanDataUpdateService) {
   }
 
   show = false
@@ -105,6 +106,7 @@ export class SearchBarComponent implements OnInit {
 
   async geDataSet() {
     let temp = [this.pDataset];
+    this.service.setFilterDataset(temp);
     return temp;
   }
 
@@ -113,8 +115,6 @@ export class SearchBarComponent implements OnInit {
   }
 
   async getForSort(json: MapRoomEntry[]) {
-
-
     if (await this.mini.getGraph() == 'Användningskostnad') {
       for (let i = 0; i < json.length; i++) {
         for (let j = 0; j < this.pDataset.length; j++) {

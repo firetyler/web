@@ -9,9 +9,9 @@
     Skriv ut
   </button>
   <div class="unbooked-rooms">
-    <p >Obokade rum nummer: {{tempArray.length}}</p>
-    <div *ngFor="let item of tempArray; let i = index"  >
-      <p>{{item}}</p>
+    Antal obokade rum: {{numberOfUnbookedRooms}}
+    <div *ngFor="let item of unbookedArray">
+      {{item}}
     </div>
   </div>
 </div>

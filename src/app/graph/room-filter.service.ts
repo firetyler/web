@@ -8,7 +8,7 @@ export class RoomFilterService {
   constructor() {
   }
 
-  async graphFilter(json: MapRoomEntry[], array: any[]) {
+  async graphFilter(json: any[], array: any[]) {
     let dataArray: any[] = [];
     for (let i = 0; i < json.length; i++) {
       for (let j = 0; j < array.length; j++) {
