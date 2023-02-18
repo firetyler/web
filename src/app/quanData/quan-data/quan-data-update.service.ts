@@ -14,6 +14,7 @@ export class QuanDataUpdateService {
   entryArray: MapRoomEntry[] = []
   startDate: Date|undefined;
   private isWorkDay: boolean = false;
+  private filterDataset: any[] = [];
   constructor() { }
   changeDateFilter(dateFilter: number) {
     this.dateFilter.next(dateFilter);
@@ -35,5 +36,11 @@ export class QuanDataUpdateService {
   setArray(array: MapRoomEntry[]) {
     this.entryArray = [];
     this.entryArray = array;
+  }
+  setFilterDataset(array:any[]) {
+    this.filterDataset = array;
+  }
+  getFilterDataset() {
+    return this.filterDataset;
   }
 }

@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {BehaviorGraphComponent} from "../graph/behavior-graph/behavior-graph.component";
 import {QuanDataUpdateService} from "../quanData/quan-data/quan-data-update.service";
+import {RoomFilterService} from "../graph/room-filter.service";
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,13 @@ import {QuanDataUpdateService} from "../quanData/quan-data/quan-data-update.serv
  * hours.
  */
 export class QuanDataCalcService {
-
-  constructor(private rooms: BehaviorGraphComponent, private filterService: QuanDataUpdateService) {}
+  private numberOfUnbooked = 0;
+  constructor(private rooms: BehaviorGraphComponent, private filterService: QuanDataUpdateService,
+              private roomFilter: RoomFilterService) {
+    this.roomFilter.currentNumberOfUnbooked.subscribe(num => {
+      this.numberOfUnbooked = num;
+    })
+  }
 
   /**
    * Divides the booked hours with the total hours for a work week, 8-12 and 13-17 monday to friday
@@ -100,7 +106,8 @@ export class QuanDataCalcService {
         curDate.setDate(curDate.getDate() + 1);
       }
     }
-    return hours * this.getChosenRooms();
+    let number = hours * (this.getChosenRooms() + this.numberOfUnbooked);
+    return number;
   }
 
   /**
@@ -109,6 +116,6 @@ export class QuanDataCalcService {
    * @returns 19*timePeriod*this.getChosenRooms()
    */
   getTotalHour(timePeriod: number) {
-    return 19 * timePeriod * this.getChosenRooms();
+    return 19 * timePeriod * (this.getChosenRooms() + this.numberOfUnbooked);
   }
 }

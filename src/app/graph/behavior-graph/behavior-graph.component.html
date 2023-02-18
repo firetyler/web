@@ -8,10 +8,5 @@
     class="btn btn-light btn-lg btn-block shadow">
     Skriv ut
   </button>
-  <div class="unbooked-rooms">
-    <p >Obokade rum nummer: {{tempArray.length}}</p>
-    <div *ngFor="let item of tempArray; let i = index"  >
-      <p>{{item}}</p>
-    </div>
-  </div>
+  <app-unbooked-rooms></app-unbooked-rooms>
 </div>
