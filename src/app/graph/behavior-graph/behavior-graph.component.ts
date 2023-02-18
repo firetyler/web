@@ -1,14 +1,4 @@
-import {
-  ApplicationRef,
-  ChangeDetectorRef,
-  Component,
-  DoCheck,
-  Injectable,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges
-} from '@angular/core';
+import {Component,Injectable, Input} from '@angular/core';
 import {MapRoomEntry, RoomMapService} from "../../service/room-map.service";
 import {QuanDataUpdateService} from "../../quanData/quan-data/quan-data-update.service";
 import {RoomFilterService} from "../room-filter.service";
@@ -27,29 +17,25 @@ declare var google: any;
 })
 
 
-export class BehaviorGraphComponent implements DoCheck, OnChanges {
+export class BehaviorGraphComponent {
 
 
   @Input() value: any;
   graphFiler: any[] = [];
-  @Input() unbookedArray: number[] = [];
-  @Input() numberOfUnbookedRooms: number = 0;
+  unbookedArray: RoomEntry[] = [];
+  numberOfUnbookedRooms: number = 0;
   private changeDetected: boolean = false;
 
 
   constructor(private mapRoom: RoomMapService, private graphService: RoomFilterService, private filterService: QuanDataUpdateService,
-              private roomReader: CsvFileReaderService, private cd: ChangeDetectorRef, private appRef: ApplicationRef) {
+              private roomReader: CsvFileReaderService) {
   }
-
-  async ngOnChanges(changes: SimpleChanges) {
-        await this.ngDoCheck();
-    }
 
   async onclickBehavGraph(array: any[]) {
     await google.charts.load("current", {packages: ["timeline"]});
     await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.mapRooms(true), array));
     await this.setUnbookedRooms();
-    await this.ngDoCheck();
+    this.changeDateFilter(this.filterService.numberOfDays);
   }
 
   changeDateFilter(dateFilter: number) {
@@ -80,38 +66,27 @@ export class BehaviorGraphComponent implements DoCheck, OnChanges {
       },
     };
     chart.draw(dataTable, options);
-    this.changeDateFilter(this.filterService.numberOfDays);
   }
 
   async setUnbookedRooms() {
     this.unbookedArray = [];
     let roomExists = false;
     let rooms = await this.roomReader.getRooms();
-    let tempArray = await this.graphService.graphFilter(rooms,this.filterService.getFilterDataset());
+    let tempArray = await this.graphService.graphFilter(rooms, this.filterService.getFilterDataset());
     for (let i = 0; i < tempArray.length; i++) {
       for (let j = 0; j < this.graphFiler.length; j++) {
-
         if (tempArray[i].id == this.graphFiler[j].id) {
           roomExists = true;
         }
       }
-      if(!roomExists) {
-        this.unbookedArray.push(tempArray[i].id);
+      if (!roomExists) {
+        this.unbookedArray.push(tempArray[i]);
       }
       roomExists = false;
     }
     this.numberOfUnbookedRooms = this.unbookedArray.length;
-    this.cd.detectChanges();
-    this.appRef.tick();
-  }
-  async ngDoCheck() {
-    if (this.unbookedArray.length > 0) {
-      console.log(this.unbookedArray.length + " Längden")
-      this.changeDetected = true;
-      this.cd.detectChanges();
-      this.appRef.tick();
-    }
-
+    this.graphService.changeUnbookedRooms(this.unbookedArray);
+    this.graphService.changeNumberOfUnbooked(this.numberOfUnbookedRooms);
   }
 
 

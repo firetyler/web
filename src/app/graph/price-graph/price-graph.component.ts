@@ -1,9 +1,9 @@
-import {Component, Injectable, Input, OnInit} from '@angular/core';
+import {Component, Injectable, Input} from '@angular/core';
 import {MapRoomEntry, RoomMapService} from "../../service/room-map.service";
 import {SearchBarComponent} from "../../filter-bar/component/search-bar/search-bar.component";
-import { MiniHeaderComponent } from 'src/app/mini-header/mini-header.component';
 import {RoomFilterService} from "../room-filter.service";
 import {QuanDataUpdateService} from "../../quanData/quan-data/quan-data-update.service";
+import {CsvFileReaderService, RoomEntry} from "../../service/csv-file-reader.service";
 
 declare var google: any;
 @Injectable({
@@ -18,11 +18,15 @@ declare var google: any;
 export class PriceGraphComponent {
   @Input() value: any;
   graphFiler : any[] = [];
-  constructor(private mapRoom : RoomMapService, private graphService : RoomFilterService, private filterService: QuanDataUpdateService) {
+  unbookedArray: RoomEntry[] = [];
+  constructor(private mapRoom : RoomMapService, private graphService : RoomFilterService, private filterService: QuanDataUpdateService,
+              private roomReader: CsvFileReaderService) {
   }
   async onclickPriceGraph(array : any[]){
     await google.charts.load('current', {packages: ['corechart']});
     await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.mapRooms(false),array));
+    await this.setUnbookedRooms();
+    this.changeDateFilter(this.filterService.numberOfDays);
   }
 
   changeDateFilter(dateFilter: number) {
@@ -66,6 +70,26 @@ export class PriceGraphComponent {
     let data = google.visualization.arrayToDataTable(carry);
     const chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
     chart.draw(data, options);
-    this.changeDateFilter(this.filterService.numberOfDays);
+  }
+
+  private async setUnbookedRooms() {
+    this.unbookedArray = [];
+    let roomExists = false;
+    let rooms = await this.roomReader.getRooms();
+    console.log("hej")
+    let tempArray = await this.graphService.graphFilter(rooms, this.filterService.getFilterDataset());
+    for (let i = 0; i < tempArray.length; i++) {
+      for (let j = 0; j < this.graphFiler.length; j++) {
+        if (tempArray[i].id == this.graphFiler[j].id) {
+          roomExists = true;
+        }
+      }
+      if (!roomExists) {
+        this.unbookedArray.push(tempArray[i]);
+      }
+      roomExists = false;
+    }
+    this.graphService.changeUnbookedRooms(this.unbookedArray);
+    this.graphService.changeNumberOfUnbooked(this.unbookedArray.length);
   }
 }

@@ -105,7 +105,7 @@ export class SearchBarComponent implements OnInit {
   }
 
   async geDataSet() {
-    let temp = [this.pDataset];
+    let temp = this.pDataset;
     this.service.setFilterDataset(temp);
     return temp;
   }
