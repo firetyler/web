@@ -1,10 +1,10 @@
 import {Component, Injectable, Input, OnInit} from '@angular/core';
 import {CsvFileReaderService} from '../../../service/csv-file-reader.service'
-import {Location} from '@angular/common';
 import {PriceGraphComponent} from "../../../graph/price-graph/price-graph.component";
 import {MapRoomEntry, RoomMapService} from "../../../service/room-map.service";
 import {BehaviorGraphComponent} from "../../../graph/behavior-graph/behavior-graph.component";
 import {MiniHeaderComponent} from "../../../mini-header/mini-header.component";
+import {FilterSwitchService} from "../../../service/filter-switch.service";
 import {QuanDataUpdateService} from "../../../quanData/quan-data/quan-data-update.service";
 
 
@@ -21,7 +21,7 @@ import {QuanDataUpdateService} from "../../../quanData/quan-data/quan-data-updat
 })
 export class SearchBarComponent implements OnInit {
 
-  constructor(private roomService: CsvFileReaderService, private location: Location,
+  constructor(private roomService: CsvFileReaderService, private location: FilterSwitchService,
               private price: PriceGraphComponent, private mapRoom: RoomMapService,
               private behav: BehaviorGraphComponent, private mini: MiniHeaderComponent,
               private service: QuanDataUpdateService) {
@@ -36,13 +36,13 @@ export class SearchBarComponent implements OnInit {
 
 
   ngOnInit() {
-    if (this.location.path() == '/academy') {
+    if (this.location.selectedComponent == 'academy') {
       this.separateRoomsFromArrayAcademy();
-    } else if (this.location.path() == '/room') {
+    } else if (this.location.selectedComponent == 'room') {
       this.separateRoomsFromArrayRoom();
-    } else if (this.location.path() == '/house') {
+    } else if (this.location.selectedComponent == 'house') {
       this.separateHousesFromArrayHouse();
-    } else if (this.location.path() == '/level') {
+    } else if (this.location.selectedComponent == 'floor') {
       this.separateLevelFromArrayLevel();
     }
   }

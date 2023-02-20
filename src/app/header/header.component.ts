@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { Location } from '@angular/common';
+import {FilterSwitchService} from "../service/filter-switch.service";
+import {AuthService} from "../service/auth.service";
 
 
 @Component({
@@ -10,26 +12,15 @@ import { Location } from '@angular/common';
 export class HeaderComponent implements OnInit{
   list: string[] = ['Akademi', 'hus', 'våning', 'rum'];
 
-  constructor(private location: Location) { }
-  onSwitchAkademi() {
-    this.location.replaceState('/Academy')
-    location.reload();
-  }
+  constructor(private filterSwitch: FilterSwitchService, private authService : AuthService) { }
+
   ngOnInit(): void {
   }
-
-  onSwitchHus() {
-    this.location.replaceState('/Hus')
-    location.reload();
+  setSelectedComponent(selectedComponent : string){
+    this.filterSwitch.selectedComponent = selectedComponent;
+  }
+  logout(){
+    this.authService.logout();
   }
 
-  onSwitchLevel() {
-    this.location.replaceState('/Level')
-    location.reload();
-  }
-
-  onSwitchRoom() {
-    this.location.replaceState('/Room')
-    location.reload();
-  }
 }

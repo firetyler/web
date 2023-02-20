@@ -40,6 +40,12 @@ import { GraphSortingComponent } from './graph/graph-sorting/graph-sorting.compo
 import {NgxPrintModule} from "ngx-print";
 import { SearchBarComponent } from './filter-bar/component/search-bar/search-bar.component';
 import { UnbookedRoomsComponent } from './graph/unbooked-rooms/unbooked-rooms.component';
+import {FilterSwitchService} from "./service/filter-switch.service";
+
+import { DocumentationsComponent } from './footer/documentations/documentations.component';
+import { AboutComponent } from './footer/about/about.component';
+import { LoginComponent } from './login/login.component';
+import { MainComponent } from './main/main.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +72,10 @@ import { UnbookedRoomsComponent } from './graph/unbooked-rooms/unbooked-rooms.co
     GraphSortingComponent,
     StartComponent,
     UnbookedRoomsComponent,
+    DocumentationsComponent,
+    AboutComponent,
+    LoginComponent,
+    MainComponent,
   ],
   exports: [
     SearchBarComponent,

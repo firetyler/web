@@ -1,6 +1,8 @@
 import {Component, Injectable, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {MAT_RADIO_DEFAULT_OPTIONS} from "@angular/material/radio";
 import {AppComponent} from "../app.component";
+import {MainComponent} from "../main/main.component";
+import {SearchBarComponent} from "../filter-bar/component/search-bar/search-bar.component";
 
 @Component({
   selector: 'app-mini-header',
@@ -14,18 +16,10 @@ import {AppComponent} from "../app.component";
 @Injectable({
   providedIn: 'root'
 })
-export class MiniHeaderComponent implements OnChanges {
+export class MiniHeaderComponent {
 
-  selection: any[] = ["Bokningsbeteende", "Användningskostnad"];
-  test: any[] = [];
-  graphType: string = "";
-
-  constructor(private main: AppComponent) {
+  constructor(private main: MainComponent) {
   }
-
-  ngOnChanges(changes: SimpleChanges): void {
-  }
-
 
   async onSelect(alt: string) {
     this.main.onKey(alt);
@@ -34,5 +28,8 @@ export class MiniHeaderComponent implements OnChanges {
   async getGraph(){
     return this.main.getKey();
   }
+  /*async submitFunction(){
+    await this.filter.submitFunction();
+  }*/
 }
 
