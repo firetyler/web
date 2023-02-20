@@ -11,14 +11,14 @@
   <div>
     Välj en period: <br>
     <mat-radio-group>
-      <mat-radio-button *ngFor="let list of list" (click)="onSelect(list)">
+      <mat-radio-button *ngFor="let list of list" (click)="onSelect(list)" color="warn">
         {{list}}
       </mat-radio-button>
     </mat-radio-group>
     <br>
     Välj timmar eller kostnad: <br>
     <mat-radio-group>
-      <mat-radio-button *ngFor="let time of calcOptions" (click)="onCalcSelect(time)">
+      <mat-radio-button *ngFor="let time of calcOptions" (click)="onCalcSelect(time)" color="warn">
         {{time}}
       </mat-radio-button>
     </mat-radio-group>

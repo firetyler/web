@@ -4,13 +4,18 @@
 .info{
   text-align: center;
   color: #242627;
+
+
+}
+.calender{
+  margin-top: 10px;
+}
+.scrollbar-style{
+  height: 400px;
+  overflow-y: auto;
   margin-left: 40px;
   margin-right: 40px;
   padding-right: 80px;
   padding-left: 80px;
   margin-top: 40px;
-
-}
-.calender{
-  margin-top: 10px;
 }

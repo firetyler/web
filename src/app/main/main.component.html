@@ -2,7 +2,7 @@
 <app-mini-header></app-mini-header>
 
 <div class="bottom-part d-flex flex-column min-vh-95">
-  <div class="d-flex flex-row bd-highlight mb-3">
+  <div class="d-flex flex-row bd-highlight mb-3 mt-3">
     <ng-container [ngSwitch]="filterSwitch.selectedComponent" class="align-items-start m-0 p-0 justify-content-start" >
       <app-akademi *ngSwitchCase="'academy'"></app-akademi>
       <app-hus *ngSwitchCase="'house'"></app-hus>
@@ -10,15 +10,17 @@
       <app-room *ngSwitchCase="'room'"></app-room>
     </ng-container>
     <ng-container [ngSwitch]="componentName">
-      <app-start *ngSwitchDefault class="info"></app-start>
-      <app-documentations *ngSwitchCase="'documentation'" class="info"></app-documentations>
-      <app-about *ngSwitchCase="'about'" class="info"></app-about>
+      <div class="scrollbar-style">
+        <app-start *ngSwitchDefault class="info"></app-start>
+        <app-documentations *ngSwitchCase="'documentation'" class="info"></app-documentations>
+        <app-about *ngSwitchCase="'about'" class="info"></app-about>
+      </div>
       <app-behavior-graph *ngSwitchCase="'Bokningsbeteende'"
                           class=" d-flex align-items-center justify-content-center flex-fill"></app-behavior-graph>
       <app-price-graph *ngSwitchCase="'Användningskostnad'"
                        class=" d-flex align-items-center justify-content-center flex-fill"></app-price-graph>
     </ng-container>
-    <app-time-filters class="calender align-items-end justify-content-end"></app-time-filters>
+    <app-time-filters class="align-items-end justify-content-end"></app-time-filters>
   </div>
 
 </div>

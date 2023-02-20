@@ -2,6 +2,7 @@ import {Component, Injectable, OnChanges, OnInit, SimpleChanges} from '@angular/
 import {MAT_RADIO_DEFAULT_OPTIONS} from "@angular/material/radio";
 import {AppComponent} from "../app.component";
 import {MainComponent} from "../main/main.component";
+import {SearchBarComponent} from "../filter-bar/component/search-bar/search-bar.component";
 
 @Component({
   selector: 'app-mini-header',
@@ -27,5 +28,8 @@ export class MiniHeaderComponent {
   async getGraph(){
     return this.main.getKey();
   }
+  /*async submitFunction(){
+    await this.filter.submitFunction();
+  }*/
 }
 
