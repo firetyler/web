@@ -1,0 +1,24 @@
+.miniHeader{
+  background-color: #242627;
+  height: auto;
+  width: auto;
+  text-align: center;
+  font-size: 20px;
+  position: relative;
+}
+#line{
+  height: 6px;
+  width: auto;
+  padding: 0px;
+  margin: 0px;
+}
+.mat-radio-button{
+  border-color: white;
+}
+.item{
+  color:white;
+  font-size: small;
+}
+.yellow{
+  color : yellow;
+}

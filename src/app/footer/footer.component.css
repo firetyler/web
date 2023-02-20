@@ -1,0 +1,24 @@
+.btn-dark:hover{
+  background-color: black;
+  color: white ;
+}
+
+.dark{
+  background-color: #242627;
+}
+#header{
+  color: white;
+}
+
+.color{
+  background-color: #ffdd00;
+}
+
+#line{
+  height: 10px;
+  width: 90%;
+  padding: 0px;
+  margin: 0px;
+}
+
+

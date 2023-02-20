@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {RoomMapService} from "./service/room-map.service";
+import {GetScheduleDataService} from "./service/get-schedule-data.service";
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'web';
+
+
+
 }
