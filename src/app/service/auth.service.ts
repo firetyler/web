@@ -18,6 +18,7 @@ private isLoggedIn : boolean = false;
     sessionStorage.removeItem('username');
     sessionStorage.removeItem('password');
     this.isLoggedIn = false;
+    window.location.reload();
   }
   isLogIn() : boolean{
     const username = sessionStorage.getItem('username');

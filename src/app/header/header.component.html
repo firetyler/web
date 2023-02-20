@@ -2,10 +2,12 @@
   <a href="index.html">
   <img id = "logo" src="../../assets/HigLogoDark.png" width="100px" height="100px" alt="Högskolan i gävle">
   </a>
-
       <button (click)="setSelectedComponent('academy')" type="button" class="btn yellow mx-3" >Akademi</button>
       <button (click)="setSelectedComponent('house')"type="button" class="btn yellow mx-3" >Hus</button>
       <button (click)="setSelectedComponent('floor')" type="button" class="btn yellow mx-3" >Våning</button>
       <button (click)="setSelectedComponent('room')" type="button" class="btn yellow mx-3" >Rum</button>
+  <div class="position-absolute top-10 end-0 mx-4">
+      <button (click) = "logout()" type="button" class="btn yellow mx-3">Logga ut</button>
+  </div>
 </div>
 

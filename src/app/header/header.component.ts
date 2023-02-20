@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { Location } from '@angular/common';
 import {FilterSwitchService} from "../service/filter-switch.service";
+import {AuthService} from "../service/auth.service";
 
 
 @Component({
@@ -11,13 +12,15 @@ import {FilterSwitchService} from "../service/filter-switch.service";
 export class HeaderComponent implements OnInit{
   list: string[] = ['Akademi', 'hus', 'våning', 'rum'];
 
-  constructor(private filterSwitch: FilterSwitchService) { }
+  constructor(private filterSwitch: FilterSwitchService, private authService : AuthService) { }
 
   ngOnInit(): void {
   }
   setSelectedComponent(selectedComponent : string){
     this.filterSwitch.selectedComponent = selectedComponent;
   }
-
+  logout(){
+    this.authService.logout();
+  }
 
 }
