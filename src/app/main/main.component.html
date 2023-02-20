@@ -1,6 +1,6 @@
 <app-header></app-header>
 <app-mini-header></app-mini-header>
-<app-graph-sorting class="ml-10"></app-graph-sorting>
+
 <div class="bottom-part d-flex flex-column min-vh-95">
   <div class="d-flex flex-row bd-highlight mb-3">
     <ng-container [ngSwitch]="filterSwitch.selectedComponent" class="align-items-start m-0 p-0 justify-content-start" >
@@ -18,7 +18,7 @@
       <app-price-graph *ngSwitchCase="'Användningskostnad'"
                        class=" d-flex align-items-center justify-content-center flex-fill"></app-price-graph>
     </ng-container>
-    <app-time-filters class="align-items-end justify-content-end"></app-time-filters>
+    <app-time-filters class="calender align-items-end justify-content-end"></app-time-filters>
   </div>
 
 </div>
