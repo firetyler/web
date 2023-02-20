@@ -1,14 +1,15 @@
-<mat-card>
+<mat-card class="d-flex align-items-center justify-content-center">
   <mat-card-header>
-    <mat-card-title>Log In</mat-card-title>
+    <mat-card-title>Logga in</mat-card-title>
   </mat-card-header>
-  <mat-card-content>
+  <mat-card-content >
     <form>
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Skriv in Användarnamn" [ngModel]="username" name="username" required>
+        <input matInput placeholder="Användarnamn" [(ngModel)]="username" name="username" required>
       </mat-form-field>
+      <br>
       <mat-form-field class="example-full-width">
-        <input matInput placeholder="Skriv in Lösenord" [ngModel]="password" name="password" type="password" required>
+        <input matInput placeholder="Lösenord" [(ngModel)]="password" name="password" type="password" required>
       </mat-form-field>
     </form>
   </mat-card-content>

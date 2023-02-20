@@ -10,4 +10,6 @@ import {GetScheduleDataService} from "./service/get-schedule-data.service";
 export class AppComponent {
   title = 'web';
 
+
+
 }

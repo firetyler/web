@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, NgForm, Validators} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {AuthService} from "../service/auth.service";
 
 @Component({
   selector: 'app-login',
@@ -10,22 +11,19 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class LoginComponent implements OnInit{
 
-
-
-   constructor(private router: Router) {
-   }
   username: string = "";
   password: string = "";
 
-  onSubmit(){
-     console.log(this.username)
-    console.log(this.password)
+   constructor(private router: Router, private authservice : AuthService) {
+   }
 
-     if(this.username == "admin" && this.password == "20hig23"){
-       this.router.navigate(['./main']);
+
+  onSubmit(){
+     if(this.authservice.logIn(this.username, this.password)){
+       this.router.navigate(['']);
 
      }else{
-      alert("funkar ej")
+      alert("Användarnamn eller lösenord är felaktig!")
      }
 
    }

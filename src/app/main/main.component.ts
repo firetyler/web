@@ -10,6 +10,11 @@ export class MainComponent {
 
   componentName: any;
   constructor(public filterSwitch : FilterSwitchService) {
+    const isAuthenticated = sessionStorage.getItem('isAuthenticated');
+    if(isAuthenticated){
+      window.location.href = '';
+    }
+
   }
 
 
