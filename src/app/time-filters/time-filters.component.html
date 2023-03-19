@@ -16,7 +16,7 @@
       </mat-radio-button>
     </mat-radio-group>
     <br>
-    Välj timmar eller kostnad: <br>
+    Välj tidsspann: <br>
     <mat-radio-group>
       <mat-radio-button *ngFor="let time of calcOptions" (click)="onCalcSelect(time)" color="warn">
         {{time}}
