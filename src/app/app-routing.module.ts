@@ -1,21 +1,20 @@
 import {NgModule} from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {RouterModule, Routes} from '@angular/router';
-import {AkademiComponent} from "./academy/akademi.component";
-import {HouseComponent} from "./house/house.component";
-import {LevelComponent} from "./level/level.component";
-import {RoomComponent} from "./room/room.component";
+import {LoginComponent} from "./login/login.component";
+import {MainComponent} from "./main/main.component";
+import {AuthGuardService} from "./service/auth-guard.service";
 
 const routes: Routes = [
-  { path: 'academy', component: AkademiComponent },
-  { path: 'house', component: HouseComponent },
-  { path: 'level', component: LevelComponent },
-  { path: 'room', component: RoomComponent },
-  { path: '', redirectTo: '/academy', pathMatch: 'full' },
-  { path: '**', redirectTo: '' }
+  {path:'', component: MainComponent, canActivate : [AuthGuardService]},
+  {path:'login', component: LoginComponent}
+
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [
+    CommonModule,
+    RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule {

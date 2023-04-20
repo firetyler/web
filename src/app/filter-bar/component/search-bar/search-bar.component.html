@@ -1,34 +1,26 @@
-
-
-<button type="button" class="btn yellow mx-3" (click)="submitFunction()">Load Graph</button>
-<div class="md-form" (focusin)="show = true" (focusout)="show = false">
-  <input type="search" [(ngModel)]="searchText" placeholder="Sök" >
+<button type="button" class="btn yellow mx-3" (click)="submitFunction()">Ladda graf</button>
+<div class="sök md-form" (focusin)="show = true" (focusout)="show = false">
+  <input type="search" [(ngModel)]="searchText" placeholder="Sök">
 </div>
 
-
-<div  id="outsideDiv" class="overflow-auto scroll">
-
-  <div id="dataBox" *ngFor="let data of dataset | filter: searchText" (click)="onClick($event)" class="beforeClick" >
-  <p id="dataColor" >{{data}}</p>
+<div id="outsideDiv" class="overflow-auto scroll">
+  <div id="dataBox" *ngFor="let data of dataset | filter: searchText" (click)="onClick($event)" class="beforeClick">
+    <p id="dataColor">{{data}}</p>
   </div>
-
 </div>
-
 
 <div style="max-height: 200px; width: 200px;">
-<div style=" background: #ffdd00; margin: 3px; padding: 3px">
-  <ul>
-      <li >{{elementClicked}}</li>
-  </ul>
-
-  <ul *ngFor="let data of pDataset; let i = index">
-    <div class="">
-    <li class="" >{{data}}</li>
-    </div>
-      <button (click)="onClickRemove(i)" class="btn btn-danger btn-sm float-end" ></button>
+  <div style=" background: #ffdd00; margin: 3px; padding: 3px">
+    <ul>
+      <li>{{elementClicked}}</li>
     </ul>
-
-</div>
+    <ul *ngFor="let data of pDataset; let i = index">
+      <div class="">
+        <li class="">{{data}}</li>
+      </div>
+      <button (click)="onClickRemove(i)" class="btn btn-danger btn-sm float-end"></button>
+    </ul>
+  </div>
 </div>
 
 

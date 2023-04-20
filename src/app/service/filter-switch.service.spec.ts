@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { RoomFilterService } from './room-filter.service';
+import { FilterSwitchService } from './filter-switch.service';
 
-describe('PriceServiceService', () => {
-  let service: RoomFilterService;
+describe('FilterSwitchService', () => {
+  let service: FilterSwitchService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(RoomFilterService);
+    service = TestBed.inject(FilterSwitchService);
   });
 
   it('should be created', () => {

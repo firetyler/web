@@ -8,8 +8,5 @@
     class="btn btn-light btn-lg btn-block shadow">
     Skriv ut
   </button>
-  <div class="unbooked-rooms">
-      <li>Obokade rum: {{unbooked.length}}</li>
-      <li *ngFor="let item of unbooked">{{item}}</li>
-  </div>
+  <app-unbooked-rooms></app-unbooked-rooms>
 </div>

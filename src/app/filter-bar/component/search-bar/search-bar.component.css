@@ -4,6 +4,9 @@
 .scroll{
 
 }
+.sök{
+  margin-top: 15px;
+}
 #outsideDiv{
   max-height: 500px;
 }
@@ -17,4 +20,9 @@
 }
 .ruta{
   background: #ffdd00;
+}
+
+.btn{
+  background-color: #ffdd00;
+  border: #242627 solid 1px;
 }

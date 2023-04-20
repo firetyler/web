@@ -7,12 +7,4 @@
 .btn{
   margin-right: 25px;
 }
-.unbooked-rooms {
-  height: 200px;
-  overflow-y: scroll;
-  margin-right: 25px;
-  margin-top: 25px;
-}
-li {
-  list-style-type: none;
-}
+

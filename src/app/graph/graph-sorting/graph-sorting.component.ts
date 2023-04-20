@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {MapRoomEntry, RoomMapService} from "../../service/room-map.service";
 import {MAT_RADIO_DEFAULT_OPTIONS} from "@angular/material/radio";
 import {TimeFiltersComponent} from "../../time-filters/time-filters.component";
+import {QuanDataUpdateService} from "../../quanData/quan-data/quan-data-update.service";
 
 @Component({
   selector: 'app-graph-sorting',
@@ -16,48 +17,33 @@ export class GraphSortingComponent implements OnInit {
   optionsList: string[] = ['Ingen sortering', 'Bokade timmar', 'Storlek', 'Bokningsbeteende', 'Bokningskostnad', 'Obokningskostnad'];
   sortOptions: string[] = ['Stigande', 'Fallande'];
   startArray: MapRoomEntry[] = [];
+  isWorkDay: boolean = false;
   private isDecending: boolean;
-  private isWorkDays: boolean;
 
-  constructor(private mapRoom: RoomMapService) {
+  constructor(private mapRoom: RoomMapService, private filterService: QuanDataUpdateService) {
     this.isDecending = true;
-    this.isWorkDays = true;
   }
 
-  async ngOnInit() {
-    this.startArray = await this.mapRoom.mapRooms(true);
-  }
-
-  getUnsortedArray() {
-    return this.startArray;
+  ngOnInit() {
+    this.filterService.currentWorkDaysFilter.subscribe(isWorkDay =>{
+      this.isWorkDay = isWorkDay;
+    });
   }
 
   onSelect(option: string) {
-    /*let sortedArray: MapRoomEntry[] = [...this.startArray];
-    if(option === this.optionsList[0]){
-      return this.startArray;
-    }else if(option === this.optionsList[1]){
-      this.getSortedOnHours(sortedArray);
-      return sortedArray;
-    }
-    return sortedArray;*/
-    let sortedArray: MapRoomEntry[] = [...this.startArray];
+    let sortedArray: MapRoomEntry[] = [];
     if (option === 'Bokade timmar') {
-      sortedArray.sort((entryOne,entryTwo) => entryOne.getTotalHours() - entryTwo.getTotalHours());
+      if(this.isWorkDay) {
+        sortedArray.sort((entryOne, entryTwo) => entryOne.getTotalWorkHours() - entryTwo.getTotalWorkHours());
+      } else {
+        sortedArray.sort((entryOne, entryTwo) => entryOne.getTotalHours() - entryTwo.getTotalHours());
+      }
       if(!this.isDecending) {
         sortedArray.reverse();
       }
       return sortedArray;
     } else if (option === 'Storlek') {
-      sortedArray.sort((entryOne, entryTwo) => {
-        if (entryOne.seats < entryTwo.seats) {
-          return -1;
-        } else if (entryOne.seats > entryTwo.seats) {
-          return 1;
-        } else {
-          return 0;
-        }
-      });
+      sortedArray.sort((entryOne, entryTwo) => entryOne.seats - entryTwo.seats);
       if (!this.isDecending) {
         sortedArray.reverse();
       }
@@ -86,66 +72,30 @@ export class GraphSortingComponent implements OnInit {
       filterOrangeRed.forEach((entry) => filterBlueYellow.push(entry));
       return filterBlueYellow;
     } else if (option === 'Bokningskostnad') {
-      sortedArray.sort((entryOne, entryTwo) => {
-        if (!this.isWorkDays){
-          if ((entryOne.getTotalHours() * entryOne.price) < (entryTwo.getTotalHours() * entryTwo.price)) {
-            return -1;
-          } else if ((entryOne.getTotalHours() * entryOne.price) > (entryTwo.getTotalHours() * entryTwo.price)) {
-            return 1;
-          } else {
-            return 0;
-          }
-        } else {
-          if ((entryOne.getTotalWorkHours() * entryOne.price) < (entryTwo.getTotalWorkHours() * entryTwo.price)) {
-            return -1;
-          } else if ((entryOne.getTotalWorkHours() * entryOne.price) > (entryTwo.getTotalWorkHours() * entryTwo.price)) {
-            return 1;
-          } else {
-            return 0;
-          }
-        }
-      });
+      if(this.isWorkDay) {
+        sortedArray.sort((entryOne, entryTwo) => entryOne.getTotalWorkHours()*entryOne.price - entryTwo.getTotalWorkHours()*entryTwo.price);
+      } else {
+        sortedArray.sort((entryOne, entryTwo) => entryOne.getTotalHours()*entryOne.price - entryTwo.getTotalHours()*entryTwo.price);
+      }
       if (!this.isDecending) {
         sortedArray.reverse();
       }
       return sortedArray;
     } else if (option === 'Obokningskostnad') {
-      sortedArray.sort((entryOne, entryTwo) => {
-        if (!this.isWorkDays){
-          if (((24-entryOne.getTotalHours()) * entryOne.price) < ((24-entryTwo.getTotalHours()) * entryTwo.price)) {
-            return -1;
-          } else if (((24-entryOne.getTotalHours()) * entryOne.price) > ((24-entryTwo.getTotalHours()) * entryTwo.price)) {
-            return 1;
-          } else {
-            return 0;
-          }
-        } else {
-          if (((8- entryOne.getTotalWorkHours()) * entryOne.price) < ((8-entryTwo.getTotalWorkHours()) * entryTwo.price)) {
-            return -1;
-          } else if (((8-entryOne.getTotalWorkHours()) * entryOne.price) > ((8-entryTwo.getTotalWorkHours()) * entryTwo.price)) {
-            return 1;
-          } else {
-            return 0;
-          }
-        }
-      });
+      if(this.isWorkDay) {
+        sortedArray.sort((entryOne, entryTwo) => ((8-entryOne.getTotalWorkHours())*entryOne.price) - ((8-entryTwo.getTotalWorkHours())*entryTwo.price));
+      } else {
+        sortedArray.sort((entryOne, entryTwo) => ((19-entryOne.getTotalHours())*entryOne.price) - ((19-entryTwo.getTotalHours())*entryTwo.price));
+      }
       if (!this.isDecending) {
         sortedArray.reverse();
       }
       return sortedArray;
     } else {
-      return this.getUnsortedArray();
+      return this.startArray;
     }
   }
 
- /* getSortedOnHours(input : MapRoomEntry[]){
-   let totalHours : number = 0;
-    if(!this.timePeriod.getIsWorkDays()){
-      input.sort((entryA, entryB) => entryA.getTotalHours() - entryB.getTotalHours())
-    }else{
-
-    }
-  }*/
   onChange(value: any) {
     if (value === 'Stigande') {
       this.isDecending = false;

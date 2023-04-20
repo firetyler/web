@@ -1,8 +1,8 @@
-import {Component, Injectable, Input, OnInit} from '@angular/core';
+import {Component,Injectable, Input} from '@angular/core';
 import {MapRoomEntry, RoomMapService} from "../../service/room-map.service";
 import {QuanDataUpdateService} from "../../quanData/quan-data/quan-data-update.service";
-import {TimeFiltersComponent} from "../../time-filters/time-filters.component";
 import {RoomFilterService} from "../room-filter.service";
+import {CsvFileReaderService, RoomEntry} from "../../service/csv-file-reader.service";
 
 declare var google: any;
 
@@ -16,18 +16,26 @@ declare var google: any;
   providedIn: 'root'
 })
 
+
 export class BehaviorGraphComponent {
+
+
   @Input() value: any;
-  unbooked: number[] = [];
   graphFiler: any[] = [];
+  unbookedArray: RoomEntry[] = [];
+  numberOfUnbookedRooms: number = 0;
+  private changeDetected: boolean = false;
 
 
-  constructor(private mapRoom: RoomMapService, private grapgService: RoomFilterService, private filterService: QuanDataUpdateService) {
+  constructor(private mapRoom: RoomMapService, private graphService: RoomFilterService, private filterService: QuanDataUpdateService,
+              private roomReader: CsvFileReaderService) {
   }
 
   async onclickBehavGraph(array: any[]) {
     await google.charts.load("current", {packages: ["timeline"]});
     await google.charts.setOnLoadCallback(this.drawChart(await this.mapRoom.mapRooms(true), array));
+    await this.setUnbookedRooms();
+    this.changeDateFilter(this.filterService.numberOfDays);
   }
 
   changeDateFilter(dateFilter: number) {
@@ -35,7 +43,7 @@ export class BehaviorGraphComponent {
   }
 
   async drawChart(json: MapRoomEntry[], array: any[]) {
-    this.graphFiler = await this.grapgService.graphFilter(json, array);
+    this.graphFiler = await this.graphService.graphFilter(json, array);
     this.filterService.setArray([...this.graphFiler]);
     let chart = new google.visualization.Timeline(document.getElementById('behavior_graph'));
     let dataTable = new google.visualization.DataTable();
@@ -58,12 +66,28 @@ export class BehaviorGraphComponent {
       },
     };
     chart.draw(dataTable, options);
-    this.setUnbookedRooms();
-    this.changeDateFilter(this.filterService.numberOfDays);
   }
 
-  setUnbookedRooms() {
-    this.unbooked = this.mapRoom.listRoomsUnbooked;
+  async setUnbookedRooms() {
+    this.unbookedArray = [];
+    let roomExists = false;
+    let rooms = await this.roomReader.getRooms();
+    let tempArray = await this.graphService.graphFilter(rooms, this.filterService.getFilterDataset());
+    for (let i = 0; i < tempArray.length; i++) {
+      for (let j = 0; j < this.graphFiler.length; j++) {
+        if (tempArray[i].id == this.graphFiler[j].id) {
+          roomExists = true;
+        }
+      }
+      if (!roomExists) {
+        this.unbookedArray.push(tempArray[i]);
+      }
+      roomExists = false;
+    }
+    this.numberOfUnbookedRooms = this.unbookedArray.length;
+    this.graphService.changeUnbookedRooms(this.unbookedArray);
+    this.graphService.changeNumberOfUnbooked(this.numberOfUnbookedRooms);
   }
+
 
 }
