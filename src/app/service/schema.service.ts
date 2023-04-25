@@ -23,7 +23,12 @@ export class SchemaService {
     this.scheduleEntryArray = [];
     let svar = "";
     let date = inputDate.getFullYear() + "-" + (inputDate.getMonth() + 1) + "-" + inputDate.getDate();
-    const url = 'https://kronox.hig.se:8443/appserver-ejb/RapportEJB';
+    
+    //****************** använd inte vid testning av systemet ******************************//
+    //const url = 'https://kronox.hig.se:8443/appserver-ejb/RapportEJB';
+    //**************************************************************************************//
+    
+    const url = 'https://kronoxtest.hig.se:8443/appserver-ejb/RapportEJB'; //Kan endast användas vid trådatnät
     const sr = '<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" ' +
       'xmlns:tjan=\"http://www.kronox.se/webb/tjanster/\" ' +
       'xmlns:typ=\"http://www.kronox.se/webb/tjanster/typer\">' +
