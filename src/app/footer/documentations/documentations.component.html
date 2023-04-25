@@ -1,15 +1,68 @@
-<h1> Instruktioner för användning av statestik online verktyg för Gävle Högskola.</h1>
-<p>1. Välj vad man vill söka på alternativen är akademi, våning, hur och rum detta görs högst upp till vänster på
-  hemsidan. <br>
-  2. Väljer man i söklistan vad man vill ska filtreras ut och klickar i de alternativ som man vill ha med.<br>
-  3. Välj datum till höger på sidan och de alternativ som man vill ha med, när de alternativ som man vill använda sig av
-  är valda vänta tills det blinkande ljuset slutar att blinka.<br>
-  4. Sedan väljer man en graf som man vill titta på, alternativ bokningsbeteende eller Användningskostnad.<br>
-  5. Sedan går det att läsa av vad som står i graferna.<br>
-  6. Graf: Användningskostnad X-axeln är Priset och y-axeln den totala kostnaden.<br>
-  7. Graf: bokningsbeteende röd betyder dålig bokning och gul betyder ganska bra bokning men bokningen går att
-  förbättra. Blå bokning betyder att bokningen är perfekt och inga konstigheter finns.<br>
-  8. Under grafen så kan man se bokande och ej bokade timmar i procent och i en statistisk siffra. Samt så kan man se
-  kostnaden i siffor form och i procent.<br>
-  9. För att skriva ut grafen om sådana behövs så finns det en knapp uppe till höger vid grafen.</p>
-
+<h1>Instruktioner</h1>
+<div class="row">
+  <div class="col">
+    <ol>
+      <li>Välj kategori: Akademi, Hus, Våning eller Rum</li>
+      <li>Välj datum och tidsperiod: 7 dagar eller 30 dagar</li>
+      <li>Vänta tills allt data är hämtat, under hämtningen blinkar "vänligen vänta"</li>
+      <li>Tidsspannet är 5-24, mån-sön. Om inget annat väljs</li>
+      <li>Välj visualisering, Bokningsbeteende eller Användningskostnad </li>
+      <li>Tryck för att ladda graf</li>
+      <li>Vid filtrering använd listan till höger, antingen genom sökning eller genom att klicka i listan</li>
+      <li>Ladda om grafen och aktivera filtrering genom "Ladda graf"-knappen</li>
+      <li>För att skriva ut grafen, klicka skriv ut</li>
+    </ol>
+    <p>
+      Antalet bokade timmar respektive obokade timmar visas längst ner, både i timmar och procent. Samt
+      kostnaden för de bokade samt obokade timmarna.
+      Denna baseras på tidsspannet som är valt till höger samt hur många rum som visas i den valda grafen.
+      Utan filtrering visas alla timmar för alla rum sammanlagt bortsett från de rum som listas nedan.
+    </p>
+  </div>
+  <div class="col">
+    <h4>Beteendegraf</h4>
+    <p>
+      Denna graf visar rummens bokningsbeteende varje dag under den valda tidsperioden. <br>
+      Blå indikerar att den är bokad minst 7 timmar den dagen <br>
+      Gul indikerar att den är bokad mindre än 7 timmar den dagen <br>
+      Orange indikerar att det finns ett dåligt bokningsbeteende men har fler bokningar <br>
+      Röd indikerar att det endast finns ett dåligt bokningsbeteende under den dagen <br><br>
+      Vid bokningar som inte följer normen, t.ex. bokningar som varar mer än 24 timmar så kommer dessa
+      endast visas den första dagen.
+    </p>
+    <h4>Användningskostnad</h4>
+    <p>
+      Denna graf visar varje rums bokade kostnader under den valda tidsperioden. <br>
+      X-axeln visar antalet timmar som ett rum är bokat och Y-axeln visar bokningskostnaden för rummet
+      under den valda tidsperioden. Storleken på bubblan indikerar antal platser i rummet, desto större
+      bubbla desto fler personer ryms i rummet.
+    </p>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <h4>Rum som inte inkluderas</h4>
+    <ul>
+      <li>11:318</li>
+      <li>12:104</li>
+      <li>51:516</li>
+      <li>51:518</li>
+      <li>51:519</li>
+      <li>51:523b</li>
+      <li>51:523c</li>
+      <li>51:523d</li>
+      <li>81:203a</li>
+      <li>99:523</li>
+      <li>99:524</li>
+    </ul>
+  </div>
+  <div class="col">
+    <h4>Dåligt bokningsbeteende</h4>
+    <p>
+      Ett dåligt bokningsbeteende beräknas utifrån om samma kurs har bokat ett pass direkt innan lunch och sedan ett
+      pass
+      direkt efter lunch i samma sal. Utöver detta ska de två bokningarna även vara sammanlagt under 4 timmar. Eftersom
+      detta innebär att man hade möjlighet att boka båda passen antingen på för- eller eftermiddagen.
+    </p>
+  </div>
+</div>
