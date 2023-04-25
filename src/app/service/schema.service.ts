@@ -28,7 +28,10 @@ export class SchemaService {
     //const url = 'https://kronox.hig.se:8443/appserver-ejb/RapportEJB';
     //**************************************************************************************//
     
+    // byt ut denna när testning är klar
     const url = 'https://kronoxtest.hig.se:8443/appserver-ejb/RapportEJB'; //Kan endast användas vid trådatnät
+    
+    
     const sr = '<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" ' +
       'xmlns:tjan=\"http://www.kronox.se/webb/tjanster/\" ' +
       'xmlns:typ=\"http://www.kronox.se/webb/tjanster/typer\">' +
